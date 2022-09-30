@@ -105,6 +105,8 @@ function App() {
     
     return (
     <div className="container">
+    <input className="form-control" type="date" placeholder="Readonly input here…" />
+    
     <div className="form-floating">
     <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">
     {
@@ -113,7 +115,6 @@ function App() {
     </select>
     <label htmlFor="floatingSelect">Chọn nhân viên</label>
     </div>
-    <input className="form-control" type="date" placeholder="Readonly input here…" />
     {listTime}
     <button className="btn btn-info">Lưu</button>
 
