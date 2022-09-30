@@ -69,7 +69,7 @@ function App() {
     return 'Đặt phòng thành công'
   }
   // createBook(getCurrentDate(), '7:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[0])
-  // console.log(arrEmployee)
+  console.log(getCurrentDate())
   let listTime = [];
   allAvailableTime.forEach((item, index) => {
     const currentTime = new Date().toLocaleTimeString('vi-VN')
@@ -113,6 +113,7 @@ function App() {
     </select>
     <label htmlFor="floatingSelect">Chọn nhân viên</label>
     </div>
+    <input className="form-control" type="date" placeholder="Readonly input here…" />
     {listTime}
     <button className="btn btn-info">Lưu</button>
 
