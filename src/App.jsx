@@ -1,7 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+    const [activeId, setActiveId] = useState();
+
   class Employee {
     constructor(id, name) {
       this.employeeID = id
@@ -70,8 +73,6 @@ function App() {
 
     return 'Đặt phòng thành công'
   }
-  createBook(getCurrentDate(), '16:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[0])
-  createBook(getCurrentDate(), '17:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[1])
   let arrDate = []
   for (var i = 1; i <= 7; i++) {
     var date = new Date();
@@ -81,24 +82,26 @@ function App() {
   let listDate = []
   arrDate.forEach((item, index) => {
     listDate.push(
-      <option key={index} defaultValue={item}>{item}</option>
-      );
-    });
+      <option key={index} defaultValue={item}>{item}</option>);
+  });
+  const hamdoi = (data)=>{
+    console.log(data)
+  }
   let listTime = []
   allAvailableTime.forEach((item, index) => {
     const currentTime = new Date().toLocaleTimeString('vi-VN');
     if (currentTime < item) {
       listTime.push(
-        <div className="form-check col-1 m-2 btn btn-light border">
-        <input className="form-check-input" type="radio" name="flexRadioDefault" id={item}/>
-        <label className="form-check-label" htmlFor={item}>{item}</label>
+        <div className="form-check col-1 ">
+        <input className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onChange={() => setActiveId(item)}/>
+        <label className={"form-check-label  btn px-4 border "+ ( activeId == item ? "btn-danger" : "btn-light")} htmlFor={item}>{item}</label>
         </div>
         );
     }else{
       listTime.push(
-        <div className="form-check col-1 m-2 btn btn-light disabled border">
-        <input className="form-check-input" disabled type="radio" name="flexRadioDefault" id={item}/>
-        <label className="form-check-label" htmlFor={item}>{item}</label>
+        <div className="form-check col-1">
+        <input className="form-check-input d-none" disabled type="radio" name="flexRadioDefault" id={item}/>
+        <label className="form-check-label btn px-4 btn-muted border" htmlFor={item}>{item}</label>
         </div>
         );
 
@@ -108,10 +111,10 @@ function App() {
     listEmployee.push(
       <option key={index} defaultValue={item.employeeID}>{item.employeeName}</option>
       );
-    });
+  });
 
 
-    return (
+  return (
     <div className="container">
     <div className="form-floating m-3">
     <select className="form-select" id="date" aria-label="Chọn ngày">
@@ -139,6 +142,6 @@ function App() {
 
     </div>
     );
-  }
+}
 
-  export default App;
+export default App;
