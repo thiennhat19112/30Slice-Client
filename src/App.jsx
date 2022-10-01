@@ -66,21 +66,27 @@ function App() {
     const booking = new Booking(customer, employee)
     console.log(bookTime)
     arrBookedData[bookDate][bookTime] = [...arrBookedData[bookDate][timeIndex], booking]
-  console.log(arrBookedData)
+    console.log(arrBookedData)
 
     return 'Đặt phòng thành công'
   }
   createBook(getCurrentDate(), '16:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[0])
   createBook(getCurrentDate(), '17:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[1])
-  // createBook("10/01/22", '17:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[1])
-
-
-
-  console.log(getAvailableTime('09/30/22'))
-  let listTime = [];
+  let arrDate = []
+  for (var i = 1; i <= 7; i++) {
+    var date = new Date();
+    date.setDate(date.getDate() + i);
+    arrDate.push(date.toLocaleDateString('en'))
+  }
+  let listDate = []
+  arrDate.forEach((item, index) => {
+    listDate.push(
+      <option key={index} defaultValue={item}>{item}</option>
+      );
+    });
+  let listTime = []
   allAvailableTime.forEach((item, index) => {
-    const currentTime = new Date().toLocaleTimeString('vi-VN')
-    // console.log(currentTime)
+    const currentTime = new Date().toLocaleTimeString('vi-VN');
     if (currentTime < item) {
       listTime.push(
         <div className="form-check">
@@ -96,23 +102,26 @@ function App() {
         </div>
         );
 
-    }
-
-
-
-
-  });
-  let listEmployee = [];
+    }});
+  let listEmployee = []
   arrEmployee.forEach((item, index) => {
     listEmployee.push(
       <option key={index} defaultValue={item.employeeID}>{item.employeeName}</option>
       );
     });
 
-    
+
     return (
     <div className="container">
-    <input className="form-control" type="date" placeholder="Readonly input here…" />
+    <div className="form-floating">
+    <select className="form-select" id="date" aria-label="Chọn ngày">
+    {
+      listDate
+    }
+    </select>
+    <label htmlFor="date">Chọn ngày</label>
+    </div>
+
 
     <div className="form-floating">
     <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">
