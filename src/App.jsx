@@ -20,7 +20,7 @@ function App() {
       this.employee = employee
     }
   }
-  const allAvailableTime = ['07:00', '08:00', '09:00', '10:00', '11:00','15:00','16:00','17:00']
+  const allAvailableTime = ['07:00', '08:00', '09:00', '10:00', '11:00','15:00','16:00','17:00','18:00','19:00']
   const arrBookedData = {}
   const arrEmployee = [new Employee('NV01', 'Nguyễn Văn A'), new Employee('NV02', 'Nguyễn Văn B')] 
   const getCurrentDate = () => {
@@ -56,20 +56,27 @@ function App() {
     const allAvailableTime = getAvailableTime(bookDate)
     const timeIndex = allAvailableTime.indexOf(bookTime)
     if(timeIndex < 0 || timeIndex >= allAvailableTime.length) {
-      return 'Thời gian đặt không hợp lệ'
+      console.log('Thời gian đặt không hợp lệ')
     }
     const allAvailableEmployee = getAvailableEmployee(bookDate, timeIndex)
     const employeeIndex = allAvailableEmployee.indexOf(employee)
     if(employeeIndex < 0 || employeeIndex >= allAvailableEmployee.length) {
-      return 'Nhân viên không hợp lệ'
+      console.log('Nhân viên không hợp lệ')
     }
     const booking = new Booking(customer, employee)
-    console.log(booking)
-    arrBookedData[bookDate][timeIndex] = [...arrBookedData[bookDate][timeIndex], booking]
+    console.log(bookTime)
+    arrBookedData[bookDate][bookTime] = [...arrBookedData[bookDate][timeIndex], booking]
+  console.log(arrBookedData)
+
     return 'Đặt phòng thành công'
   }
-  // createBook(getCurrentDate(), '7:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[0])
-  console.log(getCurrentDate())
+  createBook(getCurrentDate(), '16:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[0])
+  createBook(getCurrentDate(), '17:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[1])
+  // createBook("10/01/22", '17:00', new Customer('KH01', 'Nguyễn Văn C'), arrEmployee[1])
+
+
+
+  console.log(getAvailableTime('09/30/22'))
   let listTime = [];
   allAvailableTime.forEach((item, index) => {
     const currentTime = new Date().toLocaleTimeString('vi-VN')
@@ -106,7 +113,7 @@ function App() {
     return (
     <div className="container">
     <input className="form-control" type="date" placeholder="Readonly input here…" />
-    
+
     <div className="form-floating">
     <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">
     {
