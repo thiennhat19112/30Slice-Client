@@ -84,9 +84,6 @@ function App() {
     listDate.push(
       <option key={index} defaultValue={item}>{item}</option>);
   });
-  const hamdoi = (data)=>{
-    console.log(data)
-  }
   let listTime = []
   allAvailableTime.forEach((item, index) => {
     const currentTime = new Date().toLocaleTimeString('vi-VN');
@@ -94,7 +91,7 @@ function App() {
       listTime.push(
         <div className="form-check col-1 ">
         <input className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onChange={() => setActiveId(item)}/>
-        <label className={"form-check-label  btn px-4 border "+ ( activeId == item ? "btn-warning" : "btn-light")} htmlFor={item}>{item}</label>
+        <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
         </div>
         );
     }else{
