@@ -23,7 +23,7 @@ function App() {
       this.employee = employee
     }
   }
-  const allAvailableTime = ['07:00', '08:00', '09:00', '10:00', '11:00','15:00','16:00','17:00','18:00','19:00']
+  const allAvailableTime = ['07:00','07:30', '08:00','08:30', '09:00','09:30', '10:00','10:30', '11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00']
   const arrBookedData = {}
   const arrEmployee = [new Employee('NV01', 'Nguyễn Văn A'), new Employee('NV02', 'Nguyễn Văn B')] 
   const getCurrentDate = () => {
@@ -89,14 +89,14 @@ function App() {
     const currentTime = new Date().toLocaleTimeString('vi-VN');
     if (currentTime < item) {
       listTime.push(
-        <div className="form-check col-1 ">
+        <div className="form-check col-1 mb-2">
         <input className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onChange={() => setActiveId(item)}/>
         <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
         </div>
         );
     }else{
       listTime.push(
-        <div className="form-check col-1">
+        <div className="form-check col-1 mb-2">
         <input className="form-check-input d-none" disabled type="radio" name="flexRadioDefault" id={item}/>
         <label className="form-check-label btn px-4 btn-muted border" htmlFor={item}>{item}</label>
         </div>
@@ -131,7 +131,7 @@ function App() {
     </select>
     <label htmlFor="floatingSelect">Chọn nhân viên</label>
     </div>
-    <div className="row m-3">
+    <div className="row my-3">
     {listTime}
 
     </div>
