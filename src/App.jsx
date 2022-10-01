@@ -87,7 +87,7 @@ function App(props) {
 
     )
   }
-  console.log(arrDate)
+  console.log(listTimeState)
   const bookingSave = ()=>{
     console.log(refDate.current.value)
     console.log(activeId)
@@ -103,33 +103,34 @@ function App(props) {
 
     allAvailableTime.forEach((item, index) => {
       const currentTime = new Date().toLocaleTimeString('vi-VN');
-      if ( refDate.current.value == getCurrentDate()) {
-        if (currentTime < item) {
-          listTime.push(
-            <div key={index} className="form-check col-1 mb-2">
-            <input  defaultValue={item} className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onClick={() => setActiveId(item)}/>
-            <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
-            </div>
-            );
-        }else{
-          listTime.push(
-            <div key={index} className="form-check col-1 mb-2">
-            <input className="form-check-input d-none" disabled type="radio" name="flexRadioDefault" id={item}/>
-            <label className="form-check-label btn px-4 btn-muted border" htmlFor={item}>{item}</label>
-            </div>
-            );
-        }
-      }else if (refDate.current.value == 0) {
-        
-      }else{
+
+      if ( refDate.current.value == getCurrentDate() && currentTime < item) {
         listTime.push(
           <div key={index} className="form-check col-1 mb-2">
           <input  defaultValue={item} className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onClick={() => setActiveId(item)}/>
           <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
           </div>
           );
-
       }
+      else if (refDate.current.value > getCurrentDate()) {
+        listTime.push(
+          <div key={index} className="form-check col-1 mb-2">
+          <input  defaultValue={item} className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onClick={() => setActiveId(item)}/>
+          <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
+          </div>
+          );
+      }
+      else {
+        listTime.push(
+          <div key={index} className="form-check col-1 mb-2">
+          <input className="form-check-input d-none" disabled type="radio" name="flexRadioDefault" id={item}/>
+          <label className="form-check-label btn px-4 btn-muted border" htmlFor={item}>{item}</label>
+          </div>
+          );
+      }
+      
+
+      
     });
     setListTime(listTime)
   }
@@ -146,7 +147,7 @@ function App(props) {
     <div className="container">
     <div className="form-floating m-3">
     <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={pickDate}>
-      <option value="0">Chọn ngày</option>
+    <option value="0">Chọn ngày</option>
 
     {
       listDate
