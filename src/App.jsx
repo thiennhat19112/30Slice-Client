@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState,useRef } from 'react';
 
 function App() {
-    const [activeId, setActiveId] = useState();
+  const [activeId, setActiveId] = useState();
+  const [listTimeState, setListTime] = useState();
 
+  const refDate = useRef('');
   class Employee {
     constructor(id, name) {
       this.employeeID = id
@@ -74,35 +76,61 @@ function App() {
     return 'Đặt phòng thành công'
   }
   let arrDate = []
-  for (var i = 1; i <= 7; i++) {
+  for (var i = 0; i <= 6; i++) {
     var date = new Date();
     date.setDate(date.getDate() + i);
-    arrDate.push(date.toLocaleDateString('vi-VN',{year:"2-digit", month:"2-digit", day:"2-digit",weekday: 'long'}))
+    arrDate.push(
+    {
+      dateVn : date.toLocaleDateString('vi-VN',{year:"2-digit", month:"2-digit", day:"2-digit",weekday: 'long'}),
+      dateEn : date.toLocaleDateString('en',{year:"2-digit", month:"2-digit", day:"2-digit"})
+    }
+
+    )
+  }
+  console.log(arrDate)
+  const bookingSave = ()=>{
+    console.log(refDate.current.value)
+    console.log(activeId)
+
   }
   let listDate = []
   arrDate.forEach((item, index) => {
     listDate.push(
-      <option key={index} defaultValue={item}>{item}</option>);
+      <option key={index} value={item.dateEn}>{item.dateVn}</option>);
   });
-  let listTime = []
-  allAvailableTime.forEach((item, index) => {
-    const currentTime = new Date().toLocaleTimeString('vi-VN');
-    if (currentTime < item) {
-      listTime.push(
-        <div className="form-check col-1 mb-2">
-        <input className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onChange={() => setActiveId(item)}/>
-        <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
-        </div>
-        );
-    }else{
-      listTime.push(
-        <div className="form-check col-1 mb-2">
-        <input className="form-check-input d-none" disabled type="radio" name="flexRadioDefault" id={item}/>
-        <label className="form-check-label btn px-4 btn-muted border" htmlFor={item}>{item}</label>
-        </div>
-        );
+  const pickDate = () =>{
+    let listTime = []
 
-    }});
+    allAvailableTime.forEach((item, index) => {
+      const currentTime = new Date().toLocaleTimeString('vi-VN');
+      if ( refDate.current.value == getCurrentDate()) {
+        if (currentTime < item) {
+          listTime.push(
+            <div key={index} className="form-check col-1 mb-2">
+            <input  defaultValue={item} className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onClick={() => setActiveId(item)}/>
+            <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
+            </div>
+            );
+        }else{
+          listTime.push(
+            <div key={index} className="form-check col-1 mb-2">
+            <input className="form-check-input d-none" disabled type="radio" name="flexRadioDefault" id={item}/>
+            <label className="form-check-label btn px-4 btn-muted border" htmlFor={item}>{item}</label>
+            </div>
+            );
+        }
+      }else{
+        listTime.push(
+          <div key={index} className="form-check col-1 mb-2">
+          <input  defaultValue={item} className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onClick={() => setActiveId(item)}/>
+          <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
+          </div>
+          );
+      }
+    });
+    setListTime(listTime)
+  }
+  
   let listEmployee = []
   arrEmployee.forEach((item, index) => {
     listEmployee.push(
@@ -114,7 +142,9 @@ function App() {
   return (
     <div className="container">
     <div className="form-floating m-3">
-    <select className="form-select" id="date" aria-label="Chọn ngày">
+    <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={pickDate}>
+      <option >Chọn ngày</option>
+    
     {
       listDate
     }
@@ -125,6 +155,7 @@ function App() {
 
     <div className="form-floating m-3">
     <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">
+
     {
       listEmployee
     }
@@ -132,10 +163,10 @@ function App() {
     <label htmlFor="floatingSelect">Chọn nhân viên</label>
     </div>
     <div className="row my-3">
-    {listTime}
+    {listTimeState}
 
     </div>
-    <button className="btn btn-info m-3">Lưu</button>
+    <button className="btn btn-info m-3" onClick={bookingSave}>Lưu</button>
 
     </div>
     );
