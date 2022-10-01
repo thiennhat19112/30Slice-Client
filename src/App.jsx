@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useState,useRef } from 'react';
 
-function App() {
+function App(props) {
   const [activeId, setActiveId] = useState();
   const [listTimeState, setListTime] = useState();
 
@@ -119,6 +119,8 @@ function App() {
             </div>
             );
         }
+      }else if (refDate.current.value == 0) {
+        
       }else{
         listTime.push(
           <div key={index} className="form-check col-1 mb-2">
@@ -126,6 +128,7 @@ function App() {
           <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
           </div>
           );
+
       }
     });
     setListTime(listTime)
@@ -143,8 +146,8 @@ function App() {
     <div className="container">
     <div className="form-floating m-3">
     <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={pickDate}>
-      <option >Chọn ngày</option>
-    
+      <option value="0">Chọn ngày</option>
+
     {
       listDate
     }
