@@ -76,7 +76,7 @@ function App() {
   for (var i = 1; i <= 7; i++) {
     var date = new Date();
     date.setDate(date.getDate() + i);
-    arrDate.push(date.toLocaleDateString('en'))
+    arrDate.push(date.toLocaleDateString('vi-VN',{year:"2-digit", month:"2-digit", day:"2-digit",weekday: 'long'}))
   }
   let listDate = []
   arrDate.forEach((item, index) => {
