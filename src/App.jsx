@@ -94,7 +94,7 @@ function App() {
       listTime.push(
         <div className="form-check col-1 ">
         <input className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onChange={() => setActiveId(item)}/>
-        <label className={"form-check-label  btn px-4 border "+ ( activeId == item ? "btn-danger" : "btn-light")} htmlFor={item}>{item}</label>
+        <label className={"form-check-label  btn px-4 border "+ ( activeId == item ? "btn-warning" : "btn-light")} htmlFor={item}>{item}</label>
         </div>
         );
     }else{
