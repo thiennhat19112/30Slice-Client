@@ -89,16 +89,16 @@ function App() {
     const currentTime = new Date().toLocaleTimeString('vi-VN');
     if (currentTime < item) {
       listTime.push(
-        <div className="form-check">
-        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-        <label className="form-check-label" htmlFor="flexRadioDefault1">{item}</label>
+        <div className="form-check col-1 m-2 btn btn-light border">
+        <input className="form-check-input" type="radio" name="flexRadioDefault" id={item}/>
+        <label className="form-check-label" htmlFor={item}>{item}</label>
         </div>
         );
     }else{
       listTime.push(
-        <div className="form-check">
-        <input className="form-check-input" disabled type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-        <label className="form-check-label" htmlFor="flexRadioDefault1">{item}</label>
+        <div className="form-check col-1 m-2 btn btn-light disabled border">
+        <input className="form-check-input" disabled type="radio" name="flexRadioDefault" id={item}/>
+        <label className="form-check-label" htmlFor={item}>{item}</label>
         </div>
         );
 
@@ -113,7 +113,7 @@ function App() {
 
     return (
     <div className="container">
-    <div className="form-floating">
+    <div className="form-floating m-3">
     <select className="form-select" id="date" aria-label="Chọn ngày">
     {
       listDate
@@ -123,7 +123,7 @@ function App() {
     </div>
 
 
-    <div className="form-floating">
+    <div className="form-floating m-3">
     <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">
     {
       listEmployee
@@ -131,8 +131,11 @@ function App() {
     </select>
     <label htmlFor="floatingSelect">Chọn nhân viên</label>
     </div>
+    <div className="row m-3">
     {listTime}
-    <button className="btn btn-info">Lưu</button>
+
+    </div>
+    <button className="btn btn-info m-3">Lưu</button>
 
     </div>
     );
