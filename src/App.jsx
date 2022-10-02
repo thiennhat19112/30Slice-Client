@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 
 function App(props) {
     const [activeId, setActiveId] = useState('');
-    const [bookTime, setBookTime] = useState();
 
     const [listTime, setListTime] = useState();
     const getCurrentDate = () => {
@@ -18,7 +17,7 @@ function App(props) {
     useEffect(() => {
         reloadListTime();
     }, [activeId]);
-    console.log(activeId)
+
 
     class Employee {
         constructor(id, name) {
@@ -109,12 +108,6 @@ function App(props) {
 
         )
     }
-    const bookingSave = () => {
-        console.log(bookTime)
-        console.log(refDate.current.value)
-
-
-    }
 
 
     let listDate = []
@@ -135,13 +128,20 @@ function App(props) {
         const arrAvailableTime = getAvailableTime(refDate.current.value);
         setListTime(allAvailableTime.map((ele, index) => {
             const isAvailable = arrAvailableTime.includes(ele)
+
             return (
                 <div key={index} className="form-check col-1 mb-2">
-          <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onClick={() => setBookTime(ele)} onChange={() => setActiveId(`${refDate.current.value} ${ele}`)} disabled={!isAvailable} id={ele}/>
-          <label className={`form-check-label btn px-4 border ${activeId == `${refDate.current.value} ${ele}` ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
+          <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onChange={() => setActiveId(ele)} disabled={!isAvailable} id={ele}/>
+          <label className={`form-check-label btn px-4 border ${activeId == `${ele}` && isAvailable ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
           </div>
             )
         }))
+    }
+    const bookingSave = () => {
+        console.log(activeId)
+        console.log(refDate.current.value)
+
+
     }
 
 
