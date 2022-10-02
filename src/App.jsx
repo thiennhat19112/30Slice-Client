@@ -1,12 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState,useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function App(props) {
-  const [activeId, setActiveId] = useState();
-  const [listTimeState, setListTime] = useState();
+  const [activeId, setActiveId] = useState('');
+  const [listTime, setListTime] = useState();
+  
+  useEffect(() => {
+    reloadListTime();
+  }, []);
 
-  const refDate = useRef('');
+  useEffect(() => {
+    reloadListTime();
+  }, [activeId]);
+
   class Employee {
     constructor(id, name) {
       this.employeeID = id
@@ -37,10 +44,10 @@ function App(props) {
     }
     let arrBookedTime = arrBookedData[bookedDate]
     return allAvailableTime.filter((time, index) => {
-      return arrBookedTime[index].length <= 1
+      return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
     })
   }
-
+  const refDate = useRef(getCurrentDate());
   const getAvailableEmployee = (bookedDate, bookedTime) => {
     if(!arrBookedData[bookedDate]) {
       arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill([])
@@ -87,7 +94,6 @@ function App(props) {
 
     )
   }
-  console.log(listTimeState)
   const bookingSave = ()=>{
     console.log(refDate.current.value)
     console.log(activeId)
@@ -98,41 +104,18 @@ function App(props) {
     listDate.push(
       <option key={index} value={item.dateEn}>{item.dateVn}</option>);
   });
-  const pickDate = () =>{
-    let listTime = []
-
-    allAvailableTime.forEach((item, index) => {
-      const currentTime = new Date().toLocaleTimeString('vi-VN');
-
-      if ( refDate.current.value == getCurrentDate() && currentTime < item) {
-        listTime.push(
-          <div key={index} className="form-check col-1 mb-2">
-          <input  defaultValue={item} className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onClick={() => setActiveId(item)}/>
-          <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
-          </div>
-          );
-      }
-      else if (refDate.current.value > getCurrentDate()) {
-        listTime.push(
-          <div key={index} className="form-check col-1 mb-2">
-          <input  defaultValue={item} className="form-check-input d-none" type="radio" name="flexRadioDefault" id={item} onClick={() => setActiveId(item)}/>
-          <label className={"form-check-label  btn px-4 border  "+ ( activeId == item ? "btn-warning border-warning" : "btn-light border-dark")} htmlFor={item}>{item}</label>
-          </div>
-          );
-      }
-      else {
-        listTime.push(
-          <div key={index} className="form-check col-1 mb-2">
-          <input className="form-check-input d-none" disabled type="radio" name="flexRadioDefault" id={item}/>
-          <label className="form-check-label btn px-4 btn-muted border" htmlFor={item}>{item}</label>
-          </div>
-          );
-      }
-      
-
-      
-    });
-    setListTime(listTime)
+  const reloadListTime = () =>{
+    const arrAvailableTime = getAvailableTime(refDate.current.value);
+    setListTime(allAvailableTime.map((ele, idx) => {
+      const isAvailable = arrAvailableTime.includes(ele)
+      console.log(activeId == ele)
+      return (
+        <div key={idx} className="form-check col-1 mb-2">
+            <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onClick={() => setActiveId(`${refDate.current.value} ${ele}`)} disabled={!isAvailable} defaultValue={ele} id={ele}/>
+            <label className={`form-check-label btn px-4 border ${activeId == `${refDate.current.value} ${ele}` ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
+        </div>
+      )
+    }))
   }
   
   let listEmployee = []
@@ -141,37 +124,21 @@ function App(props) {
       <option key={index} defaultValue={item.employeeID}>{item.employeeName}</option>
       );
   });
-
-
+    
   return (
     <div className="container">
-    <div className="form-floating m-3">
-    <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={pickDate}>
-    <option value="0">Chọn ngày</option>
-
-    {
-      listDate
-    }
-    </select>
-    <label htmlFor="date">Chọn ngày</label>
-    </div>
-
-
-    <div className="form-floating m-3">
-    <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">
-
-    {
-      listEmployee
-    }
-    </select>
-    <label htmlFor="floatingSelect">Chọn nhân viên</label>
-    </div>
-    <div className="row my-3">
-    {listTimeState}
-
-    </div>
-    <button className="btn btn-info m-3" onClick={bookingSave}>Lưu</button>
-
+      <div className="form-floating m-3">
+        <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>{listDate}</select>
+        <label htmlFor="date">Chọn ngày</label>
+      </div>
+      <div className="form-floating m-3">
+        <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">{listEmployee}</select>
+        <label htmlFor="floatingSelect">Chọn nhân viên</label>
+      </div>
+      <div className="row my-3">
+        {listTime}
+        </div>
+      <button className="btn btn-info m-3" onClick={bookingSave}>Lưu</button>
     </div>
     );
 }
