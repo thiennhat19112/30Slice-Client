@@ -5,7 +5,10 @@ import { useState, useRef, useEffect } from 'react';
 function App(props) {
   const [activeId, setActiveId] = useState('');
   const [listTime, setListTime] = useState();
-  
+  const getCurrentDate = () => {
+    return new Date().toLocaleDateString('en', {year:"2-digit", month:"2-digit", day:"2-digit"})
+  }
+  const refDate = useRef(getCurrentDate());
   useEffect(() => {
     reloadListTime();
   }, []);
@@ -35,9 +38,7 @@ function App(props) {
   const allAvailableTime = ['07:00','07:30', '08:00','08:30', '09:00','09:30', '10:00','10:30', '11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00']
   const arrBookedData = {}
   const arrEmployee = [new Employee('NV01', 'Nguyễn Văn A'), new Employee('NV02', 'Nguyễn Văn B')] 
-  const getCurrentDate = () => {
-    return new Date().toLocaleDateString('en', {year:"2-digit", month:"2-digit", day:"2-digit"})
-  }
+
   const getAvailableTime = (bookedDate) => {
     if(!arrBookedData[bookedDate]) {
       arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
@@ -47,7 +48,8 @@ function App(props) {
       return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
     })
   }
-  const refDate = useRef(getCurrentDate());
+
+  
   const getAvailableEmployee = (bookedDate, bookedTime) => {
     if(!arrBookedData[bookedDate]) {
       arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill([])
@@ -82,6 +84,8 @@ function App(props) {
 
     return 'Đặt phòng thành công'
   }
+
+
   let arrDate = []
   for (var i = 0; i <= 6; i++) {
     var date = new Date();
@@ -95,10 +99,11 @@ function App(props) {
     )
   }
   const bookingSave = ()=>{
-    console.log(refDate.current.value)
     console.log(activeId)
 
   }
+
+
   let listDate = []
   arrDate.forEach((item, index) => {
     listDate.push(
@@ -106,15 +111,14 @@ function App(props) {
   });
   const reloadListTime = () =>{
     const arrAvailableTime = getAvailableTime(refDate.current.value);
-    setListTime(allAvailableTime.map((ele, idx) => {
+    setListTime(allAvailableTime.map((ele, index) => {
       const isAvailable = arrAvailableTime.includes(ele)
-      console.log(activeId == ele)
       return (
-        <div key={idx} className="form-check col-1 mb-2">
-            <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onClick={() => setActiveId(`${refDate.current.value} ${ele}`)} disabled={!isAvailable} defaultValue={ele} id={ele}/>
-            <label className={`form-check-label btn px-4 border ${activeId == `${refDate.current.value} ${ele}` ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
+        <div key={index} className="form-check col-1 mb-2">
+        <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onClick={() => setActiveId(`${refDate.current.value} ${ele}`)} disabled={!isAvailable} id={ele}/>
+        <label className={`form-check-label btn px-4 border ${activeId == `${refDate.current.value} ${ele}` ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
         </div>
-      )
+        )
     }))
   }
   
@@ -124,21 +128,21 @@ function App(props) {
       <option key={index} defaultValue={item.employeeID}>{item.employeeName}</option>
       );
   });
-    
+
   return (
     <div className="container">
-      <div className="form-floating m-3">
-        <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>{listDate}</select>
-        <label htmlFor="date">Chọn ngày</label>
-      </div>
-      <div className="form-floating m-3">
-        <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">{listEmployee}</select>
-        <label htmlFor="floatingSelect">Chọn nhân viên</label>
-      </div>
-      <div className="row my-3">
-        {listTime}
-        </div>
-      <button className="btn btn-info m-3" onClick={bookingSave}>Lưu</button>
+    <div className="form-floating m-3">
+    <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>{listDate}</select>
+    <label htmlFor="date">Chọn ngày</label>
+    </div>
+    <div className="form-floating m-3">
+    <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">{listEmployee}</select>
+    <label htmlFor="floatingSelect">Chọn nhân viên</label>
+    </div>
+    <div className="row my-3">
+    {listTime}
+    </div>
+    <button className="btn btn-info m-3" onClick={bookingSave}>Lưu</button>
     </div>
     );
 }
