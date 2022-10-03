@@ -40,7 +40,26 @@ function App(props) {
     const allAvailableTime = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']
     const arrBookedData = {}
     const arrEmployee = [new Employee('NV01', 'Nguyễn Văn A'), new Employee('NV02', 'Nguyễn Văn B')]
+    const arrDate = []
+    for (var i = 0; i <= 6; i++) {
+        var date = new Date();
+        date.setDate(date.getDate() + i);
+        arrDate.push({
+            dateVn: date.toLocaleDateString('vi-VN', {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit",
+                weekday: 'long'
+            }),
+            dateEn: date.toLocaleDateString('en', {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit"
+            })
+        }
 
+        )
+    }
     const getAvailableTime = (bookedDate) => {
         if (!arrBookedData[bookedDate]) {
             arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
@@ -87,43 +106,6 @@ function App(props) {
     //   return 'Đặt phòng thành công'
     // }
 
-
-    let arrDate = []
-    for (var i = 0; i <= 6; i++) {
-        var date = new Date();
-        date.setDate(date.getDate() + i);
-        arrDate.push({
-            dateVn: date.toLocaleDateString('vi-VN', {
-                year: "2-digit",
-                month: "2-digit",
-                day: "2-digit",
-                weekday: 'long'
-            }),
-            dateEn: date.toLocaleDateString('en', {
-                year: "2-digit",
-                month: "2-digit",
-                day: "2-digit"
-            })
-        }
-
-        )
-    }
-
-
-    let listDate = []
-    arrDate.forEach((item, index) => {
-        listDate.push(
-            <option key={index} value={item.dateEn}>{item.dateVn}</option>);
-    });
-
-    let listEmployee = []
-    arrEmployee.forEach((item, index) => {
-        listEmployee.push(
-            <option key={index} defaultValue={item.employeeID}>{item.employeeName}</option>
-        );
-    });
-
-
     const reloadListTime = () => {
         const arrAvailableTime = getAvailableTime(refDate.current.value);
         setListTime(allAvailableTime.map((ele, index) => {
@@ -150,11 +132,15 @@ function App(props) {
 
         <div className="container">
             <div className="form-floating m-3">
-                <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>{listDate}</select>
+                <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>
+                    {   arrDate && arrDate.map((item, index) => (<option key={index} value={item.dateEn}>{item.dateVn}</option>))  }
+                </select>
                 <label htmlFor="date">Chọn ngày</label>
             </div>
             <div className="form-floating m-3">
-                <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">{listEmployee}</select>
+                <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">
+                    {   arrEmployee && arrEmployee.map((item, index) => (<option key={index} defaultValue={item.employeeID}>{item.employeeName}</option>))  }
+                </select>
                 <label htmlFor="floatingSelect">Chọn nhân viên</label>
             </div>
             <div className="row my-3">
