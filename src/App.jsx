@@ -93,18 +93,18 @@ function App(props) {
         var date = new Date();
         date.setDate(date.getDate() + i);
         arrDate.push({
-                dateVn: date.toLocaleDateString('vi-VN', {
-                    year: "2-digit",
-                    month: "2-digit",
-                    day: "2-digit",
-                    weekday: 'long'
-                }),
-                dateEn: date.toLocaleDateString('en', {
-                    year: "2-digit",
-                    month: "2-digit",
-                    day: "2-digit"
-                })
-            }
+            dateVn: date.toLocaleDateString('vi-VN', {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit",
+                weekday: 'long'
+            }),
+            dateEn: date.toLocaleDateString('en', {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit"
+            })
+        }
 
         )
     }
@@ -131,9 +131,9 @@ function App(props) {
 
             return (
                 <div key={index} className="form-check col-1 mb-2">
-          <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onChange={() => setActiveId(ele)} disabled={!isAvailable} id={ele}/>
-          <label className={`form-check-label btn px-4 border ${activeId == `${ele}` && isAvailable ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
-          </div>
+                    <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onChange={() => setActiveId(ele)} disabled={!isAvailable} id={ele} />
+                    <label className={`form-check-label btn px-4 border ${activeId == `${ele}` && isAvailable ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
+                </div>
             )
         }))
     }
@@ -149,19 +149,19 @@ function App(props) {
     return (
 
         <div className="container">
-      <div className="form-floating m-3">
-      <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>{listDate}</select>
-      <label htmlFor="date">Chọn ngày</label>
-      </div>
-      <div className="form-floating m-3">
-      <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">{listEmployee}</select>
-      <label htmlFor="floatingSelect">Chọn nhân viên</label>
-      </div>
-      <div className="row my-3">
-      {listTime}
-      </div>
-      <button className="btn btn-info m-3" onClick={bookingSave}>Lưu</button>
-      </div>
+            <div className="form-floating m-3">
+                <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>{listDate}</select>
+                <label htmlFor="date">Chọn ngày</label>
+            </div>
+            <div className="form-floating m-3">
+                <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên">{listEmployee}</select>
+                <label htmlFor="floatingSelect">Chọn nhân viên</label>
+            </div>
+            <div className="row my-3">
+                {listTime}
+            </div>
+            <button className="btn btn-info m-3" onClick={bookingSave}>Lưu</button>
+        </div>
     );
 }
 
