@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 
 function App(props) {
     const [activeId, setActiveId] = useState('');
-
+    const [EmployeeId, setEmployeeId] = useState(0);
     const [listTime, setListTime] = useState();
     const getCurrentDate = () => {
         return new Date().toLocaleDateString('en', {
@@ -21,12 +21,12 @@ function App(props) {
     }, [activeId]);
 
 
-    class Employee {
-        constructor(id, name) {
-            this.employeeID = id
-            this.employeeName = name
-        }
-    }
+    // class Employee {
+    //     constructor(id, name) {
+    //         this.employeeID = id
+    //         this.employeeName = name
+    //     }
+    // }
     // class Customer {
     //     constructor(id, name) {
     //         this.customerID = id
@@ -69,8 +69,8 @@ function App(props) {
             id: 4,
             name: 'Nguyễn Văn D',
             shifts: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'],
-            status: 'active',
-            statusCode: 1
+            status: 'disabled',
+            statusCode: 0
         },
 
     ]
@@ -101,7 +101,6 @@ function App(props) {
         }
         let arrBookedTime = arrBookedData[bookedDate]
         return allAvailableTime.filter((time, index) => {
-            //  arrEmployee[index].status === 'active'
             // return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
             return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
 
@@ -187,16 +186,20 @@ function App(props) {
                     <div className="row">
                         <label>Chọn nhân viên</label>
                         <div className='col'>
-                            <input type="radio" className="btn-check" name="options-outlined" id='randomEmployee' defaultChecked />
-                            <label className="btn btn-outline-warning" htmlFor='randomEmployee'>Ngẫu nhiên</label>
+                            <input type="radio" className="btn-check" name="options-outlined" id='randomEmployee' onClick={() => setEmployeeId(0)} defaultChecked />
+                            <label className="btn btn-outline-warning rounded-5" htmlFor='randomEmployee'>Ngẫu nhiên</label>
                         </div>
                         {arrEmployee.map((item, index) => {
-                            return (
-                                <div key={index} className='col'>
-                                    <input type="radio" className="btn-check" name="options-outlined" id={item.id} />
-                                    <label className="btn btn-outline-warning" htmlFor={item.id}>{item.name}</label>
-                                </div>
-                            )
+                            if(item.status == 'active' && item.statusCode == 1) {
+                                return (
+                                    <div key={index} className='col'>
+                                        <input type="radio" className="btn-check" name="options-outlined" id={item.id} onClick={() => setEmployeeId(item.id)} />
+                                        <label className="btn btn-outline-warning  rounded-5" htmlFor={item.id}>{item.name}</label>
+                                    </div>
+                                )
+                            }
+
+                           
                         })}
                     </div>
                 </div>
