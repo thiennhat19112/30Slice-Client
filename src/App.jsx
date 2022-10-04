@@ -101,7 +101,10 @@ function App(props) {
         }
         let arrBookedTime = arrBookedData[bookedDate]
         return allAvailableTime.filter((time, index) => {
-            return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
+            //  arrEmployee[index].status === 'active'
+            // return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
+            return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
+
         })
     }
 
@@ -171,12 +174,33 @@ function App(props) {
                 </select>
                 <label htmlFor="date">Chọn ngày</label>
             </div>
-            <div className="form-floating m-3">
+
+            {/* <div className="form-floating m-3">
                 <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên" ref={refEmployee} onChange={() => reloadListTime()}>
                     <option value="0">Chọn ngẫu nhiên nhân viên</option>
                     {arrEmployee && arrEmployee.map((item, index) => (<option key={index} value={item.id}>{item.name}</option>))}
                 </select>
                 <label htmlFor="floatingSelect">Chọn nhân viên</label>
+            </div> */}
+            <div className="row m-3">
+                <div className="col-6">
+                    <div className="row">
+                        <label>Chọn nhân viên</label>
+                        <div className='col'>
+                            <input type="radio" className="btn-check" name="options-outlined" id='randomEmployee' defaultChecked />
+                            <label className="btn btn-outline-warning" htmlFor='randomEmployee'>Ngẫu nhiên</label>
+                        </div>
+                        {arrEmployee.map((item, index) => {
+                            return (
+                                <div key={index} className='col'>
+                                    <input type="radio" className="btn-check" name="options-outlined" id={item.id} />
+                                    <label className="btn btn-outline-warning" htmlFor={item.id}>{item.name}</label>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+
             </div>
             <div className="row my-3">
                 {listTime}
