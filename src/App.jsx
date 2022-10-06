@@ -164,7 +164,7 @@ function App(props) {
                 <label htmlFor="date">Chọn ngày</label>
             </div>
 
-            <div className="form-floating m-3">
+            {/* <div className="form-floating m-3">
                 <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên" ref={refEmployee} onChange={() => reloadListTime()}>
                     <option value="0">Ngẫu Nhiên</option>
                     {arrEmployee && arrEmployee.map((item, index) => {
@@ -175,7 +175,7 @@ function App(props) {
                     )}
                 </select>
                 <label htmlFor="floatingSelect">Chọn nhân viên</label>
-            </div>
+            </div> */}
             <div className="row m-3">
                 <div className="col-6">
                     <div className="row">
