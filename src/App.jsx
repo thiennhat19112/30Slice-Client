@@ -18,7 +18,7 @@ function App(props) {
     const refEmployee = useRef(0);
     useEffect(() => {
         reloadListTime();
-    }, [activeId,EmployeeId]);
+    }, [activeId, EmployeeId]);
     class Booking {
         constructor(customer, employee) {
             this.customer = customer
@@ -140,7 +140,7 @@ function App(props) {
 
             return (
                 <div key={index} className="form-check col-1 mb-2">
-                    <input className="form-check-input d-none" type="radio" name="flexRadioDefault" onChange={() => setActiveId(ele)} disabled={!isAvailable} id={ele} />
+                    <input className="btn-check" type="radio" name="flexRadioDefault" onChange={() => setActiveId(ele)} disabled={!isAvailable} id={ele} />
                     <label className={`form-check-label btn px-4 border ${activeId == ele && isAvailable ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
                 </div>
             )
