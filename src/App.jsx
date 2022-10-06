@@ -19,20 +19,6 @@ function App(props) {
     useEffect(() => {
         reloadListTime();
     }, [activeId]);
-
-
-    // class Employee {
-    //     constructor(id, name) {
-    //         this.employeeID = id
-    //         this.employeeName = name
-    //     }
-    // }
-    // class Customer {
-    //     constructor(id, name) {
-    //         this.customerID = id
-    //         this.customerName = name
-    //     }
-    // }
     class Booking {
         constructor(customer, employee) {
             this.customer = customer
@@ -41,8 +27,6 @@ function App(props) {
     }
     const allAvailableTime = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']
     const arrBookedData = {}
-    // const arrEmployee = [new Employee('NV01', 'Nguyễn Văn A'), new Employee('NV02', 'Nguyễn Văn B')]
-
     const arrEmployee = [
         {
             id: 1,
@@ -100,30 +84,18 @@ function App(props) {
         // if (!arrBookedData[bookedDate]) {
         //     arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
         // }
-    console.log(EmployeeId)
+        console.log(EmployeeId)
 
         let arrAvailableTime = []
         if (employeeId == 0) {
-
             arrAvailableTime = [...new Set(arrEmployee.flatMap(num => num.shifts))]
-
-            // arrEmployee.map((ele, index) => {
-            //     return arrAvailableTime = arrAvailableTime.concat(ele.shifts)
-            // })
-            // arrAvailableTime =  arrAvailableTime.filter((v,i,arr)=> arr.indexOf(v) === i)
         } else {
             arrAvailableTime = arrEmployee.find(ele => ele.id == employeeId).shifts
         }
-
-        // console.log(arrAvailableTime)
         return arrAvailableTime.filter((time, index) => {
             // return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
             return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
-
         })
-
-        // let arrBookedTime = arrBookedData[bookedDate]
-
     }
 
 
