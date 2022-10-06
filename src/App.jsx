@@ -99,20 +99,23 @@ function App(props) {
         // if (!arrBookedData[bookedDate]) {
         //     arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
         // }
-        let availableTime = []
+        let arrAvailableTime = []
         if (EmployeeId == 0) {
+            let result = []
             arrEmployee.map((ele, index) => {
-                return availableTime = availableTime.concat(ele.shifts)
+                return result = result.concat(ele.shifts)
             })
+            arrAvailableTime =  result.filter((v,i,arr)=> arr.indexOf(v) === i)
         } else {
             arrEmployee.find((ele, index) => {
                 if (ele.id == EmployeeId) {
-                    return availableTime = ele.shifts
+                    return arrAvailableTime = ele.shifts
                 }
             })
         }
-        console.log(availableTime)
-        return availableTime.filter((time, index) => {
+
+        console.log(arrAvailableTime)
+        return arrAvailableTime.filter((time, index) => {
             // return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
             return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
 
