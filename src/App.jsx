@@ -18,7 +18,7 @@ function App(props) {
     const refEmployee = useRef(0);
     useEffect(() => {
         reloadListTime();
-    }, [activeId]);
+    }, [activeId,EmployeeId]);
     class Booking {
         constructor(customer, employee) {
             this.customer = customer
@@ -84,8 +84,6 @@ function App(props) {
         // if (!arrBookedData[bookedDate]) {
         //     arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
         // }
-        console.log(EmployeeId)
-
         let arrAvailableTime = []
         if (employeeId == 0) {
             arrAvailableTime = [...new Set(arrEmployee.flatMap(num => num.shifts))]
@@ -136,7 +134,7 @@ function App(props) {
 
 
     const reloadListTime = () => {
-        const arrAvailableTime = getAvailableTime(refDate.current.value, refEmployee.current.value);
+        const arrAvailableTime = getAvailableTime(refDate.current.value, EmployeeId);
         setListTime(allAvailableTime.map((ele, index) => {
             const isAvailable = arrAvailableTime.includes(ele)
 
