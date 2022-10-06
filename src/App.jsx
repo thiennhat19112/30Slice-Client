@@ -102,18 +102,14 @@ function App(props) {
         let arrAvailableTime = []
         if (EmployeeId == 0) {
 
-            arrAvailableTime =  [...new Set(arrEmployee.flatMap(num => num.shifts))]
-            
+            arrAvailableTime = [...new Set(arrEmployee.flatMap(num => num.shifts))]
+
             // arrEmployee.map((ele, index) => {
             //     return arrAvailableTime = arrAvailableTime.concat(ele.shifts)
             // })
             // arrAvailableTime =  arrAvailableTime.filter((v,i,arr)=> arr.indexOf(v) === i)
         } else {
-            arrEmployee.find((ele, index) => {
-                if (ele.id == EmployeeId) {
-                    return arrAvailableTime = ele.shifts
-                }
-            })
+            arrAvailableTime = arrEmployee.find(ele => ele.id == EmployeeId).shifts
         }
 
         console.log(arrAvailableTime)
