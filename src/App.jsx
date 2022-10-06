@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 
 function App(props) {
     const [activeId, setActiveId] = useState('');
-    // const [EmployeeId, setEmployeeId] = useState(0);
+    const [EmployeeId, setEmployeeId] = useState(0);
     const [listTime, setListTime] = useState();
     const getCurrentDate = () => {
         return new Date().toLocaleDateString('en', {
@@ -95,12 +95,15 @@ function App(props) {
 
         )
     }
-    const getAvailableTime = (bookedDate, EmployeeId) => {
+
+    const getAvailableTime = (bookedDate, employeeId) => {
         // if (!arrBookedData[bookedDate]) {
         //     arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
         // }
+    console.log(EmployeeId)
+
         let arrAvailableTime = []
-        if (EmployeeId == 0) {
+        if (employeeId == 0) {
 
             arrAvailableTime = [...new Set(arrEmployee.flatMap(num => num.shifts))]
 
@@ -109,10 +112,10 @@ function App(props) {
             // })
             // arrAvailableTime =  arrAvailableTime.filter((v,i,arr)=> arr.indexOf(v) === i)
         } else {
-            arrAvailableTime = arrEmployee.find(ele => ele.id == EmployeeId).shifts
+            arrAvailableTime = arrEmployee.find(ele => ele.id == employeeId).shifts
         }
 
-        console.log(arrAvailableTime)
+        // console.log(arrAvailableTime)
         return arrAvailableTime.filter((time, index) => {
             // return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
             return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
@@ -203,7 +206,7 @@ function App(props) {
                 </select>
                 <label htmlFor="floatingSelect">Chọn nhân viên</label>
             </div>
-            {/* <div className="row m-3">
+            <div className="row m-3">
                 <div className="col-6">
                     <div className="row">
                         <label>Chọn nhân viên</label>
@@ -226,7 +229,7 @@ function App(props) {
                     </div>
                 </div>
 
-            </div> */}
+            </div>
             <div className="row my-3">
                 {listTime}
             </div>
