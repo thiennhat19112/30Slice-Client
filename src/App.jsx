@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 
 function App(props) {
     const [activeId, setActiveId] = useState('');
-    const [EmployeeId, setEmployeeId] = useState(0);
+    // const [EmployeeId, setEmployeeId] = useState(0);
     const [listTime, setListTime] = useState();
     const getCurrentDate = () => {
         return new Date().toLocaleDateString('en', {
@@ -61,7 +61,7 @@ function App(props) {
         {
             id: 3,
             name: 'Nguyễn Văn C',
-            shifts: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'],
+            shifts: ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00'],
             status: 'active',
             statusCode: 1
         },
@@ -95,16 +95,31 @@ function App(props) {
 
         )
     }
-    const getAvailableTime = (bookedDate) => {
-        if (!arrBookedData[bookedDate]) {
-            arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
+    const getAvailableTime = (bookedDate, EmployeeId) => {
+        // if (!arrBookedData[bookedDate]) {
+        //     arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
+        // }
+        let availableTime = []
+        if (EmployeeId == 0) {
+            arrEmployee.map((ele, index) => {
+                return availableTime = availableTime.concat(ele.shifts)
+            })
+        } else {
+            arrEmployee.find((ele, index) => {
+                if (ele.id == EmployeeId) {
+                    return availableTime = ele.shifts
+                }
+            })
         }
-        let arrBookedTime = arrBookedData[bookedDate]
-        return allAvailableTime.filter((time, index) => {
+        console.log(availableTime)
+        return availableTime.filter((time, index) => {
             // return arrBookedTime[index].length <= 1 && new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
             return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
 
         })
+
+        // let arrBookedTime = arrBookedData[bookedDate]
+
     }
 
 
@@ -143,8 +158,9 @@ function App(props) {
     //   return 'Đặt phòng thành công'
     // }
 
+
     const reloadListTime = () => {
-        const arrAvailableTime = getAvailableTime(refDate.current.value);
+        const arrAvailableTime = getAvailableTime(refDate.current.value, refEmployee.current.value);
         setListTime(allAvailableTime.map((ele, index) => {
             const isAvailable = arrAvailableTime.includes(ele)
 
@@ -174,37 +190,42 @@ function App(props) {
                 <label htmlFor="date">Chọn ngày</label>
             </div>
 
-            {/* <div className="form-floating m-3">
+            <div className="form-floating m-3">
                 <select className="form-select" id="floatingSelect" aria-label="Chọn nhân viên" ref={refEmployee} onChange={() => reloadListTime()}>
-                    <option value="0">Chọn ngẫu nhiên nhân viên</option>
-                    {arrEmployee && arrEmployee.map((item, index) => (<option key={index} value={item.id}>{item.name}</option>))}
+                    <option value="0">Ngẫu Nhiên</option>
+                    {arrEmployee && arrEmployee.map((item, index) => {
+                        if (item.status == 'active' && item.statusCode == 1) {
+                            return (<option key={index} value={item.id}>{item.name}</option>)
+                        }
+                    }
+                    )}
                 </select>
                 <label htmlFor="floatingSelect">Chọn nhân viên</label>
-            </div> */}
-            <div className="row m-3">
+            </div>
+            {/* <div className="row m-3">
                 <div className="col-6">
                     <div className="row">
                         <label>Chọn nhân viên</label>
                         <div className='col'>
-                            <input type="radio" className="btn-check" name="options-outlined" id='randomEmployee' onClick={() => setEmployeeId(0)} defaultChecked />
+                            <input type="radio" className="btn-check" name="options-outlined" id='randomEmployee' onChange={() => setEmployeeId(0)} onClick={() => reloadListTime()} defaultChecked />
                             <label className="btn btn-outline-warning rounded-5" htmlFor='randomEmployee'>Ngẫu nhiên</label>
                         </div>
                         {arrEmployee.map((item, index) => {
-                            if(item.status == 'active' && item.statusCode == 1) {
+                            if (item.status == 'active' && item.statusCode == 1) {
                                 return (
                                     <div key={index} className='col'>
-                                        <input type="radio" className="btn-check" name="options-outlined" id={item.id} onClick={() => setEmployeeId(item.id)} />
+                                        <input type="radio" className="btn-check" name="options-outlined" id={item.id} onChange={() => setEmployeeId(item.id)} onClick={() => reloadListTime()} />
                                         <label className="btn btn-outline-warning  rounded-5" htmlFor={item.id}>{item.name}</label>
                                     </div>
                                 )
                             }
 
-                           
+
                         })}
                     </div>
                 </div>
 
-            </div>
+            </div> */}
             <div className="row my-3">
                 {listTime}
             </div>
