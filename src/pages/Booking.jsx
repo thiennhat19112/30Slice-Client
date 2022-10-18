@@ -137,7 +137,7 @@ function Booking(props) {
             const isAvailable = arrAvailableTime.includes(ele)
 
             return (
-                <div key={index} className="form-check col-1 mb-2">
+                <div key={index} className="form-check col-1 mb-2 mx-3">
                     <input className="btn-check" type="radio" name="flexRadioDefault" onChange={() => setActiveId(ele)} disabled={!isAvailable} id={ele} />
                     <label className={`form-check-label btn px-4 border ${activeId == ele && isAvailable ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
                 </div>
@@ -175,7 +175,7 @@ function Booking(props) {
                 <label htmlFor="floatingSelect">Chọn nhân viên</label>
             </div> */}
             <div className="row m-3">
-                <div className="col-6">
+                <div className="col">
                     <div className="row">
                         <label>Chọn nhân viên</label>
                         <div className='col'>

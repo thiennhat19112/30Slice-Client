@@ -19,7 +19,7 @@ img {
 	height: auto;
 }
 
-.visually-hidden:not(:focus):not(:active),
+/* .visually-hidden:not(:focus):not(:active),
 input[type="checkbox"].visually-hidden,
 input[type="radio"].visually-hidden {
 	position: absolute;
@@ -32,7 +32,7 @@ input[type="radio"].visually-hidden {
 	clip-path: inset(100%);
 	clip: rect(0 0 0 0);
 	overflow: hidden;
-}
+} */
 
 .inner-page {
 	color: #000000;
@@ -373,7 +373,7 @@ a {
 }
 
 
-.appointment-item input {
+/* .appointment-item input {
 	box-sizing: border-box;
 	width: 140px;
 	padding-top: 8px;
@@ -383,7 +383,7 @@ a {
 	font: inherit;
 	background-color: transparent;
 	border: 2px solid #000000;
-}
+} */
 
 .appointment-item input:focus {
 	border-color: #663d15;
@@ -596,21 +596,6 @@ a {
   font-size: 0;
   margin-top: 10px;
   text-align: center;
-}
-
-.price .price-text{
-  display: inline-block;
-  color: :#000000;
-  background-color: #e5e5e5;
-  line-height: 43px;
-  font-size: 14px;
-  text-align: center;
-  padding: 0 26px;
-  text-transform: uppercase;
-  min-width: 107px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 .price .price-btn {
@@ -926,7 +911,7 @@ a {
 
 .footer-contacts a {
 	color: #ffffff;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 .footer-contacts a:hover,
