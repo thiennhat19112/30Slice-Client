@@ -8,12 +8,21 @@ function Header() {
                     <img src="assets/img/logo.svg" width="111" height="24" alt='hình' />
                 </NavLink>
                 <ul className="site-navigation">
-                    <NavLink to="/" className='nav-item'>
-                        <span className="nav-link"> Trang chủ </span>
-                    </NavLink>
-                    <NavLink to="/booking" >
-                        <span className="nav-link"> Đặt Lịch </span>
-                    </NavLink>
+                    <li>
+                        <NavLink to="/" className='nav-item'>
+                            <span className="nav-link"> Trang chủ </span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/booking" >
+                            <span className="nav-link"> Đặt Lịch </span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/products" >
+                            <span className="nav-link"> Sản phẩm </span>
+                        </NavLink>
+                    </li>
                     {/* <li><a href="index.html#news-point">Sản Phẩm</a></li> */}
                     {/* <li className="site-navigation-current"><a>Tin Tức</a></li> */}
                 </ul>
