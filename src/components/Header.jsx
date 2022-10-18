@@ -23,12 +23,17 @@ function Header() {
                             <span className="nav-link"> Sản phẩm </span>
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/products" >
+                            <span className="nav-link"> Tin tức </span>
+                        </NavLink>
+                    </li>
                     {/* <li><a href="index.html#news-point">Sản Phẩm</a></li> */}
                     {/* <li className="site-navigation-current"><a>Tin Tức</a></li> */}
                 </ul>
                 <ul className="user-navigation">
                     <li>
-                        {/* <a className="login-link" href="login.html">Вход</a> */}
+                        <a className="nav-item" href="login.html">Đăng Nhập</a>
                     </li>
                 </ul>
             </nav>

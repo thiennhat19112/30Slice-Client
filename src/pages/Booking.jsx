@@ -154,7 +154,7 @@ function Booking(props) {
 
     return (
 
-        <div className="container">
+        <div className="container ">
             <div className="form-floating m-3">
                 <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>
                     {arrDate && arrDate.map((item, index) => (<option key={index} value={item.dateEn}>{item.dateVn}</option>))}
