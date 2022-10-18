@@ -2,77 +2,115 @@ function Home() {
     return (
         <main className="container">
             <div className="text-center mb-4">
-            <img src="assets/img/bannner.png" className="d-block m-auto" width="450" height="200" alt="Логотип барбершопа"></img>
-            <button className="button ">Đặt ngay</button>
+                <img src="assets/img/bannner.png" className="d-block m-auto" width="450" height="200" alt="Логотип барбершопа"></img>
+                <button className="button ">Đặt ngay</button>
             </div>
-
-            <h1 className="visually-hidden">Барбершоп</h1>
             <section className="features" id="info-point">
-                <h2 className="visually-hidden">Преимущества</h2>
                 <ul className="features-list">
                     <li className="feature-item">
                         <h3>Tiếng việt</h3>
                         <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                         </p>
                     </li>
                     <li className="feature-item">
                         <h3>Tiếng việt 1</h3>
                         <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                         </p>
                     </li>
                     <li className="feature-item">
                         <h3>Tiếng việt 2</h3>
                         <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                         </p>
                     </li>
                 </ul>
             </section>
-            <div className="index-columns">
-                <section className="news" id="news-point">
-                    <h2>Новости</h2>
-                    <ul className="news-list">
-                        <li className="news-item">
-                            <p>
-                                Нам наконец завезли Ягермайстер! Теперь Вы можете пропустить
-                                стаканчик во время стрижки
-                            </p>
-                            <time dateTime="2018-01-11">11 января</time>
-                        </li>
-                        <li className="news-item">
-                            <p>
-                                В нашей команде пополнение, Борис «Бритва» Стригунец, обладатель
-                                множества титулов и наград пополнил наши стройные ряды
-                            </p>
-                            <time dateTime="2018-01-18">18 января</time>
-                        </li>
-                    </ul>
-                    <a className="button" href="#">
-                        Все новости
-                    </a>
-                </section>
-                <section className="gallery">
-                    <h2>Фотогалерея</h2>
-                    <div className="gallery-container">
-                        <figure className="gallery-content">
+
+            <section className="newcatalogs" id="news-point">
+                <h2>Sản phẩm</h2>
+                <div className="items text-center">
+                    <figure className="item-card">
+                        <a href="#">
+                            <div className="img-wrapper">
+                                <img src="assets/img/product-2.jpg" alt="Увлажняющий кондиционер" />
+                            </div>
+                        </a>
+                        <div className="item-card-description">
                             <a href="#">
-                                <img src="assets/img/studio.jpg" width={286} height={164} alt="Интерьер" />
+                                <h3>
+                                    <span className="catalog-category">
+                                       Sản phẩm
+                                    </span>
+                                    <span className="catalog-item-title">
+                                         from vietnam
+                                    </span>
+                                </h3>
                             </a>
-                        </figure>
-                        <button
-                            className="button gallery-button gallery-button-back"
-                            disabled=""
-                        >
-                            Назад
-                        </button>
-                        <button className="button gallery-button gallery-button-next">
-                            Вперед
-                        </button>
-                    </div>
-                </section>
-            </div>
+                            <div className="price">
+                                <p className="price-text">150 ₴</p>
+                                <a className="price-btn" href="#">
+                                    Mua
+                                </a>
+                            </div>
+                        </div>
+                    </figure>
+                    <figure className="item-card">
+                        <a href="#">
+                            <div className="img-wrapper">
+                                <img src="assets/img/product-3.jpg" alt="Увлажняющий кондиционер" />
+                            </div>
+                        </a>
+                        <div className="item-card-description">
+                            <a href="#">
+                                <h3>
+                                    <span className="catalog-category">
+                                       Sản phẩm
+                                    </span>
+                                    <span className="catalog-item-title">
+                                         from vietnam
+                                    </span>
+                                </h3>
+                            </a>
+                            <div className="price">
+                                <p className="price-text">150 ₴</p>
+                                <a className="price-btn" href="#">
+                                    Mua
+                                </a>
+                            </div>
+                        </div>
+                    </figure>
+                    <figure className="item-card">
+                        <a href="#">
+                            <div className="img-wrapper">
+                                <img src="assets/img/product-4.jpg" alt="Увлажняющий кондиционер" />
+                            </div>
+                        </a>
+                        <div className="item-card-description">
+                            <a href="#">
+                                <h3>
+                                    <span className="catalog-category">
+                                       Sản phẩm
+                                    </span>
+                                    <span className="catalog-item-title">
+                                         from vietnam
+                                    </span>
+                                </h3>
+                            </a>
+                            <div className="price">
+                                <p className="price-text">150 ₴</p>
+                                <a className="price-btn" href="#">
+                                    Mua
+                                </a>
+                            </div>
+                        </div>
+                    </figure>
+
+                </div>
+            </section>
+
+
             <div className="index-columns">
                 <section className="contacts" id="contacts-point">
                     <h2>Контактная информация</h2>
