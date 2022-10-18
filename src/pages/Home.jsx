@@ -1,29 +1,31 @@
 function Home() {
     return (
         <main className="container">
+            <div className="text-center mb-4">
+            <img src="assets/img/bannner.png" className="d-block m-auto" width="450" height="200" alt="Логотип барбершопа"></img>
+            <button className="button ">Đặt ngay</button>
+            </div>
+
             <h1 className="visually-hidden">Барбершоп</h1>
             <section className="features" id="info-point">
                 <h2 className="visually-hidden">Преимущества</h2>
                 <ul className="features-list">
                     <li className="feature-item">
-                        <h3>Быстро</h3>
+                        <h3>Tiếng việt</h3>
                         <p>
-                            Мы делаем свою работу быстро! Два часа пролетят незаметно и вы -
-                            счастливый обладатель стильной стрижки-минутки!
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                         </p>
                     </li>
                     <li className="feature-item">
-                        <h3>Круто</h3>
+                        <h3>Tiếng việt 1</h3>
                         <p>
-                            Забудьте, как Вы стриглись раньше. Мы сделаем из Вас звезду футбола
-                            или кино! Во всяком случае внешне.
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                         </p>
                     </li>
                     <li className="feature-item">
-                        <h3>Дорого</h3>
+                        <h3>Tiếng việt 2</h3>
                         <p>
-                            Наши мастера - профессионалы своего дела и не могут стоить дешево. К
-                            тому же, разве цена не дает определеный статус?
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                         </p>
                     </li>
                 </ul>
@@ -56,7 +58,7 @@ function Home() {
                     <div className="gallery-container">
                         <figure className="gallery-content">
                             <a href="#">
-                                <img src="img/studio.jpg" width={286} height={164} alt="Интерьер" />
+                                <img src="assets/img/studio.jpg" width={286} height={164} alt="Интерьер" />
                             </a>
                         </figure>
                         <button
