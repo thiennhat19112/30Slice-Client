@@ -7,6 +7,8 @@ function Booking(props) {
     const [EmployeeId, setEmployeeId] = useState(0);
     const [listTime, setListTime] = useState();
     const [arrEmployee, setArrEmployee] = useState([]);
+    const [arrService, setArrService] = useState([]);
+    const [ServiceId, setServiceId] = useState(0);
     const getCurrentDate = () => {
         return new Date().toLocaleDateString('en', {
             year: "2-digit",
@@ -45,6 +47,15 @@ function Booking(props) {
                 setArrEmployee(data);
             })
     }, []);
+    useEffect(() => {
+        fetch(process.env.REACT_APP_API_ENDPOINT + 'services')
+            .then(res => res.json())
+            .then(data => {
+                setArrService(data);
+            })
+    }, []);
+
+
     useEffect(() => {
         reloadListTime()
     }, [activeId, EmployeeId])
@@ -115,7 +126,7 @@ function Booking(props) {
             return (
                 <div key={index} className="form-check col-1 mb-2 mx-3">
                     <input className="btn-check" type="radio" name="flexRadioDefault" onChange={() => setActiveId(ele)} disabled={!isAvailable} id={ele} />
-                    <label className={`form-check-label btn px-4 border ${activeId == ele && isAvailable ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
+                    <label className={`form-check-label btn px-4 border border-warning ${activeId == ele && isAvailable ? 'btn-warning border-warning' : ''}`} htmlFor={ele}>{ele}</label>
                 </div>
             )
         }))
@@ -124,6 +135,7 @@ function Booking(props) {
         console.log(activeId)
         console.log(refDate.current.value)
         console.log(EmployeeId)
+        console.log(ServiceId)
     }
 
 
@@ -150,6 +162,27 @@ function Booking(props) {
                 </select>
                 <label htmlFor="floatingSelect">Chọn nhân viên</label>
             </div> */}
+            <div className="row m-3">
+                <h6>Chọn Dịch Vụ</h6>
+                {
+                    arrService && arrService.map((item, index) => {
+                        return (
+                            <div className="col-4 mb-3" key={index}>
+                                <div className="card">
+                                    <img src={item.Images} className="card-img-top" alt="..."/>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{item.Name}</h5>
+                                            <p className="card-text text-danger">Giá: {item.Price.toLocaleString('vi-Vn')} vnđ</p>
+                                            <button onClick={()=>{setServiceId(item._id)}} className="btn btn-outline-warning">Chọn Dịch Vụ</button>
+                                        </div>
+                                </div>
+                            </div>
+                        )
+                    }
+                    )
+
+                }
+            </div>
             <div className="row m-3">
                 <div className="col">
                     <div className="row">
