@@ -169,12 +169,13 @@ function Booking(props) {
                         return (
                             <div className="col-4 mb-3" key={index}>
                                 <div className="card">
-                                    <img src={item.Images} className="card-img-top" alt="..."/>
-                                        <div className="card-body">
-                                            <h5 className="card-title">{item.Name}</h5>
-                                            <p className="card-text text-danger">Giá: {item.Price.toLocaleString('vi-Vn')} vnđ</p>
-                                            <button onClick={()=>{setServiceId(item._id)}} className="btn btn-outline-warning">Chọn Dịch Vụ</button>
-                                        </div>
+                                    <img src={item.Images} className="card-img-top" alt="..." />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{item.Name}</h5>
+                                        <p className="card-text text-danger">Giá: {item.Price.toLocaleString('vi-Vn')} vnđ</p>
+                                        <input type="radio" className="btn-check" name="option-outlined" id={item._id} onChange={() => setServiceId(item._id)} />
+                                        <label className="btn btn-outline-warning " htmlFor={item._id}>Chọn Dịch Vụ</label>
+                                    </div>
                                 </div>
                             </div>
                         )
