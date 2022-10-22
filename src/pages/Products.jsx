@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import Breadcrumb from '../components/Breakcumb';
 import Product from '../components/Product';
 
 function Products(props) {
@@ -17,15 +18,7 @@ function Products(props) {
    return (
       <main className="container">
          <h1 className="page-title">Barbershop - магазин</h1>
-         <ul className="breadcrumbs">
-            <li>
-               <a href="index.html">Главная</a>
-            </li>
-            <li>
-               <a href="catalog.html">Магазин</a>
-            </li>
-            <li className="breadcrumbs-current">Средства для ухода</li>
-         </ul>
+         <Breadcrumb />
          <div className="catalog-columns">
             <section className="filters">
                <h2 className="visually-hidden">Фильтр товаров</h2>
