@@ -1,21 +1,10 @@
+import Breadcrumb from "../components/Breakcumb"
+
 function Detail(props) {
    return (
       <main className="container">
          <h1 className="page-title">Набор для путешествий «Baxter of California»</h1>
-         <ul className="breadcrumbs">
-            <li>
-               <a href="index.html">Главная</a>
-            </li>
-            <li>
-               <a href="catalog.html">Магазин</a>
-            </li>
-            <li>
-               <a href="#">Средства для ухода</a>
-            </li>
-            <li className="breadcrumbs-current">
-               Набор для путешествий «Baxter of California»
-            </li>
-         </ul>
+         <Breadcrumb />
          <div className="catalog-columns">
             <section className="product-photos">
                <h2 className="visually-hidden">Изображения товара</h2>
