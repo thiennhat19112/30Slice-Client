@@ -12,7 +12,7 @@ function Booking(props) {
     const allAvailableTime = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']
     const arrBookedData = {}
     const arrDate = []
-    
+
     for (var i = 0; i <= 6; i++) {
         var date = new Date();
         date.setDate(date.getDate() + i);
@@ -40,32 +40,26 @@ function Booking(props) {
         })
     }
     const refDate = useRef(getCurrentDate());
-
-
+ 
 
     useEffect(() => {
-        fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/gettAllStyleList')
-            .then(res => res.json())
-            .then(data => {
-                setArrEmployee(data);
-            })
+        const fetchArrEmployee = async () => {
+            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/gettAllStyleList');
+            const data = await res.json();
+            setArrEmployee(data);
+        };
+        const fetchArrService = async () => {
+            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'services');
+            const data = await res.json();
+            setArrService(data);
+        };
+        fetchArrService();
+        fetchArrEmployee();
     }, []);
-    useEffect(() => {
-        fetch(process.env.REACT_APP_API_ENDPOINT + 'services')
-            .then(res => res.json())
-            .then(data => {
-                setArrService(data);
-            })
-    }, []);
-  
-
-
+ 
     useEffect(() => {
         reloadListTime()
-    }, [activeId, EmployeeId])
-
-
-
+    }, [activeId, EmployeeId, arrEmployee])
 
 
 
