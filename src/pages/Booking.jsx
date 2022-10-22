@@ -9,18 +9,10 @@ function Booking(props) {
     const [arrEmployee, setArrEmployee] = useState([]);
     const [arrService, setArrService] = useState([]);
     const [ServiceId, setServiceId] = useState(0);
-    const getCurrentDate = () => {
-        return new Date().toLocaleDateString('en', {
-            year: "2-digit",
-            month: "2-digit",
-            day: "2-digit"
-        })
-    }
-    const refDate = useRef(getCurrentDate());
-
     const allAvailableTime = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']
     const arrBookedData = {}
     const arrDate = []
+    
     for (var i = 0; i <= 6; i++) {
         var date = new Date();
         date.setDate(date.getDate() + i);
@@ -40,6 +32,17 @@ function Booking(props) {
 
         )
     }
+    const getCurrentDate = () => {
+        return new Date().toLocaleDateString('en', {
+            year: "2-digit",
+            month: "2-digit",
+            day: "2-digit"
+        })
+    }
+    const refDate = useRef(getCurrentDate());
+
+
+
     useEffect(() => {
         fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/gettAllStyleList')
             .then(res => res.json())
@@ -54,11 +57,14 @@ function Booking(props) {
                 setArrService(data);
             })
     }, []);
+  
 
 
     useEffect(() => {
         reloadListTime()
     }, [activeId, EmployeeId])
+
+
 
 
 
