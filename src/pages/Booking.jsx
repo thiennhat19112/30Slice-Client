@@ -44,12 +44,12 @@ function Booking(props) {
 
     useEffect(() => {
         const fetchArrEmployee = async () => {
-            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/gettAllStyleList');
+            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/getAvailableEmployee?bookedDate=' + refDate.current.value);
             const data = await res.json();
             setArrEmployee(data);
         };
         const fetchArrService = async () => {
-            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'services');
+            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'service/getAllServices');
             const data = await res.json();
             setArrService(data);
         };
@@ -59,14 +59,12 @@ function Booking(props) {
  
     useEffect(() => {
         reloadListTime()
+        
     }, [activeId, EmployeeId, arrEmployee])
 
 
 
     function getAvailableTime(bookedDate, employeeId) {
-        // if (!arrBookedData[bookedDate]) {
-        //     arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill(new Array())
-        // }
         console.log(employeeId);
         let arrAvailableTime = []
         if (employeeId == 0) {
@@ -80,43 +78,6 @@ function Booking(props) {
             return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime()
         })
     }
-
-
-    // const getAvailableEmployee = (bookedDate, bookedTime) => {
-    //   if(!arrBookedData[bookedDate]) {
-    //     arrBookedData[bookedDate] = new Array(allAvailableTime.length).fill([])
-    //   }
-    //   const arrBookedEmployee = arrBookedData[bookedDate][bookedTime]
-    //   return arrEmployee.filter(employee => {
-    //     return arrBookedEmployee.findIndex(booking => {
-    //       return booking.employee.employeeID === employee.employeeID
-    //     }) === -1
-    //   })
-    // }
-
-    // const createBook = (bookDate, bookTime, customer, employee) => {
-    //   const currentDate = getCurrentDate()
-    //   if(new Date(bookDate) < currentDate) {
-    //     return 'Ngày đặt phải lớn hơn ngày hiện tại'
-    //   }
-    //   const allAvailableTime = getAvailableTime(bookDate)
-    //   const timeIndex = allAvailableTime.indexOf(bookTime)
-    //   if(timeIndex < 0 || timeIndex >= allAvailableTime.length) {
-    //     console.log('Thời gian đặt không hợp lệ')
-    //   }
-    //   const allAvailableEmployee = getAvailableEmployee(bookDate, timeIndex)
-    //   const employeeIndex = allAvailableEmployee.indexOf(employee)
-    //   if(employeeIndex < 0 || employeeIndex >= allAvailableEmployee.length) {
-    //     console.log('Nhân viên không hợp lệ')
-    //   }
-    //   const booking = new Booking(customer, employee)
-    //   console.log(bookTime)
-    //   arrBookedData[bookDate][bookTime] = [...arrBookedData[bookDate][timeIndex], booking]
-    //   console.log(arrBookedData)
-
-    //   return 'Đặt phòng thành công'
-    // }
-
 
     const reloadListTime = () => {
         const arrAvailableTime = getAvailableTime(refDate.current.value, EmployeeId);
