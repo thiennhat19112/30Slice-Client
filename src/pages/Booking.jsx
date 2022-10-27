@@ -9,6 +9,7 @@ function Booking(props) {
     const [arrEmployee, setArrEmployee] = useState([]);
     const [arrService, setArrService] = useState([]);
     const [ServiceId, setServiceId] = useState(0);
+    const [CustomerInfo, setCustomerInfo] = useState()
     const allAvailableTime = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']
     const arrBookedData = {}
     const arrDate = []
@@ -40,36 +41,88 @@ function Booking(props) {
         })
     }
     const refDate = useRef(getCurrentDate());
- 
+
+    const fetchArrEmployee = async () => {
+        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/getAvailableEmployee?bookedDate=' + refDate.current.value);
+        const data = await res.json();
+        setArrEmployee(data);
+    };
+    const fetchArrService = async () => {
+        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'service/getAllServices');
+        const data = await res.json();
+        setArrService(data);
+    };
+
+    const LoginCustomer = async (phone) => {
+        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'user/login/customer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "phone": phone,
+            })
+        });
+        const data = await res.json();
+        console.log(data);
+        if (data.status_code == 404) {
+            let full_name = prompt("Nhập họ tên của bạn", "");
+            let Info = {
+                "phone": phone,
+                "full_name": full_name
+            }
+            RegisterCustomer(Info);
+
+        } else {
+            setCustomerInfo(data);
+        }
+    };
+    const RegisterCustomer = async (Info) => {
+        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'user/register/customer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(Info)
+        });
+        const data = await res.json();
+        setCustomerInfo(data);
+    };
+    const Booking = async (Info) => {
+        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(Info)
+        });
+        const data = await res.json();
+        console.log(data);
+    };
+
 
     useEffect(() => {
-        const fetchArrEmployee = async () => {
-            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/getAvailableEmployee?bookedDate=' + refDate.current.value);
-            const data = await res.json();
-            setArrEmployee(data);
-        };
-        const fetchArrService = async () => {
-            const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'service/getAllServices');
-            const data = await res.json();
-            setArrService(data);
-        };
-        fetchArrService();
-        fetchArrEmployee();
+        let phoneNumber = prompt("Nhập số điện thoại của bạn", "");
+        LoginCustomer(phoneNumber)
     }, []);
- 
+    useEffect(() => {
+        fetchArrEmployee();
+        fetchArrService();
+
+    }, []);
+
     useEffect(() => {
         reloadListTime()
-        
-    }, [activeId, EmployeeId, arrEmployee])
+        console.log(CustomerInfo);
+
+    }, [activeId, EmployeeId, arrEmployee,CustomerInfo])
 
 
 
     function getAvailableTime(bookedDate, employeeId) {
-        console.log(employeeId);
         let arrAvailableTime = []
         if (employeeId == 0) {
             arrAvailableTime = [...new Set(arrEmployee.flatMap(num => num.Info.Shifts))]
-            console.log(arrEmployee)
         } else {
             arrAvailableTime = arrEmployee.find(ele => ele._id == employeeId).Info.Shifts
         }
@@ -80,6 +133,8 @@ function Booking(props) {
     }
 
     const reloadListTime = () => {
+
+
         const arrAvailableTime = getAvailableTime(refDate.current.value, EmployeeId);
         setListTime(allAvailableTime.map((ele, index) => {
             const isAvailable = arrAvailableTime.includes(ele)
@@ -93,10 +148,15 @@ function Booking(props) {
         }))
     }
     const bookingSave = () => {
-        console.log(activeId)
-        console.log(refDate.current.value)
-        console.log(EmployeeId)
-        console.log(ServiceId)
+        const data = {
+            "BookedDate": refDate.current.value,
+            "BookedTime": activeId,
+            "Id_Style_List": EmployeeId,
+            "Id_Service": ServiceId,
+            "Id_Customer": CustomerInfo.Id_User
+        }
+        Booking(data);
+
     }
 
 
@@ -104,8 +164,9 @@ function Booking(props) {
     return (
 
         <div className="container ">
+            <h1>Chào anh { CustomerInfo && CustomerInfo.Full_Name}</h1>
             <div className="form-floating m-3">
-                <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => reloadListTime()}>
+                <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => { reloadListTime(); fetchArrEmployee() }}>
                     {arrDate && arrDate.map((item, index) => (<option key={index} value={item.dateEn}>{item.dateVn}</option>))}
                 </select>
                 <label htmlFor="date">Chọn ngày</label>
