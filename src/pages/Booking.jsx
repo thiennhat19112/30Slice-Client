@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-
+import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+import { useNavigate } from 'react-router-dom';
 
 function Booking(props) {
-
+    const navi = useNavigate();
     const [activeId, setActiveId] = useState('');
     const [EmployeeId, setEmployeeId] = useState(0);
     const [listTime, setListTime] = useState();
@@ -66,12 +67,26 @@ function Booking(props) {
         const data = await res.json();
         console.log(data);
         if (data.status_code == 404) {
-            let full_name = prompt("Nhập họ tên của bạn", "");
-            let Info = {
-                "phone": phone,
-                "full_name": full_name
-            }
-            RegisterCustomer(Info);
+            // let full_name = prompt("Nhập họ tên của bạn", "");
+            // let Info = {
+            //     "phone": phone,
+            //     "full_name": full_name
+            // }
+            // RegisterCustomer(Info);
+            console.log("Chưa có tài khoản");
+            Confirm.prompt(
+                'Hello',
+                'How are you feeling?',
+                'Awesome!',
+                'Answer',
+                'Cancel',
+                (clientAnswer) => {
+                    alert('Client answer is: ' + clientAnswer);
+                },
+                (clientAnswer) => {
+                    alert('Client answer was: ' + clientAnswer);
+                }
+            );
 
         } else {
             setCustomerInfo(data);
@@ -102,8 +117,22 @@ function Booking(props) {
 
 
     useEffect(() => {
-        let phoneNumber = prompt("Nhập số điện thoại của bạn", "");
-        LoginCustomer(phoneNumber)
+        Confirm.prompt(
+            'Đặt lịch cắt tóc',
+            'Nhập số điện thoại của bạn',
+            '',
+            'Đặt ngay',
+            'Trở Lại',
+            (phoneNumber) => {
+                LoginCustomer(phoneNumber)
+            },
+            (phoneNumber) => {
+                navi('/');
+
+            },
+            {
+            },
+        );
     }, []);
     useEffect(() => {
         fetchArrEmployee();
@@ -115,7 +144,7 @@ function Booking(props) {
         reloadListTime()
         console.log(CustomerInfo);
 
-    }, [activeId, EmployeeId, arrEmployee,CustomerInfo])
+    }, [activeId, EmployeeId, arrEmployee, CustomerInfo])
 
 
 
@@ -164,7 +193,7 @@ function Booking(props) {
     return (
 
         <div className="container ">
-            <h1>Chào anh { CustomerInfo && CustomerInfo.Full_Name}</h1>
+            <h1>Chào anh {CustomerInfo && CustomerInfo.Full_Name}</h1>
             <div className="form-floating m-3">
                 <select className="form-select" id="date" aria-label="Chọn ngày" ref={refDate} onChange={() => { reloadListTime(); fetchArrEmployee() }}>
                     {arrDate && arrDate.map((item, index) => (<option key={index} value={item.dateEn}>{item.dateVn}</option>))}
