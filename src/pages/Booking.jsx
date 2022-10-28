@@ -128,6 +128,15 @@ function Booking(props) {
 
 
     };
+    // hàm check số điện thoại valid
+    const isValidPhoneNumber = (phoneNumber) => {
+        if (phoneNumber.charAt(0) == 0) {
+            phoneNumber = `+84${phoneNumber.slice(1)}`
+        } else {
+            phoneNumber = `+84${phoneNumber}`;
+        }
+        return /^\+84[3|5|7|8|9][0-9]{8}$/.test(phoneNumber);
+    }
 
 
     useEffect(() => {
@@ -138,16 +147,8 @@ function Booking(props) {
             'Đặt ngay',
             'Trở Lại',
             (phoneNumber) => {
-                if (phoneNumber.charAt(0) == 0) {
-                    phoneNumber = `+84${phoneNumber.slice(1)}`
-                    console.log(phoneNumber)
-                } else {
-                    phoneNumber = `+84${phoneNumber}`;
-                    console.log(phoneNumber)
-                }
-                const isValidPhoneNumber = (phoneNumber) => {
-                    return /^\+84[3|5|7|8|9][0-9]{8}$/.test(phoneNumber);
-                }
+               
+               
                 if (isValidPhoneNumber(phoneNumber)) {
                     LoginCustomer(phoneNumber);
                 } else {
