@@ -17,7 +17,7 @@ function Booking(props) {
     const allAvailableTime = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']
     const arrBookedData = {}
     const arrDate = []
-
+   
 
     for (var i = 0; i <= 6; i++) {
         var date = new Date();
@@ -51,7 +51,7 @@ function Booking(props) {
         Loading.standard('Loading...');
         const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/getAvailableEmployee?bookedDate=' + refDate.current.value);
         const data = await res.json();
-        if (data){
+        if (data) {
             Loading.remove();
         }
         setArrEmployee(data);
@@ -60,7 +60,7 @@ function Booking(props) {
         Loading.standard('Loading...');
         const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'service/getAllServices');
         const data = await res.json();
-        if (data){
+        if (data) {
             Loading.remove();
         }
         setArrService(data);
@@ -147,7 +147,23 @@ function Booking(props) {
             'Đặt ngay',
             'Trở Lại',
             (phoneNumber) => {
-                LoginCustomer(phoneNumber)
+                if (phoneNumber.charAt(0) == 0) {
+                    phoneNumber = `+84${phoneNumber.slice(1)}`
+                    console.log(phoneNumber)
+                } else {
+                    phoneNumber = `+84${phoneNumber}`;
+                    console.log(phoneNumber)
+                }
+                const isValidPhoneNumber = (phoneNumber) => {
+                    return /^\+84[3|5|7|8|9][0-9]{8}$/.test(phoneNumber);
+                }
+                if (isValidPhoneNumber(phoneNumber)) {
+                    LoginCustomer(phoneNumber);
+                } else {
+                    Notify.failure('Số điện thoại không hợp lệ!');
+                    navi('/');
+                }
+
             },
             (phoneNumber) => {
                 navi('/');
