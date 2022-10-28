@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import { useNavigate } from 'react-router-dom';
 
 function Booking(props) {
@@ -14,6 +17,7 @@ function Booking(props) {
     const allAvailableTime = ['07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00']
     const arrBookedData = {}
     const arrDate = []
+
 
     for (var i = 0; i <= 6; i++) {
         var date = new Date();
@@ -44,17 +48,26 @@ function Booking(props) {
     const refDate = useRef(getCurrentDate());
 
     const fetchArrEmployee = async () => {
+        Loading.standard('Loading...');
         const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'stylelist/getAvailableEmployee?bookedDate=' + refDate.current.value);
         const data = await res.json();
+        if (data){
+            Loading.remove();
+        }
         setArrEmployee(data);
     };
     const fetchArrService = async () => {
+        Loading.standard('Loading...');
         const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'service/getAllServices');
         const data = await res.json();
+        if (data){
+            Loading.remove();
+        }
         setArrService(data);
     };
 
     const LoginCustomer = async (phone) => {
+        Loading.standard('Loading...');
         const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'user/login/customer', {
             method: 'POST',
             headers: {
@@ -67,28 +80,30 @@ function Booking(props) {
         const data = await res.json();
         console.log(data);
         if (data.status_code == 404) {
-            // let full_name = prompt("Nhập họ tên của bạn", "");
-            // let Info = {
-            //     "phone": phone,
-            //     "full_name": full_name
-            // }
-            // RegisterCustomer(Info);
+            Loading.remove();
+            let full_name = prompt("Nhập họ tên của bạn", "");
+            let Info = {
+                "phone": phone,
+                "full_name": full_name
+            }
+            RegisterCustomer(Info);
             console.log("Chưa có tài khoản");
-            Confirm.prompt(
-                'Hello',
-                'How are you feeling?',
-                'Awesome!',
-                'Answer',
-                'Cancel',
-                (clientAnswer) => {
-                    alert('Client answer is: ' + clientAnswer);
-                },
-                (clientAnswer) => {
-                    alert('Client answer was: ' + clientAnswer);
-                }
-            );
+            // Confirm.prompt(
+            //     'Hello',
+            //     'How are you feeling?',
+            //     'Awesome!',
+            //     'Answer',
+            //     'Cancel',
+            //     (clientAnswer) => {
+            //         alert('Client answer is: ' + clientAnswer);
+            //     },
+            //     (clientAnswer) => {
+            //         alert('Client answer was: ' + clientAnswer);
+            //     }
+            // );
 
         } else {
+            Loading.remove();
             setCustomerInfo(data);
         }
     };
@@ -112,7 +127,15 @@ function Booking(props) {
             body: JSON.stringify(Info)
         });
         const data = await res.json();
-        console.log(data);
+        console.log(res.status);
+        if (res.status == 200) {
+            Notify.success('Đặt lịch thành công!');
+            navi('/booking-history');
+        } else {
+            Notify.failure('Có lỗi xảy ra vui lòng thử lại!');
+        }
+
+
     };
 
 
