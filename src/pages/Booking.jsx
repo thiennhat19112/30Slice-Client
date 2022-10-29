@@ -58,7 +58,7 @@ function Booking(props) {
     // hàm đăng nhập khách hàng 
     const LoginCustomer = async (phone) => {
         Notiflix.Loading.standard('Loading...');
-        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'user/login/customer', {
+        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'user/booking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -78,19 +78,19 @@ function Booking(props) {
             }
             RegisterCustomer(Info);
             console.log("Chưa có tài khoản");
-            // Notiflix.Confirm.prompt(
-            //     'Hello',
-            //     'How are you feeling?',
-            //     'Awesome!',
-            //     'Answer',
-            //     'Cancel',
-            //     (clientAnswer) => {
-            //         alert('Client answer is: ' + clientAnswer);
-            //     },
-            //     (clientAnswer) => {
-            //         alert('Client answer was: ' + clientAnswer);
-            //     }
-            // );
+            Notiflix.Confirm.prompt(
+                'Hello',
+                'How are you feeling?',
+                'Awesome!',
+                'Answer',
+                'Cancel',
+                (clientAnswer) => {
+                    alert('Client answer is: ' + clientAnswer);
+                },
+                (clientAnswer) => {
+                    alert('Client answer was: ' + clientAnswer);
+                }
+            );
 
         } else {
             Notiflix.Loading.remove();
@@ -99,7 +99,7 @@ function Booking(props) {
     };
     // hàm khỏi tạo khách hàng
     const RegisterCustomer = async (Info) => {
-        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'user/register/customer', {
+        const res = await fetch(process.env.REACT_APP_API_ENDPOINT + 'user/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
