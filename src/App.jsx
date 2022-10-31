@@ -4,6 +4,7 @@ import Booking from "./pages/Booking";
 import Products from "./pages/Products";
 import Detail from "./pages/Detail";
 import Home from "./pages/Home";
+import Error from "./pages/Error";
 
 // import component
 import Header from "./components/Header";
@@ -22,6 +23,7 @@ function App(props) {
             <Route path="/booking" exact element={<Booking />} />
             <Route path="/products" exact element={<Products />} />
             <Route path="/products/id" exact element={<Detail />} />
+            <Route path="*" element={<Error />} />
           </Routes>
         </div>
       </main>
