@@ -1,29 +1,38 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import Notiflix from "notiflix";
 
-import Breadcrumb from '../components/Breakcumb';
-import Product from '../components/Product';
+import Breadcrumb from "../components/Breakcumb";
+import Product from "../components/Product";
 
 function Products(props) {
-   const [listCate, setCate] = useState([]);
-   useEffect(() => {
-      let url = 'https://30slice.online/api/category/getAllCategories';
-      fetch(url)
-         .then((res) => res.json())
-         .then((data) => {
-            setCate(data);
-         });
-   }, []);
+  const [listCate, setCate] = useState([]);
 
+  const fetchCate = async () => {
+    Notiflix.Loading.standard("Đang tải...");
+    const res = await fetch(
+      process.env.REACT_APP_API_ENDPOINT + "category/getAllCategories"
+    );
+    const data = await res.json();
+    if (data) {
+      Notiflix.Loading.remove();
+    }
+    setCate(data);
+  };
 
-   return (
-      <div className="contents">
+  useEffect(() => {
+    fetchCate();
+  }, []);
+
+  return (
+    <div className="contents">
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12">
             <div className="shop-breadcrumb">
               <div className="breadcrumb-main">
-                <h4 className="text-capitalize breadcrumb-title">Tất cả sản phẩm</h4>
-              
+                <h4 className="text-capitalize breadcrumb-title">
+                  Tất cả sản phẩm
+                </h4>
               </div>
             </div>
           </div>
@@ -75,14 +84,16 @@ function Products(props) {
                           <li>
                             <div className="w-100">
                               <span className="fs-14 color-gray">
-                                Accessories<span className="item-numbers">25</span>
+                                Accessories
+                                <span className="item-numbers">25</span>
                               </span>
                             </div>
                           </li>
                           <li>
                             <div className="w-100">
                               <span className="fs-14 color-gray">
-                                Appliances<span className="item-numbers">54</span>
+                                Appliances
+                                <span className="item-numbers">54</span>
                               </span>
                             </div>
                           </li>
@@ -96,7 +107,8 @@ function Products(props) {
                           <li>
                             <div className="w-100">
                               <span className="fs-14 color-gray">
-                                Electronic<span className="item-numbers">42</span>
+                                Electronic
+                                <span className="item-numbers">42</span>
                               </span>
                             </div>
                           </li>
@@ -111,14 +123,16 @@ function Products(props) {
                           <li>
                             <div className="w-100">
                               <span className="fs-14 color-gray">
-                                Induction<span className="item-numbers">64</span>
+                                Induction
+                                <span className="item-numbers">64</span>
                               </span>
                             </div>
                           </li>
                           <li>
                             <div className="w-100">
                               <span className="fs-14 color-gray">
-                                Mobile phone<span className="item-numbers">92</span>
+                                Mobile phone
+                                <span className="item-numbers">92</span>
                               </span>
                             </div>
                           </li>
@@ -404,7 +418,9 @@ function Products(props) {
                   </div>
                   <div className="project-top-right d-flex flex-wrap align-items-center">
                     <div className="project-category flex-wrap d-flex align-items-center">
-                      <p className="fs-14 color-gray text-capitalize">sort by:</p>
+                      <p className="fs-14 color-gray text-capitalize">
+                        sort by:
+                      </p>
                       <div className="project-tap b-light">
                         <ul className="nav px-1 " id="ap-tab" role="tablist">
                           <li className="nav-item">
@@ -493,11 +509,9 @@ function Products(props) {
                 >
                   {/* Start: Shop Item */}
                   <div className="row product-page-list justify-content-center">
-                    {
-                     listCate.map((item, index) => {
-                       return <Product/>
-                     })
-                    }
+                    {listCate.map((item, index) => {
+                      return <Product />;
+                    })}
                   </div>
                   {/* End: Shop Item */}
                 </div>
@@ -514,7 +528,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -529,14 +546,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">Montes scelerisque</h6>
+                                  <h6 className="card-title">
+                                    Montes scelerisque
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -546,7 +567,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -572,7 +595,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -587,14 +613,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">Leo sodales varius</h6>
+                                  <h6 className="card-title">
+                                    Leo sodales varius
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -604,7 +634,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -630,7 +662,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -654,7 +689,9 @@ function Products(props) {
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -664,7 +701,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -690,7 +729,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -705,14 +747,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">commodo adipiscing</h6>
+                                  <h6 className="card-title">
+                                    commodo adipiscing
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -722,7 +768,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -757,7 +805,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -772,14 +823,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">Leo sodales varius</h6>
+                                  <h6 className="card-title">
+                                    Leo sodales varius
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -789,7 +844,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -815,7 +872,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -839,7 +899,9 @@ function Products(props) {
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -849,7 +911,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -875,7 +939,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -890,14 +957,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">commodo adipiscing</h6>
+                                  <h6 className="card-title">
+                                    commodo adipiscing
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -907,7 +978,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -933,7 +1006,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -948,14 +1024,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">Leo sodales varius</h6>
+                                  <h6 className="card-title">
+                                    Leo sodales varius
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -965,7 +1045,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -1000,7 +1082,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -1015,14 +1100,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">Leo sodales varius</h6>
+                                  <h6 className="card-title">
+                                    Leo sodales varius
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -1032,7 +1121,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -1058,7 +1149,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -1082,7 +1176,9 @@ function Products(props) {
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -1092,7 +1188,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -1118,7 +1216,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -1133,14 +1234,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">commodo adipiscing</h6>
+                                  <h6 className="card-title">
+                                    commodo adipiscing
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -1150,7 +1255,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -1176,7 +1283,10 @@ function Products(props) {
                           <div className="product-item">
                             <div className="product-item__image">
                               <span className="like-icon">
-                                <button type="button" className="content-center">
+                                <button
+                                  type="button"
+                                  className="content-center"
+                                >
                                   <i className="lar la-heart icon" />
                                 </button>
                               </span>
@@ -1191,14 +1301,18 @@ function Products(props) {
                             <div className="card-body px-20 pb-25 pt-20">
                               <div className="product-item__body text-capitalize">
                                 <a href="product-details.html">
-                                  <h6 className="card-title">Leo sodales varius</h6>
+                                  <h6 className="card-title">
+                                    Leo sodales varius
+                                  </h6>
                                 </a>
                                 <div className="d-flex align-items-center mb-10 flex-wrap">
                                   <span className="product-desc-price">
                                     $200.00
                                   </span>
                                   <span className="product-price">$100.00</span>
-                                  <span className="product-discount">50% Off</span>
+                                  <span className="product-discount">
+                                    50% Off
+                                  </span>
                                 </div>
                               </div>
                               <div className="product-item__footer">
@@ -1208,7 +1322,9 @@ function Products(props) {
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star active" />
                                   <span className="star-icon las la-star-half-alt active" />
-                                  <span className="stars-rating__point">4.9</span>
+                                  <span className="stars-rating__point">
+                                    4.9
+                                  </span>
                                   <span className="stars-rating__review">
                                     <span>778</span> Reviews
                                   </span>
@@ -1238,7 +1354,6 @@ function Products(props) {
       </div>
       {/* End: .products */}
     </div>
-    
-   )
+  );
 }
-export default Products
+export default Products;
