@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 // import component
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar"
+import Sidebar from "./components/Sidebar";
 
 function App(props) {
   return (
@@ -17,12 +17,12 @@ function App(props) {
       <main className="main-content">
         <Sidebar />
         <div className="contents">
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/booking" exact element={<Booking />} />
-          <Route path="/products" exact element={<Products />} />
-          <Route path="/products/id" exact element={<Detail />} />
-        </Routes>
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/booking" exact element={<Booking />} />
+            <Route path="/products" exact element={<Products />} />
+            <Route path="/products/id" exact element={<Detail />} />
+          </Routes>
         </div>
       </main>
       <Footer />

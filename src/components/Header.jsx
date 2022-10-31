@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -17,17 +17,16 @@ const Header = () => {
       <header className="header-top">
         <nav className="navbar navbar-light">
           <div className="navbar-left">
-            <a href="#" className="sidebar-toggle">
-              <img className="svg" src="/assets/img/svg/bars.svg" alt="img" />
+            <a  className="sidebar-toggle">
+              <img className="svg" src="assets/img/svg/bars.svg" alt="img" />
             </a>
-            <a className="navbar-brand" href="#">
-              <img className="dark" src="/assets/img/logo_dark.png" alt="svg" />
+            <Link className="navbar-brand" to="/">
               <img
-                className="light"
-                src="/assets/img/logo_white.png"
-                alt="img"
+                className="dark"
+                src="/assets/images/logo30slice.png"
+                alt="svg"
               />
-            </a>
+            </Link>
             <form action="/" className="search-form">
               <span data-feather="search" />
               <input
@@ -39,419 +38,24 @@ const Header = () => {
             <div className="top-menu">
               <div className="strikingDash-top-menu position-relative">
                 <ul>
-                  <li className="has-subMenu">
-                    <a href="#" className="active">
-                      Dashboard
-                    </a>
-                    <ul className="subMenu">
-                      <li>
-                        <a className="" href="index.html">
-                          Social Media
-                        </a>
-                      </li>
-                      <li>
-                        <a className="" href="business.html">
-                          FineTech / Business
-                        </a>
-                      </li>
-                      <li>
-                        <a className="" href="performance.html">
-                          Site Performance
-                        </a>
-                      </li>
-                      <li>
-                        <a className="active" href="ecommerce.html">
-                          Ecommerce
-                        </a>
-                      </li>
-                      <li>
-                        <a className="" href="crm.html">
-                          CRM
-                        </a>
-                      </li>
-                      <li>
-                        <a className="" href="sales.html">
-                          Sales Performance
-                        </a>
-                      </li>
-                    </ul>
+                  <li>
+                    <NavLink exact to="/">
+                      Trang Chủ
+                    </NavLink>
                   </li>
-                  <li className="has-subMenu">
-                    <a href="#" className="">
-                      Layouts
-                    </a>
-                    <ul className="subMenu">
-                      <li className="l_sidebar">
-                        <a href="#" data-layout="light">
-                          Light Mode
-                        </a>
-                      </li>
-                      <li className="l_sidebar">
-                        <a href="#" data-layout="dark">
-                          Dark Mode
-                        </a>
-                      </li>
-                      <li className="l_navbar">
-                        <a href="#" data-layout="top">
-                          Top Menu
-                        </a>
-                      </li>
-                      <li className="l_navbar">
-                        <a href="#" data-layout="side">
-                          Side Menu
-                        </a>
-                      </li>
-                      <li className="layout">
-                        <a href="../rtl">RTL</a>
-                      </li>
-                      <li className="layout">
-                        <a href="../ltr">LTR</a>
-                      </li>
-                    </ul>
+                  <li>
+                    <NavLink exact to="/booking">
+                      Đặt Lịch
+                    </NavLink>
                   </li>
-                  <li className="has-subMenu">
-                    <a href="#" className="">
-                      Apps
-                    </a>
-                    <ul className="subMenu">
-                      <li>
-                        <a href="chat.html" className="">
-                          <span
-                            data-feather="message-square"
-                            className="nav-icon"
-                          />
-                          <span className="menu-text">Chat</span>
-                        </a>
-                      </li>
-                      <li className="has-subMenu-left">
-                        <a href="#" className="">
-                          <span
-                            data-feather="shopping-cart"
-                            className="nav-icon"
-                          />
-                          <span className="menu-text">eCommerce</span>
-                        </a>
-                        <ul className="subMenu">
-                          <li>
-                            <a href="products.html" className="">
-                              Products
-                            </a>
-                          </li>
-                          <li>
-                            <a href="product-details.html" className="">
-                              Product Details
-                            </a>
-                          </li>
-                          <li>
-                            <a href="add-product.html" className="">
-                              Product Add
-                            </a>
-                          </li>
-                          <li>
-                            <a href="" className="">
-                              Product Edit
-                            </a>
-                          </li>
-                          <li>
-                            <a href="cart.html" className="">
-                              Cart
-                            </a>
-                          </li>
-                          <li>
-                            <a href="order.html" className="">
-                              Orders
-                            </a>
-                          </li>
-                          <li>
-                            <a href="sellers.html" className="">
-                              Sellers
-                            </a>
-                          </li>
-                          <li>
-                            <a href="invoice.html" className="">
-                              Invoices
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li className="has-subMenu-left">
-                        <a href="#" className="">
-                          <span data-feather="mail" className="nav-icon" />
-                          <span className="menu-text">Email</span>
-                        </a>
-                        <ul className="subMenu">
-                          <li>
-                            <a href="inbox.html" className="">
-                              Inbox
-                            </a>
-                          </li>
-                          <li>
-                            <a href="read-email.html" className="">
-                              Read Email
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="chat.html" className="">
-                          <span data-feather="bookmark" className="nav-icon" />
-                          <span className="menu-text">Note</span>
-                        </a>
-                      </li>
-                      <li className="has-subMenu-left">
-                        <a href="#" className="">
-                          <span data-feather="user" className="nav-icon" />
-                          <span className="menu-text">â</span>
-                        </a>
-                        <ul className="subMenu">
-                          <li>
-                            <a href="profile.html" className="">
-                              Profile
-                            </a>
-                          </li>
-                          <li>
-                            <a href="profile-setting.html" className="">
-                              Profile Settings
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li className="has-subMenu-left">
-                        <a href="#" className="">
-                          <span
-                            data-feather="user-check"
-                            className="nav-icon"
-                          />
-                          <span className="menu-text">Contact</span>
-                        </a>
-                        <ul className="subMenu">
-                          <li>
-                            <a className="" href="contact-1.html">
-                              Contact 1
-                            </a>
-                          </li>
-                          <li>
-                            <a className="" href="contact-2.html">
-                              Contact 2
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="chat.html" className="">
-                          <span data-feather="activity" className="nav-icon" />
-                          <span className="menu-text">To-Do</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="kanban.html" className="">
-                          <span data-feather="columns" className="nav-icon" />
-                          <span className="menu-text">Kanban Board</span>
-                        </a>
-                      </li>
-                      <li className="has-subMenu-left">
-                        <a href="#" className="">
-                          <span data-feather="repeat" className="nav-icon" />
-                          <span className="menu-text">Import &amp; Export</span>
-                        </a>
-                        <ul className="subMenu">
-                          <li>
-                            <a className="" href="import.html">
-                              Import
-                            </a>
-                          </li>
-                          <li>
-                            <a className="" href="export.html">
-                              Export
-                            </a>
-                          </li>
-                          <li>
-                            <a className="" href="export-selected.html">
-                              Export Selected
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="file-manager.html" className="">
-                          <span data-feather="file" className="nav-icon" />
-                          <span className="menu-text">File Manager</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="task-app.html" className="">
-                          <span data-feather="clipboard" className="nav-icon" />
-                          <span className="menu-text">Task App</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="has-subMenu">
-                    <a href="#" className="">
-                      Crud
-                    </a>
-                    <ul className="subMenu">
-                      <li className="has-subMenu-left">
-                        <a href="#" className="">
-                          <span
-                            data-feather="shopping-cart"
-                            className="nav-icon"
-                          />
-                          <span className="menu-text">Firestore Crud</span>
-                        </a>
-                        <ul className="subMenu">
-                          <li>
-                            <a className="" href="firestore.html">
-                              View All
-                            </a>
-                          </li>
-                          <li>
-                            <a className="" href="firestore-add.html">
-                              Add New
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
+                  <li>
+                    <NavLink exact to="/products">
+                     Sản Phẩm
+                    </NavLink>
                   </li>
                   <li className="mega-item has-subMenu">
                     <a href="#" className="">
-                      Pages
-                    </a>
-                    <ul className="megaMenu-wrapper megaMenu-small">
-                      <li>
-                        <ul>
-                          <li>
-                            <a href="projects.html" className="">
-                              Project
-                            </a>
-                          </li>
-                          <li>
-                            <a href="application-ui.html" className="">
-                              Project Details
-                            </a>
-                          </li>
-                          <li>
-                            <a href="create.html" className="">
-                              Create Project
-                            </a>
-                          </li>
-                          <li>
-                            <a href="users-card.html" className="">
-                              Team
-                            </a>
-                          </li>
-                          <li>
-                            <a href="users-card2.html" className="">
-                              Users
-                            </a>
-                          </li>
-                          <li>
-                            <a href="user-info.html" className="">
-                              Users Info
-                            </a>
-                          </li>
-                          <li>
-                            <a href="users-list.html" className="">
-                              Users List
-                            </a>
-                          </li>
-                          <li>
-                            <a href="users-group.html" className="">
-                              Users Group
-                            </a>
-                          </li>
-                          <li>
-                            <a href="banner.html" className="">
-                              <span className="menu-text">Banners</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="testimonial.html" className="">
-                              <span className="menu-text">Testimonial</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="support.html" className="">
-                              <span className="menu-text">Support Center</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="dynamic-table.html" className="">
-                              <span className="menu-text">Dynamic Table</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <ul>
-                          <li>
-                            <a href="users-datatable.html" className="">
-                              Users Table
-                            </a>
-                          </li>
-                          <li>
-                            <a href="gallery.html" className="">
-                              Gallery 1
-                            </a>
-                          </li>
-                          <li>
-                            <a href="gallery2.html" className="">
-                              Gallery 2
-                            </a>
-                          </li>
-                          <li>
-                            <a href="pricing.html" className="">
-                              Pricing
-                            </a>
-                          </li>
-                          <li>
-                            <a href="faq.html" className="">
-                              FAQ's
-                            </a>
-                          </li>
-                          <li>
-                            <a href="search.html" className="">
-                              Search Results
-                            </a>
-                          </li>
-                          <li>
-                            <a href="maintenance.html" className="">
-                              Coming Soon
-                            </a>
-                          </li>
-                          <li>
-                            <a href="404.html" className="">
-                              404
-                            </a>
-                          </li>
-                          <li>
-                            <a href="maintenance.html" className="">
-                              <span className="menu-text">Maintenance</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="login.html" className="">
-                              <span className="menu-text">Log In</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="sign-up.html" className="">
-                              <span className="menu-text">Sign Up</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="blank.html" className="">
-                              <span className="menu-text">Blank</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="mega-item has-subMenu">
-                    <a href="#" className="">
-                      Components
+                      Danh mục
                     </a>
                     <ul className="megaMenu-wrapper megaMenu-wide">
                       <li>
@@ -688,6 +292,352 @@ const Header = () => {
                   </li>
                   <li className="has-subMenu">
                     <a href="#" className="">
+                      Layouts
+                    </a>
+                    <ul className="subMenu">
+                      <li className="l_sidebar">
+                        <a href="#" data-layout="light">
+                          Light Mode
+                        </a>
+                      </li>
+                      <li className="l_sidebar">
+                        <a href="#" data-layout="dark">
+                          Dark Mode
+                        </a>
+                      </li>
+                      <li className="l_navbar">
+                        <a href="#" data-layout="top">
+                          Top Menu
+                        </a>
+                      </li>
+                      <li className="l_navbar">
+                        <a href="#" data-layout="side">
+                          Side Menu
+                        </a>
+                      </li>
+                      <li className="layout">
+                        <a href="../rtl">RTL</a>
+                      </li>
+                      <li className="layout">
+                        <a href="../ltr">LTR</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li className="has-subMenu">
+                    <a href="#" className="">
+                      Apps
+                    </a>
+                    <ul className="subMenu">
+                      <li>
+                        <a href="chat.html" className="">
+                          <span
+                            data-feather="message-square"
+                            className="nav-icon"
+                          />
+                          <span className="menu-text">Chat</span>
+                        </a>
+                      </li>
+                      <li className="has-subMenu-left">
+                        <a href="#" className="">
+                          <span
+                            data-feather="shopping-cart"
+                            className="nav-icon"
+                          />
+                          <span className="menu-text">eCommerce</span>
+                        </a>
+                        <ul className="subMenu">
+                          <li>
+                            <a href="products.html" className="">
+                              Products
+                            </a>
+                          </li>
+                          <li>
+                            <a href="product-details.html" className="">
+                              Product Details
+                            </a>
+                          </li>
+                          <li>
+                            <a href="add-product.html" className="">
+                              Product Add
+                            </a>
+                          </li>
+                          <li>
+                            <a href="" className="">
+                              Product Edit
+                            </a>
+                          </li>
+                          <li>
+                            <a href="cart.html" className="">
+                              Cart
+                            </a>
+                          </li>
+                          <li>
+                            <a href="order.html" className="">
+                              Orders
+                            </a>
+                          </li>
+                          <li>
+                            <a href="sellers.html" className="">
+                              Sellers
+                            </a>
+                          </li>
+                          <li>
+                            <a href="invoice.html" className="">
+                              Invoices
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li className="has-subMenu-left">
+                        <a href="#" className="">
+                          <span data-feather="mail" className="nav-icon" />
+                          <span className="menu-text">Email</span>
+                        </a>
+                        <ul className="subMenu">
+                          <li>
+                            <a href="inbox.html" className="">
+                              Inbox
+                            </a>
+                          </li>
+                          <li>
+                            <a href="read-email.html" className="">
+                              Read Email
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="chat.html" className="">
+                          <span data-feather="bookmark" className="nav-icon" />
+                          <span className="menu-text">Note</span>
+                        </a>
+                      </li>
+                      <li className="has-subMenu-left">
+                        <a href="#" className="">
+                          <span data-feather="user" className="nav-icon" />
+                          <span className="menu-text">â</span>
+                        </a>
+                        <ul className="subMenu">
+                          <li>
+                            <a href="profile.html" className="">
+                              Profile
+                            </a>
+                          </li>
+                          <li>
+                            <a href="profile-setting.html" className="">
+                              Profile Settings
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li className="has-subMenu-left">
+                        <a href="#" className="">
+                          <span
+                            data-feather="user-check"
+                            className="nav-icon"
+                          />
+                          <span className="menu-text">Contact</span>
+                        </a>
+                        <ul className="subMenu">
+                          <li>
+                            <a className="" href="contact-1.html">
+                              Contact 1
+                            </a>
+                          </li>
+                          <li>
+                            <a className="" href="contact-2.html">
+                              Contact 2
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="chat.html" className="">
+                          <span data-feather="activity" className="nav-icon" />
+                          <span className="menu-text">To-Do</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="kanban.html" className="">
+                          <span data-feather="columns" className="nav-icon" />
+                          <span className="menu-text">Kanban Board</span>
+                        </a>
+                      </li>
+                      <li className="has-subMenu-left">
+                        <a href="#" className="">
+                          <span data-feather="repeat" className="nav-icon" />
+                          <span className="menu-text">Import &amp; Export</span>
+                        </a>
+                        <ul className="subMenu">
+                          <li>
+                            <a className="" href="import.html">
+                              Import
+                            </a>
+                          </li>
+                          <li>
+                            <a className="" href="export.html">
+                              Export
+                            </a>
+                          </li>
+                          <li>
+                            <a className="" href="export-selected.html">
+                              Export Selected
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="file-manager.html" className="">
+                          <span data-feather="file" className="nav-icon" />
+                          <span className="menu-text">File Manager</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="task-app.html" className="">
+                          <span data-feather="clipboard" className="nav-icon" />
+                          <span className="menu-text">Task App</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li className="mega-item has-subMenu">
+                    <a href="#" className="">
+                      Pages
+                    </a>
+                    <ul className="megaMenu-wrapper megaMenu-small">
+                      <li>
+                        <ul>
+                          <li>
+                            <a href="projects.html" className="">
+                              Project
+                            </a>
+                          </li>
+                          <li>
+                            <a href="application-ui.html" className="">
+                              Project Details
+                            </a>
+                          </li>
+                          <li>
+                            <a href="create.html" className="">
+                              Create Project
+                            </a>
+                          </li>
+                          <li>
+                            <a href="users-card.html" className="">
+                              Team
+                            </a>
+                          </li>
+                          <li>
+                            <a href="users-card2.html" className="">
+                              Users
+                            </a>
+                          </li>
+                          <li>
+                            <a href="user-info.html" className="">
+                              Users Info
+                            </a>
+                          </li>
+                          <li>
+                            <a href="users-list.html" className="">
+                              Users List
+                            </a>
+                          </li>
+                          <li>
+                            <a href="users-group.html" className="">
+                              Users Group
+                            </a>
+                          </li>
+                          <li>
+                            <a href="banner.html" className="">
+                              <span className="menu-text">Banners</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="testimonial.html" className="">
+                              <span className="menu-text">Testimonial</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="support.html" className="">
+                              <span className="menu-text">Support Center</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="dynamic-table.html" className="">
+                              <span className="menu-text">Dynamic Table</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <ul>
+                          <li>
+                            <a href="users-datatable.html" className="">
+                              Users Table
+                            </a>
+                          </li>
+                          <li>
+                            <a href="gallery.html" className="">
+                              Gallery 1
+                            </a>
+                          </li>
+                          <li>
+                            <a href="gallery2.html" className="">
+                              Gallery 2
+                            </a>
+                          </li>
+                          <li>
+                            <a href="pricing.html" className="">
+                              Pricing
+                            </a>
+                          </li>
+                          <li>
+                            <a href="faq.html" className="">
+                              FAQ's
+                            </a>
+                          </li>
+                          <li>
+                            <a href="search.html" className="">
+                              Search Results
+                            </a>
+                          </li>
+                          <li>
+                            <a href="maintenance.html" className="">
+                              Coming Soon
+                            </a>
+                          </li>
+                          <li>
+                            <a href="404.html" className="">
+                              404
+                            </a>
+                          </li>
+                          <li>
+                            <a href="maintenance.html" className="">
+                              <span className="menu-text">Maintenance</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="login.html" className="">
+                              <span className="menu-text">Log In</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="sign-up.html" className="">
+                              <span className="menu-text">Sign Up</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a href="blank.html" className="">
+                              <span className="menu-text">Blank</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+   
+                  <li className="has-subMenu">
+                    <a href="#" className="">
                       Features
                     </a>
                     <ul className="subMenu">
@@ -904,440 +854,7 @@ const Header = () => {
                   />
                 </form>
               </li>
-              <li className="nav-message">
-                <div className="dropdown-custom">
-                  <a href="#" className="nav-item-toggle">
-                    <span data-feather="mail" />
-                  </a>
-                  <div className="dropdown-wrapper">
-                    <h2 className="dropdown-wrapper__title">
-                      Messages{' '}
-                      <span className="badge-circle badge-success ml-1">2</span>
-                    </h2>
-                    <ul>
-                      <li className="author-online has-new-message">
-                        <div className="user-avater">
-                          <img src="/assets/img/team-1.png" alt="" />
-                        </div>
-                        <div className="user-message">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              Web Design
-                            </a>
-                            <span className="time-posted">3 hrs ago</span>
-                          </p>
-                          <p>
-                            <span
-                              className="desc text-truncate"
-                              style={{ maxWidth: 215 }}
-                            >
-                              Lorem ipsum dolor amet cosec Lorem ipsum
-                            </span>
-                            <span className="msg-count badge-circle badge-success badge-sm">
-                              1
-                            </span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="author-offline has-new-message">
-                        <div className="user-avater">
-                          <img src="/assets/img/team-1.png" alt="" />
-                        </div>
-                        <div className="user-message">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              Web Design
-                            </a>
-                            <span className="time-posted">3 hrs ago</span>
-                          </p>
-                          <p>
-                            <span
-                              className="desc text-truncate"
-                              style={{ maxWidth: 215 }}
-                            >
-                              Lorem ipsum dolor amet cosec Lorem ipsum
-                            </span>
-                            <span className="msg-count badge-circle badge-success badge-sm">
-                              1
-                            </span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="author-online has-new-message">
-                        <div className="user-avater">
-                          <img src="/assets/img/team-1.png" alt="" />
-                        </div>
-                        <div className="user-message">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              Web Design
-                            </a>
-                            <span className="time-posted">3 hrs ago</span>
-                          </p>
-                          <p>
-                            <span
-                              className="desc text-truncate"
-                              style={{ maxWidth: 215 }}
-                            >
-                              Lorem ipsum dolor amet cosec Lorem ipsum
-                            </span>
-                            <span className="msg-count badge-circle badge-success badge-sm">
-                              1
-                            </span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="author-offline">
-                        <div className="user-avater">
-                          <img src="/assets/img/team-1.png" alt="" />
-                        </div>
-                        <div className="user-message">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              Web Design
-                            </a>
-                            <span className="time-posted">3 hrs ago</span>
-                          </p>
-                          <p>
-                            <span
-                              className="desc text-truncate"
-                              style={{ maxWidth: 215 }}
-                            >
-                              Lorem ipsum dolor amet cosec Lorem ipsum
-                            </span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="author-offline">
-                        <div className="user-avater">
-                          <img src="/assets/img/team-1.png" alt="" />
-                        </div>
-                        <div className="user-message">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              Web Design
-                            </a>
-                            <span className="time-posted">3 hrs ago</span>
-                          </p>
-                          <p>
-                            <span
-                              className="desc text-truncate"
-                              style={{ maxWidth: 215 }}
-                            >
-                              Lorem ipsum dolor amet cosec Lorem ipsum
-                            </span>
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                    <a href="" className="dropdown-wrapper__more">
-                      See All Message
-                    </a>
-                  </div>
-                </div>
-              </li>
-              {/* ends: nav-message */}
-              <li className="nav-notification">
-                <div className="dropdown-custom">
-                  <a href="#" className="nav-item-toggle">
-                    <span data-feather="bell" />
-                  </a>
-                  <div className="dropdown-wrapper">
-                    <h2 className="dropdown-wrapper__title">
-                      Notifications{' '}
-                      <span className="badge-circle badge-warning ml-1">4</span>
-                    </h2>
-                    <ul>
-                      <li className="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
-                        <div className="nav-notification__type nav-notification__type--primary">
-                          <span data-feather="inbox" />
-                        </div>
-                        <div className="nav-notification__details">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              James
-                            </a>
-                            <span>sent you a message</span>
-                          </p>
-                          <p>
-                            <span className="time-posted">5 hours ago</span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
-                        <div className="nav-notification__type nav-notification__type--secondary">
-                          <span data-feather="upload" />
-                        </div>
-                        <div className="nav-notification__details">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              James
-                            </a>
-                            <span>sent you a message</span>
-                          </p>
-                          <p>
-                            <span className="time-posted">5 hours ago</span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="nav-notification__single nav-notification__single--unread d-flex flex-wrap">
-                        <div className="nav-notification__type nav-notification__type--success">
-                          <span data-feather="log-in" />
-                        </div>
-                        <div className="nav-notification__details">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              James
-                            </a>
-                            <span>sent you a message</span>
-                          </p>
-                          <p>
-                            <span className="time-posted">5 hours ago</span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="nav-notification__single nav-notification__single d-flex flex-wrap">
-                        <div className="nav-notification__type nav-notification__type--info">
-                          <span data-feather="at-sign" />
-                        </div>
-                        <div className="nav-notification__details">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              James
-                            </a>
-                            <span>sent you a message</span>
-                          </p>
-                          <p>
-                            <span className="time-posted">5 hours ago</span>
-                          </p>
-                        </div>
-                      </li>
-                      <li className="nav-notification__single nav-notification__single d-flex flex-wrap">
-                        <div className="nav-notification__type nav-notification__type--danger">
-                          <span data-feather="heart" />
-                        </div>
-                        <div className="nav-notification__details">
-                          <p>
-                            <a
-                              href=""
-                              className="subject stretched-link text-truncate"
-                              style={{ maxWidth: 180 }}
-                            >
-                              James
-                            </a>
-                            <span>sent you a message</span>
-                          </p>
-                          <p>
-                            <span className="time-posted">5 hours ago</span>
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                    <a href="" className="dropdown-wrapper__more">
-                      See all incoming activity
-                    </a>
-                  </div>
-                </div>
-              </li>
-              {/* ends: .nav-notification */}
-              <li className="nav-settings">
-                <div className="dropdown-custom">
-                  <a href="#" className="nav-item-toggle">
-                    <span data-feather="settings" />
-                  </a>
-                  <div className="dropdown-wrapper dropdown-wrapper--large">
-                    <ul className="list-settings">
-                      <li className="d-flex">
-                        <div className="mr-3">
-                          <img src="/assets/img/mail.png" alt="" />
-                        </div>
-                        <div className="flex-grow-1">
-                          <h6>
-                            <a href="" className="stretched-link">
-                              All Features
-                            </a>
-                          </h6>
-                          <p>Introducing Increment subscriptions </p>
-                        </div>
-                      </li>
-                      <li className="d-flex">
-                        <div className="mr-3">
-                          <img src="/assets/img/color-palette.png" alt="" />
-                        </div>
-                        <div className="flex-grow-1">
-                          <h6>
-                            <a href="" className="stretched-link">
-                              Themes
-                            </a>
-                          </h6>
-                          <p>Third party themes that are compatible</p>
-                        </div>
-                      </li>
-                      <li className="d-flex">
-                        <div className="mr-3">
-                          <img src="/assets/img/home.png" alt="" />
-                        </div>
-                        <div className="flex-grow-1">
-                          <h6>
-                            <a href="" className="stretched-link">
-                              Payments
-                            </a>
-                          </h6>
-                          <p>We handle billions of dollars</p>
-                        </div>
-                      </li>
-                      <li className="d-flex">
-                        <div className="mr-3">
-                          <img src="/assets/img/video-camera.png" alt="" />
-                        </div>
-                        <div className="flex-grow-1">
-                          <h6>
-                            <a href="" className="stretched-link">
-                              Design Mockups
-                            </a>
-                          </h6>
-                          <p>Share planning visuals with clients</p>
-                        </div>
-                      </li>
-                      <li className="d-flex">
-                        <div className="mr-3">
-                          <img src="/assets/img/document.png" alt="" />
-                        </div>
-                        <div className="flex-grow-1">
-                          <h6>
-                            <a href="" className="stretched-link">
-                              Content Planner
-                            </a>
-                          </h6>
-                          <p>Centralize content gethering and editing</p>
-                        </div>
-                      </li>
-                      <li className="d-flex">
-                        <div className="mr-3">
-                          <img src="/assets/img/microphone.png" alt="" />
-                        </div>
-                        <div className="flex-grow-1">
-                          <h6>
-                            <a href="" className="stretched-link">
-                              Diagram Maker
-                            </a>
-                          </h6>
-                          <p>Plan user flows &amp; test scenarios</p>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              {/* ends: .nav-settings */}
-              <li className="nav-support">
-                <div className="dropdown-custom">
-                  <a href="#" className="nav-item-toggle">
-                    <span data-feather="help-circle" />
-                  </a>
-                  <div className="dropdown-wrapper">
-                    <div className="list-group">
-                      <span>Documentation</span>
-                      <ul>
-                        <li>
-                          <a href="">How to customize admin</a>
-                        </li>
-                        <li>
-                          <a href="">How to use</a>
-                        </li>
-                        <li>
-                          <a href="">The relation of vertical spacing</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="list-group">
-                      <span>Payments</span>
-                      <ul>
-                        <li>
-                          <a href="">How to customize admin</a>
-                        </li>
-                        <li>
-                          <a href="">How to use</a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="list-group">
-                      <span>Content Planner</span>
-                      <ul>
-                        <li>
-                          <a href="">How to customize admin</a>
-                        </li>
-                        <li>
-                          <a href="">How to use</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              {/* ends: .nav-support */}
-              <li className="nav-flag-select">
-                <div className="dropdown-custom">
-                  <a href="#" className="nav-item-toggle">
-                    <img
-                      src="/assets/img/flag.png"
-                      alt=""
-                      className="rounded-circle"
-                    />
-                  </a>
-                  <div className="dropdown-wrapper dropdown-wrapper--small">
-                    <a href="">
-                      <img src="/assets/img/eng.png" alt="" /> English
-                    </a>
-                    <a href="">
-                      <img src="/assets/img/ger.png" alt="" /> German
-                    </a>
-                    <a href="">
-                      <img src="/assets/img/spa.png" alt="" /> Spanish
-                    </a>
-                    <a href="">
-                      <img src="/assets/img/tur.png" alt="" /> Turkish
-                    </a>
-                  </div>
-                </div>
-              </li>
-              {/* ends: .nav-flag-select */}
+            
               <li className="nav-author">
                 <div className="dropdown-custom">
                   <a href="#" className="nav-item-toggle">
@@ -1389,7 +906,7 @@ const Header = () => {
                           </a>
                         </li>
                       </ul>
-                      <a  className="nav-author__signout">
+                      <a className="nav-author__signout">
                         <span data-feather="log-out" /> Đăng xuất
                       </a>
                     </div>
