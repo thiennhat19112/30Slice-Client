@@ -39,18 +39,18 @@ const Header = () => {
               <div className="strikingDash-top-menu position-relative">
                 <ul>
                   <li>
-                    <NavLink exact to="/">
+                    <NavLink exact="true" to="/">
                       Trang Chủ
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink exact to="/booking">
+                    <NavLink exact="true" to="/booking">
                       Đặt Lịch
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink exact to="/products">
-                     Sản Phẩm
+                    <NavLink exact="true" to="/products">
+                      Sản Phẩm
                     </NavLink>
                   </li>
                   <li className="mega-item has-subMenu">
@@ -635,7 +635,7 @@ const Header = () => {
                       </li>
                     </ul>
                   </li>
-   
+
                   <li className="has-subMenu">
                     <a href="#" className="">
                       Features
