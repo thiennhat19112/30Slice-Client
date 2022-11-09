@@ -17,6 +17,7 @@ function Products(props) {
       Notiflix.Loading.remove();
     }
     setCate(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -70,6 +71,47 @@ function Products(props) {
                     {/* Body */}
                   </aside>
                   {/* End: Aside */}
+
+                  {/* Start: Aside */}
+                  <aside className="product-sidebar-widget mb-30">
+                    {/* Title */}
+                    <div className="widget_title mb-20">
+                      <h6>Loại sản phẩm (số bên phải lấy tạm ordinal)</h6>
+                    </div>
+                    {/* Title */}
+                    {/* Body */}
+                    <div className="card border-0">
+                      <div className="product-brands">
+                        <ul>
+                          {listCate.map((item, index) => (
+                            <li key={index}>
+                              <div className="checkbox-theme-default custom-checkbox ">
+                                <input
+                                  className="checkbox"
+                                  type="checkbox"
+                                  id={`check-${item._id}`}
+                                />
+                                <label htmlFor={`check-${item._id}`}>
+                                  <span className="checkbox-text">
+                                    {item.Name}
+                                    <span className="item-numbers">{item.Ordinal}</span>
+                                  </span>
+                                </label>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="mt-2">
+                          <a href="#" className=" fs-13 fw-500 text-capitalize">
+                            Xem thêm
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Body */}
+                  </aside>
+                  {/* End: Aside */}
+
                   {/* Start: Aside */}
                   <aside className="product-sidebar-widget mb-30">
                     {/* Title */}
@@ -263,7 +305,7 @@ function Products(props) {
                   <aside className="product-sidebar-widget mb-30">
                     {/* Title */}
                     <div className="widget_title mb-20">
-                      <h6>Ratings</h6>
+                      <h6>Đánh giá</h6>
                     </div>
                     {/* Title */}
                     {/* Body */}
@@ -405,21 +447,21 @@ function Products(props) {
                         <input
                           className="form-control mr-sm-2 border-0 box-shadow-none"
                           type="search"
-                          placeholder="Search"
+                          placeholder="Tìm kiếm"
                           aria-label="Search"
                         />
                       </form>
                     </div>
                     <span className="project-result-showing fs-14 color-gray ml-xl-25 mr-xl-0 text-center mt-lg-0 mt-20">
-                      Showing
-                      <span>1–8</span> of <span>86</span>
-                      results
+                      Hiển thị
+                      <span>1–8</span> trong <span>86</span>
+                      kết quả
                     </span>
                   </div>
                   <div className="project-top-right d-flex flex-wrap align-items-center">
                     <div className="project-category flex-wrap d-flex align-items-center">
                       <p className="fs-14 color-gray text-capitalize">
-                        sort by:
+                        Xếp theo:
                       </p>
                       <div className="project-tap b-light">
                         <ul className="nav px-1 " id="ap-tab" role="tablist">
@@ -433,7 +475,7 @@ function Products(props) {
                               aria-controls="ap-overview"
                               aria-selected="true"
                             >
-                              top rated
+                              Đánh giá
                             </a>
                           </li>
                           <li className="nav-item">
@@ -446,7 +488,7 @@ function Products(props) {
                               aria-controls="timeline"
                               aria-selected="false"
                             >
-                              popular
+                              Phổ biến
                             </a>
                           </li>
                           <li className="nav-item">
@@ -459,7 +501,7 @@ function Products(props) {
                               aria-controls="activity"
                               aria-selected="false"
                             >
-                              Newest
+                              Mới nhất
                             </a>
                           </li>
                           <li className="nav-item">
@@ -472,7 +514,7 @@ function Products(props) {
                               aria-controls="draft"
                               aria-selected="false"
                             >
-                              price
+                              Giá
                             </a>
                           </li>
                         </ul>
@@ -485,13 +527,48 @@ function Products(props) {
                             className="icon-list-social__link rounded-circle icon-list-social__style justify-content-center active ml-xl-20 mr-20"
                             href="#"
                           >
-                            <span data-feather="grid" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width={24}
+                              height={24}
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="feather feather-grid"
+                            >
+                              <rect x={3} y={3} width={7} height={7} />
+                              <rect x={14} y={3} width={7} height={7} />
+                              <rect x={14} y={14} width={7} height={7} />
+                              <rect x={3} y={14} width={7} height={7} />
+                            </svg>
+
                           </a>
                           <a
                             className="icon-list-social__link rounded-circle icon-list-social__style justify-content-center  "
                             href="product-list.html"
                           >
-                            <span data-feather="list" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width={24}
+                              height={24}
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="feather feather-list"
+                            >
+                              <line x1={8} y1={6} x2={21} y2={6} />
+                              <line x1={8} y1={12} x2={21} y2={12} />
+                              <line x1={8} y1={18} x2={21} y2={18} />
+                              <line x1={3} y1={6} x2="3.01" y2={6} />
+                              <line x1={3} y1={12} x2="3.01" y2={12} />
+                              <line x1={3} y1={18} x2="3.01" y2={18} />
+                            </svg>
                           </a>
                         </div>
                       </div>
@@ -500,6 +577,7 @@ function Products(props) {
                 </div>
               </div>
               {/* End: Top Bar */}
+              {/* Start: .product-list */}
               <div className="tab-content mt-25" id="ap-tabContent">
                 <div
                   className="tab-pane fade show active"
@@ -1347,6 +1425,7 @@ function Products(props) {
                   </div>
                 </div>
               </div>
+              {/* End: .product-list */}
             </div>
             {/* End: .columns-2 */}
           </div>
