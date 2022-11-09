@@ -17,15 +17,13 @@ function App(props) {
       <Header />
       <main className="main-content">
         <Sidebar />
-        <div className="contents">
-          <Routes>
-            <Route path="/" exact element={<Home />} />
-            <Route path="/booking" exact element={<Booking />} />
-            <Route path="/products" exact element={<Products />} />
-            <Route path="/products/id" exact element={<Detail />} />
-            <Route path="*" element={<Error />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/booking" exact element={<Booking />} />
+          <Route path="/products" exact element={<Products />} />
+          <Route path="/products/id" exact element={<Detail />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
       </main>
       <Footer />
     </BrowserRouter>
