@@ -22,9 +22,9 @@ function Product(props) {
             </div>
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
-                <a href="product-details.html">
+                <NavLink to="/products/id">
                   <h6 className="card-title">Tên sản phẩm</h6>
-                </a>
+                </NavLink>
                 <div className="d-flex align-items-center mb-10 flex-wrap">
                   <span className="product-desc-price">
                    400.000.000 vnđ
