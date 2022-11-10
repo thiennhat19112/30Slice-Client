@@ -3,11 +3,13 @@ import Notiflix from "notiflix";
 
 import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
+import { useRef } from "react";
 
 function Products(props) {
   const [listCate, setCate] = useState([]);
   const [dataProduct, setdataProduct] = useState({});
   const [listProduct, setListProduct] = useState([]);
+  const _isMounted = useRef(false)
 
   const fetchCate = async () => {
     Notiflix.Loading.standard("Đang tải...");
@@ -18,8 +20,7 @@ function Products(props) {
     if (data) {
       Notiflix.Loading.remove();
     }
-    setCate(data);
-    console.log(data);
+    _isMounted.current && setCate(data);
   };
   const fetchProduct = async () => {
     Notiflix.Loading.standard("Đang tải...");
@@ -30,10 +31,17 @@ function Products(props) {
     if (data) {
       Notiflix.Loading.remove();
     }
-    setdataProduct(data);
-    setListProduct(data.products);
+    _isMounted.current && setdataProduct(data);
+    _isMounted.current && setListProduct(data.products);
 
   };
+  useEffect(()=>{
+    _isMounted.current = true;
+    return  () => {
+      _isMounted.current = false
+    }
+  },[])
+
   useEffect(() => {
     fetchCate();
     fetchProduct();
