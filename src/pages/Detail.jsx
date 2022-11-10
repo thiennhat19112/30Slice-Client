@@ -1,9 +1,26 @@
 import { useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breakcumb";
-
+import Notiflix from "notiflix";
+import { useEffect, useState } from "react";
 function Detail(props) {
   const params = useParams();
   console.log(params.id);
+  const [product, setProduct] = useState({});
+  const fetchDetail = async () => {
+    Notiflix.Loading.standard("Đang tải...");
+    const res = await fetch(
+      process.env.REACT_APP_API_ENDPOINT + "product/getOneProduct/" + params.id
+    );
+    const data = await res.json();
+    if (data) {
+      Notiflix.Loading.remove();
+    }
+    setProduct(data);
+    console.log(data);
+  };
+  useEffect(() => {
+    fetchDetail();
+  }, []);
   return (
     <div className="contents">
       <div className="container-fluid">
@@ -14,99 +31,6 @@ function Detail(props) {
                 <h4 className="text-capitalize breadcrumb-title">
                   Chi tiết sản phẩm
                 </h4>
-                <div className="breadcrumb-action justify-content-center flex-wrap">
-                  <div className="action-btn">
-                    <div className="form-group mb-0">
-                      <div className="input-container icon-left position-relative">
-                        <span className="input-icon icon-left">
-                          <span data-feather="calendar" />
-                        </span>
-                        <input
-                          type="text"
-                          className="form-control form-control-default date-ranger"
-                          name="date-ranger"
-                          placeholder="Oct 30, 2019 - Nov 30, 2019"
-                        />
-                        <span className="input-icon icon-right">
-                          <span data-feather="chevron-down" />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="dropdown action-btn">
-                    <button
-                      className="btn btn-sm btn-default btn-white dropdown-toggle"
-                      type="button"
-                      id="dropdownMenu2"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="la la-download" /> Export
-                    </button>
-                    <div
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenu2"
-                    >
-                      <span className="dropdown-item">Export With</span>
-                      <div className="dropdown-divider" />
-                      <a href="" className="dropdown-item">
-                        <i className="la la-print" /> Printer
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-file-pdf" /> PDF
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-file-text" /> Google Sheets
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-file-excel" /> Excel (XLSX)
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-file-csv" /> CSV
-                      </a>
-                    </div>
-                  </div>
-                  <div className="dropdown action-btn">
-                    <button
-                      className="btn btn-sm btn-default btn-white dropdown-toggle"
-                      type="button"
-                      id="dropdownMenu3"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="la la-share" /> Share
-                    </button>
-                    <div
-                      className="dropdown-menu"
-                      aria-labelledby="dropdownMenu3"
-                    >
-                      <span className="dropdown-item">Share Link</span>
-                      <div className="dropdown-divider" />
-                      <a href="" className="dropdown-item">
-                        <i className="la la-facebook" /> Facebook
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-twitter" /> Twitter
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-google" /> Google
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-feed" /> Feed
-                      </a>
-                      <a href="" className="dropdown-item">
-                        <i className="la la-instagram" /> Instagram
-                      </a>
-                    </div>
-                  </div>
-                  <div className="action-btn">
-                    <a href="" className="btn btn-sm btn-primary btn-add">
-                      <i className="la la-plus" /> Add New
-                    </a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -159,77 +83,47 @@ function Detail(props) {
                           />
                         </ol>
                         <div className="carousel-inner" role="listbox">
-                          <div className="carousel-item active">
-                            <img
-                              className="img-fluid d-flex bg-opacity-primary "
-                              src="/assets/img/slider-details.png"
-                              alt="Card image cap"
-                              title=""
-                            />
-                          </div>
-                          <div className="carousel-item">
-                            <img
-                              className="img-fluid d-flex bg-opacity-primary"
-                              src="/assets/img/slide-deatils2.png"
-                              alt="Card image cap"
-                              title=""
-                            />
-                          </div>
-                          <div className="carousel-item">
-                            <img
-                              className="img-fluid d-flex bg-opacity-primary"
-                              src="/assets/img/slide-deatils3.png"
-                              alt="Card image cap"
-                              title=""
-                            />
-                          </div>
+                          {product.Images &&
+                            product.Images.map((item, index) => {
+                              return (
+                                <div
+                                  className={`carousel-item ${
+                                    index === 0 ? "active" : ""
+                                  }`}
+                                  key={index}
+                                >
+                                  <img
+                                    className="img-fluid d-flex bg-opacity-primary "
+                                    src={item}
+                                    alt="First slide"
+                                  />
+                                </div>
+                              );
+                            })}
                         </div>
                       </div>
                       <div className="overflow-hidden " id="slider-thumbs">
                         {/* Bottom switcher of slider */}
                         <ul className="reset-ul d-flex flex-wrap list-thumb-gallery">
-                          <li>
-                            <a
-                              href="#"
-                              className="thumbnail"
-                              data-target="#myCarouselArticle"
-                              data-slide-to={0}
-                            >
-                              <img
-                                className="img-fluid d-flex bg-opacity-primary"
-                                src="/assets/img/slider-details.png"
-                                alt=""
-                              />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="thumbnail"
-                              data-target="#myCarouselArticle"
-                              data-slide-to={1}
-                            >
-                              <img
-                                className="img-fluid d-flex bg-opacity-primary"
-                                src="/assets/img/slide-deatils2.png"
-                                alt=""
-                              />
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#"
-                              className="thumbnail"
-                              data-target="#myCarouselArticle"
-                              data-slide-to={2}
-                            >
-                              <img
-                                className="img-fluid d-flex bg-opacity-primary"
-                                src="/assets/img/slide-deatils3.png"
-                                alt=""
-                              />
-                            </a>
-                          </li>
+                          {product.Images &&
+                            product.Images.map((item, index) => {
+                              return (
+                                <li key={index}>
+                                  <a
+                                    href="#"
+                                    className="thumbnail"
+                                    data-target="#myCarouselArticle"
+                                    data-slide-to={index}
+                                  >
+                                    <img
+                                      className="d-flex bg-opacity-primary"
+                                      src={item}
+                                      alt="First slide"
+                                    />
+                                  </a>
+                                </li>
+                              );
+                            })}
                         </ul>
                       </div>
                     </div>
@@ -243,7 +137,7 @@ function Detail(props) {
                       {/* Start: Product Title */}
                       <div className="product-item__title">
                         <h2 className="card-title fw-500">
-                          <a href="#">This stools are also decently stored</a>
+                          <a href="#">{product.Name}</a>
                         </h2>
                       </div>
                       {/* End: Product Title */}
@@ -266,18 +160,16 @@ function Detail(props) {
                           Brand:<span>Louis Poulsen</span>
                         </span>
                         <span className="product-desc-price">
-                          <sub>$</sub>$200.00
+                        {product && (product.Price - (product.Price * product.Saled/100)).toLocaleString('vi-VN')} VND
                         </span>
                         <div className="d-flex align-items-center mb-2">
-                          <span className="product-price">$100.00</span>
-                          <span className="product-discount">50% Off</span>
+                          <span className="product-price">{product.Price}</span>
+                          <span className="product-discount">{product.Saled}% Off</span>
                         </div>
                         {/* End: Product Brand */}
                         {/* Start: Product Description */}
                         <p className=" product-deatils-pera">
-                          Lorem ipsum dolor sit amet, consetetur sadipscing
-                          elitr, sed diam nonumy eirmod tempor invidunt ut
-                          labore et dolore magna.
+                         {product.Details}
                         </p>
                         {/* End: Product Description */}
                         {/* Start: Product Stock */}
@@ -313,7 +205,7 @@ function Detail(props) {
                             />
                           </div>
                           <span className="fs-13 fw-400 color-light my-sm-0 my-10">
-                            540 pieces available
+                          {product.InStock} sản phẩm còn lại
                           </span>
                         </div>
                         {/* End: Product Quantity */}
@@ -321,11 +213,11 @@ function Detail(props) {
                         <div className="product-item__button mt-lg-30 mt-sm-25 mt-20 d-flex flex-wrap">
                           <div className=" d-flex flex-wrap product-item__action align-items-center">
                             <button className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2">
-                              buy now
+                             Mua ngay
                             </button>
                             <button className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2">
                               <span data-feather="shopping-bag" />
-                              Add To Cart
+                              Thêm vào giỏ
                             </button>
                             <div className="like-icon">
                               <button type="button">
