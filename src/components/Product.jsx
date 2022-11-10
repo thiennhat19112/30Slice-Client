@@ -23,7 +23,7 @@ function Product(props) {
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
                 <NavLink to={/products/ + props.prod._id}>
-                  <h6 className="card-title">{props.prod.Name}</h6>
+                  <h6 className="card-title">{props.prod.Name.substring(0,40)}...</h6>
                 </NavLink>
                 <div className="d-flex align-items-center mb-10 flex-wrap">
                   <span className="product-desc-price">
