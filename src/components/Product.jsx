@@ -12,25 +12,25 @@ function Product(props) {
                   <i className="lar la-heart icon" />
                 </button>
               </span>
-              <a href="#">
+              <NavLink to={/products/ + props.prod._id} >
                 <img
                   className="card-img-top img-fluid"
-                  src="https://static.30shine.com/shop-admin/2022/01/11/30SKHD1H-S%C3%A1p%20Glanzen%20Clay%20-%20USP.png"
+                  src={props.prod.Images[0]}
                   alt="digital-chair"
                 />
-              </a>
+              </NavLink>
             </div>
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
-                <NavLink to="/products/id">
-                  <h6 className="card-title">Tên sản phẩm</h6>
+                <NavLink to={/products/ + props.prod._id}>
+                  <h6 className="card-title">{props.prod.Name}</h6>
                 </NavLink>
                 <div className="d-flex align-items-center mb-10 flex-wrap">
                   <span className="product-desc-price">
-                   400.000.000 vnđ
+                   {(props.prod.Price - (props.prod.Price * props.prod.Saled/100)).toLocaleString('vi-VN')} VND
                   </span>
-                  <span className="product-price">200.000.000 vnđ</span>
-                  <span className="product-discount">50% Off</span>
+                  <span className="product-price">{props.prod.Price.toLocaleString('vi-VN')} VND</span>
+                  <span className="product-discount">{props.prod.Saled}% Off</span>
                 </div>
               </div>
               <div className="product-item__footer">

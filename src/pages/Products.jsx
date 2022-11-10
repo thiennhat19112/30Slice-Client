@@ -6,6 +6,8 @@ import Product from "../components/Product";
 
 function Products(props) {
   const [listCate, setCate] = useState([]);
+  const [dataProduct, setdataProduct] = useState({});
+  const [listProduct, setListProduct] = useState([]);
 
   const fetchCate = async () => {
     Notiflix.Loading.standard("Đang tải...");
@@ -19,10 +21,24 @@ function Products(props) {
     setCate(data);
     console.log(data);
   };
+  const fetchProduct = async () => {
+    Notiflix.Loading.standard("Đang tải...");
+    const res = await fetch(
+      process.env.REACT_APP_API_ENDPOINT + "product/getProducts?page=3&limit=12"
+    );
+    const data = await res.json();
+    if (data) {
+      Notiflix.Loading.remove();
+    }
+    setdataProduct(data);
+    setListProduct(data.products);
 
+  };
   useEffect(() => {
     fetchCate();
+    fetchProduct();
   }, []);
+
 
   return (
     <div className="contents">
@@ -94,7 +110,9 @@ function Products(props) {
                                 <label htmlFor={`check-${item._id}`}>
                                   <span className="checkbox-text">
                                     {item.Name}
-                                    <span className="item-numbers">{item.Ordinal}</span>
+                                    <span className="item-numbers">
+                                      {item.Ordinal}
+                                    </span>
                                   </span>
                                 </label>
                               </div>
@@ -544,7 +562,6 @@ function Products(props) {
                               <rect x={14} y={14} width={7} height={7} />
                               <rect x={3} y={14} width={7} height={7} />
                             </svg>
-
                           </a>
                           <a
                             className="icon-list-social__link rounded-circle icon-list-social__style justify-content-center  "
@@ -587,8 +604,8 @@ function Products(props) {
                 >
                   {/* Start: Shop Item */}
                   <div className="row product-page-list justify-content-center">
-                    {listCate.map((item, index) => {
-                      return <Product />;
+                    {listProduct && listProduct.map((item, index) => {
+                      return <Product prod={item} />;
                     })}
                   </div>
                   {/* End: Shop Item */}
