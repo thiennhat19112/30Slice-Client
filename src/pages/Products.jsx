@@ -24,7 +24,7 @@ function Products(props) {
   const fetchProduct = async () => {
     Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "product/getProducts?page=3&limit=12"
+      process.env.REACT_APP_API_ENDPOINT + "product/getProducts?page=1&limit=12"
     );
     const data = await res.json();
     if (data) {
@@ -605,7 +605,7 @@ function Products(props) {
                   {/* Start: Shop Item */}
                   <div className="row product-page-list justify-content-center">
                     {listProduct && listProduct.map((item, index) => {
-                      return <Product prod={item} />;
+                      return <Product prod={item} key={index} />;
                     })}
                   </div>
                   {/* End: Shop Item */}
