@@ -1,6 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import Categories from "./Categories";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Header = () => {
   return (
     <>
@@ -18,7 +18,7 @@ const Header = () => {
       <header className="header-top">
         <nav className="navbar navbar-light">
           <div className="navbar-left">
-            <a  className="sidebar-toggle">
+            <a className="sidebar-toggle">
               <img className="svg" src="assets/img/svg/bars.svg" alt="img" />
             </a>
             <Link className="navbar-brand" to="/">
@@ -605,6 +605,15 @@ const Header = () => {
           {/* ends: navbar-left */}
           <div className="navbar-right">
             <ul className="navbar-right__menu">
+              <NavLink to="/cart">
+                <i className="fa-solid fa-cart-shopping"></i>
+                <div className="badge badge-red color-dark">
+                  <div className="badge-dot-wrap">
+                    <span className="badge badge-danger badge- badge-sm">4</span>
+                  </div>
+                </div>
+              </NavLink>
+
               <li className="nav-search d-none">
                 <a href="#" className="search-toggle">
                   <i className="la la-search" />
@@ -619,7 +628,7 @@ const Header = () => {
                   />
                 </form>
               </li>
-            
+
               <li className="nav-author">
                 <div className="dropdown-custom">
                   <a href="#" className="nav-item-toggle">
