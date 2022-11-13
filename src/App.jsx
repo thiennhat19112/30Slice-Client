@@ -6,6 +6,7 @@ import Detail from "./pages/Detail";
 import Home from "./pages/Home";
 import Error from "./pages/Error";
 import Cart from "./pages/Cart";
+import Category from "./pages/Category";
 
 // import component
 import Header from "./components/Header";
@@ -24,6 +25,8 @@ function App(props) {
           <Route path="/products" exact element={<Products />} />
           <Route path="/products/:id" exact element={<Detail />} />
           <Route path="/cart" exact element={<Cart />} />
+          <Route path="/category/:id" exact element={<Category />} />
+
 
           <Route path="*" element={<Error />} />
         </Routes>
