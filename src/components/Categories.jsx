@@ -35,9 +35,9 @@ const Categories = () => {
 
   return (
     <li className="mega-item has-subMenu">
-      <a href="#" className="">
+      <NavLink to="/category" className="">
         Danh mục
-      </a>
+      </NavLink>
       <ul className="megaMenu-wrapper megaMenu-wide">
         {categories.length > 0 &&
           categories.map((category) => (
