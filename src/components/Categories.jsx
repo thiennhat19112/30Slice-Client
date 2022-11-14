@@ -49,7 +49,7 @@ const Categories = () => {
                 {category?.Children.length > 0 &&
                   category?.Children.map((child) => (
                     <li>
-                      <NavLink exact to={/category/ + child._id}>{child?.Name}</NavLink>
+                      <NavLink to={/category/ + child._id}>{child?.Name}</NavLink>
                     </li>
                   ))}
               </ul>
