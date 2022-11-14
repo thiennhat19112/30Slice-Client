@@ -1,4 +1,9 @@
+import { useDispatch, useSelector } from "react-redux";
+
 const Cart = () => {
+  const dataCate = useSelector((state) => state.categories);
+
+  console.log(dataCate);
   return (
     <main className="main-content">
       <div className="contents">

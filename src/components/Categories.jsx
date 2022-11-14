@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
-import { Link,NavLink } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addCategory } from "../redux/CategoriesSlice";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const _isMounted = useRef(false);
+  const dispatch = useDispatch();
 
   const loadDataCategories = async () => {
     const res = await fetch(
@@ -17,10 +19,11 @@ const Categories = () => {
       ...item,
       Children: data.filter((x) => x["Parent_Id"] === item._id),
     }));
+    dispatch(addCategory(treeData));
     _isMounted.current && setCategories(treeData);
   };
 
-  console.log(categories);
+
 
   useEffect(() => {
     _isMounted.current = true;
@@ -31,7 +34,7 @@ const Categories = () => {
 
   useEffect(() => {
     loadDataCategories();
-  }, []);
+  }, [dispatch]);
 
   return (
     <li className="mega-item has-subMenu">
@@ -49,7 +52,9 @@ const Categories = () => {
                 {category?.Children.length > 0 &&
                   category?.Children.map((child) => (
                     <li>
-                      <NavLink to={/category/ + child._id}>{child?.Name}</NavLink>
+                      <NavLink to={/category/ + child._id}>
+                        {child?.Name}
+                      </NavLink>
                     </li>
                   ))}
               </ul>
