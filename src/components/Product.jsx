@@ -46,10 +46,7 @@ function Product(props) {
                    {(props.prod.Price * (1 - props.prod.Saled/100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} 
                   </span>
                   {props.prod.Saled > 0 && (
-                    <div>
-                      <span className="product-price">{props.prod.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </span>
-                    <span className="product-discount"> Giảm {props.prod.Saled}% </span>
-                    </div>
+                    <span className="product-discount px-2"> Giảm {props.prod.Saled}% </span>
                   )}
                 </div>
               </div>
