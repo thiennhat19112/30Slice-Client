@@ -26,47 +26,49 @@ const Checkout = () => {
         <div className=" checkout wizard1 global-shadow border px-sm-50 px-20 pt-sm-50 py-30 mb-30 bg-white radius-xl w-100">
           <div className="row">
             <div className="col-xl-8">
-              <div className="checkout-progress-indicator">
+              <div className="checkout-progress-indicator content-center">
                 <div className="checkout-progress">
-                  <div className="step current" id={1}>
-                    <span>1</span>
-                    <span>Đăng nhập/đăng ký</span>
+                  <div className="step " id={1}>
+                    <span>
+                      {" "}
+                      <img className="svg" src="/assets/img/svg/user.svg" alt="" />{" "}
+                    </span>
+                    <span>Đăng nhập</span>
                   </div>
                   <div className="current">
-                    <img
-                      src="/assets/img/svg/checkout.svg"
-                      alt="img"
-                      className="svg"
-                    />
+                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
                   </div>
                   <div className="step" id={2}>
-                    <span>2</span>
+                    <span>
+                      <img className="svg" src="/assets/img/svg/address.svg" alt="" />
+                    </span>
                     <span>Địa chỉ nhận hàng</span>
                   </div>
                   <div className="current">
-                    <img
-                      src="/assets/img/svg/checkout.svg"
-                      alt="img"
-                      className="svg"
-                    />
+                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
                   </div>
                   <div className="step" id={3}>
-                    <span>3</span>
+                    <span>
+                      <img
+                        className="svg"
+                        src="/assets/img/svg/155-credit-card.svg"
+                        alt=""
+                      />
+                    </span>
                     <span>Phương thức thanh toán</span>
                   </div>
                   <div className="current">
-                    <img
-                      src="/assets/img/svg/checkout.svg"
-                      alt="img"
-                      className="svg"
-                    />
+                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
                   </div>
                   <div className="step" id={4}>
-                    <span>4</span>
+                    <span>
+                      <img className="svg" src="/assets/img/svg/024-like.svg" alt="" />
+                    </span>
                     <span>Hoàn thành đơn hàng</span>
                   </div>
                 </div>
               </div>
+
               {/* checkout */}
               <div className="row justify-content-center">
                 <div className="col-xl-6 col-lg-8 col-sm-10">
@@ -128,17 +130,16 @@ const Checkout = () => {
             </div>
             {/* ends: col */}
             <div className="col-xl-4 col-md-8 col-sm-10 mx-auto">
-          <div className="card order-summery order-summery--width  bg-normal p-sm-25 p-15">
-            <div className="card-header border-bottom-0 p-0 pb-25">
-              <h5 className="fw-500">Tổng đơn hàng</h5>
+              <div className="card order-summery order-summery--width  bg-normal p-sm-25 p-15">
+                <div className="card-header border-bottom-0 p-0 pb-25">
+                  <h5 className="fw-500">Tổng đơn hàng</h5>
+                </div>
+                <div className="card-body bg-white">
+                  <OrderSummary />
+                </div>
+              </div>
+              {/* ends: card */}
             </div>
-            <div className="card-body bg-white">
-             <OrderSummary />
-
-            </div>
-          </div>
-          {/* ends: card */}
-        </div>
             {/* ends: col */}
           </div>
         </div>
