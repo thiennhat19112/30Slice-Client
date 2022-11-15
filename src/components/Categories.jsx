@@ -44,14 +44,14 @@ const Categories = () => {
       <ul className="megaMenu-wrapper megaMenu-wide">
         {categories.length > 0 &&
           categories.map((category) => (
-            <li>
-              <Link key={category._id} className="mega-title">
+            <li key={category._id}>
+              <Link className="mega-title">
                 {category?.Name}
               </Link>
               <ul>
                 {category?.Children.length > 0 &&
                   category?.Children.map((child) => (
-                    <li>
+                    <li key={child._id}>
                       <NavLink to={/category/ + child._id}>
                         {child?.Name}
                       </NavLink>
