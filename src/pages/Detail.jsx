@@ -2,9 +2,12 @@ import { useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breakcumb";
 import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../redux/CartSlice'
 function Detail(props) {
+  const dispatch = useDispatch()
+
   const params = useParams();
-  console.log(params.id);
   const [product, setProduct] = useState({});
   const fetchDetail = async () => {
     Notiflix.Loading.standard("Đang tải...");
@@ -16,8 +19,20 @@ function Detail(props) {
       Notiflix.Loading.remove();
     }
     setProduct(data);
-    console.log(data);
   };
+  const addToCart = (item) => {
+    const product = {
+      _id: item._id,
+      Name: item.Name,
+      Price: (item.Price * (100 - item.Saled)) / 100,
+      Images: item.Images,
+      Quantity: 1
+    };
+    console.log(product);
+    dispatch(addProduct(product));
+
+
+  }
   useEffect(() => {
     fetchDetail();
   }, []);
@@ -214,10 +229,10 @@ function Detail(props) {
                         {/* Start: Product Selections */}
                         <div className="product-item__button mt-lg-30 mt-sm-25 mt-20 d-flex flex-wrap">
                           <div className=" d-flex flex-wrap product-item__action align-items-center">
-                            <button className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2">
+                            <button onClick={()=>addToCart(product)}  className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2">
                               Mua ngay
                             </button>
-                            <button className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2">
+                            <button onClick={()=>addToCart(product)}  className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2">
                               <span data-feather="shopping-bag" />
                               Thêm vào giỏ
                             </button>
