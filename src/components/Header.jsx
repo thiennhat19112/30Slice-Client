@@ -1,7 +1,9 @@
 import { NavLink, Link } from "react-router-dom";
 import Categories from "./Categories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux";
 const Header = () => {
+  const cartLength = useSelector((state) => state.cart.length);
   return (
     <>
       <div className="mobile-search">
@@ -72,7 +74,7 @@ const Header = () => {
                 <i className="fa-solid fa-cart-shopping"></i>
                 <div className="badge badge-red color-dark">
                   <div className="badge-dot-wrap">
-                    <span className="badge badge-danger badge- badge-sm">4</span>
+                    <span className="badge badge-danger badge- badge-sm">{cartLength}</span>
                   </div>
                 </div>
               </NavLink>

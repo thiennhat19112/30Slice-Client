@@ -32,6 +32,7 @@ function Detail(props) {
                   Chi tiết sản phẩm
                 </h4>
               </div>
+              <Breadcrumb />
             </div>
           </div>
         </div>

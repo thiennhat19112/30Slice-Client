@@ -59,6 +59,8 @@ function Products(props) {
                   Tất cả sản phẩm
                 </h4>
               </div>
+              <Breadcrumb/>
+
             </div>
           </div>
         </div>

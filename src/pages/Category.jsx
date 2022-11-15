@@ -36,7 +36,7 @@ function Category(props) {
       if (data) {
         Notiflix.Loading.remove();
       }
-      console.log(data)
+
       _isMounted.current && setListProduct(data);
   
     };
@@ -64,6 +64,7 @@ function Category(props) {
                  Sản phẩm theo loại
                 </h4>
               </div>
+              <Breadcrumb />
             </div>
           </div>
         </div>

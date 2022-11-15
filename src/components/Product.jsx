@@ -1,6 +1,22 @@
 import { NavLink } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../redux/CartSlice'
 function Product(props) {
+  const dispatch = useDispatch()
+  const addToCart = (item) => {
+    const product = {
+      _id: item._id,
+      Name: item.Name,
+      Price: (item.Price * (100 - item.Saled)) / 100,
+      Images: item.Images,
+      Quantity: 1
+    };
+    console.log(product);
+    dispatch(addProduct(product));
+
+
+  }
+
    return (
       <div className="cus-xl-3 col-lg-6 col-md-11 col-12 mb-30 px-10">
       <div className="card product product--grid">
@@ -47,11 +63,11 @@ function Product(props) {
                 </div>
               </div>
               <div className="product-item__button d-flex mt-20 flex-wrap">
-                <button className="btn btn-default btn-squared btn-outline-light px-15 ">
+                <button onClick={()=>addToCart(props.prod)} className="btn btn-default btn-squared btn-outline-light px-15 ">
                   <span data-feather="shopping-bag" />
                   Thêm vào giỏ hàng
                 </button>
-                <button className="btn btn-primary btn-default btn-squared border-0 ">
+                <button onClick={()=>addToCart(props.prod)} className="btn btn-primary btn-default btn-squared border-0 ">
                  Mua đê
                 </button>
               </div>
