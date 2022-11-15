@@ -1,5 +1,16 @@
 import { useLocation, NavLink } from "react-router-dom";
 
+const defaultBreadcrumb = [
+  {
+    title: "Trang chủ",
+    link: "",
+  },
+  {
+    title: "Sản phẩm",
+    link: "products",
+  },
+]
+
 function Breadcrumb() {
   const location = useLocation();
 
@@ -17,7 +28,9 @@ function Breadcrumb() {
     } else {
       return (
         <li className="atbd-breadcrumb__item" key={index}>
-          <NavLink to={`/${link}`}>{item}</NavLink>
+          <NavLink to={`/${link}`}>
+            {defaultBreadcrumb.find((item) => item.link === link).title}
+          </NavLink>
           <span className="breadcrumb__seperator">
             <span className="la la-angle-right" />
           </span>
@@ -36,7 +49,7 @@ function Breadcrumb() {
               <span className="la la-angle-right" />
             </span>
           </li>
-        {brc}
+          {brc}
         </ul>
       </div>
     </div>
