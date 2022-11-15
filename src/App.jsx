@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import Error from "./pages/Error";
 import Cart from "./pages/Cart";
 import Category from "./pages/Category";
+import Checkout from "./pages/Checkout";
 
 // import component
 import Header from "./components/Header";
@@ -18,13 +19,15 @@ function App(props) {
     <BrowserRouter>
       <Header />
       <main className="main-content">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/booking" exact element={<Booking />} />
           <Route path="/products" exact element={<Products />} />
           <Route path="/products/:id" exact element={<Detail />} />
           <Route path="/cart" exact element={<Cart />} />
+          <Route path="/checkout" exact element={<Checkout />} />
+
           <Route path="/category/:id" exact element={<Category />} />
 
 

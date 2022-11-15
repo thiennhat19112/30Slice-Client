@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Breakcumb from "../components/Breakcumb";
+import OrderSummary from "../components/OrderSummary";
 const Cart = () => {
   const dataCart = useSelector((state) => state.cart);
   console.log(dataCart);
@@ -112,32 +114,16 @@ const Cart = () => {
                     <h5 className="fw-500">Tổng đơn hàng</h5>
                   </div>
                   <div className="card-body bg-white px-sm-25 px-20">
-                    <div className="total">
-                      <div className="subtotalTotal">
-                        Tổng cộng:
-                        <span>{subTotal.toLocaleString("vi-VN")}</span>
-                      </div>
-                      <div className="shipping">
-                        Phí vận chuyển:
-                        <span>{shippingFree.toLocaleString("vi-VN")}</span>
-                      </div>
-                    </div>
-
-                 
-                    <div className="total-money d-flex justify-content-between">
-                      <h6>Tổng cộng :</h6>
-                      <h5>
-                        {(shippingFree + subTotal).toLocaleString("vi-VN")}đ
-                      </h5>
-                    </div>
-                    <a
-                      href="checkout.html"
-                      className="checkout btn-secondary content-center w-100 btn-lg mt-20"
+                    <OrderSummary />
+                    <Link
+                      to="/checkout"
+                      className="checkout btn-secondary
+                      content-center w-100 btn-lg mt-20"
                     >
                       {" "}
-                     Tới trang thanh toán
+                      Tới trang thanh toán
                       <i className="las la-arrow-right" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 {/* End: .order-summery*/}
@@ -148,7 +134,6 @@ const Cart = () => {
           {/* End: .global-shadow */}
         </div>
       </div>
-     
     </main>
   );
 };
