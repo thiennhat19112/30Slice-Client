@@ -3,50 +3,54 @@ import Notiflix from "notiflix";
 
 import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
+import Filters from "../components/Filters";
 import { useRef } from "react";
+import { Link,useSearchParams } from "react-router-dom";
 
 function Products(props) {
-  const [listCate, setCate] = useState([]);
   const [dataProduct, setdataProduct] = useState({});
   const [listProduct, setListProduct] = useState([]);
-  const _isMounted = useRef(false)
+  const _isMounted = useRef(false);
 
-  const fetchCate = async () => {
-    Notiflix.Loading.standard("Đang tải...");
-    const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "category/getAllCategories"
+  const [param] = useSearchParams();
+  let pageNumber
+  if (!param.get("page") == null) {
+    pageNumber = 1
+  }else{
+    pageNumber = param.get("page")
+  }
+
+  let listPage = [];
+  for (let i = 1; i <= dataProduct.totalPage; i++) {
+    listPage.push(
+      <Link to={"?page=" + i} className={`atbd-pagination__link ${pageNumber == i ? 'active':''}`}>
+        <span className="page-number">{i}</span>
+      </Link>
     );
-    const data = await res.json();
-    if (data) {
-      Notiflix.Loading.remove();
-    }
-    _isMounted.current && setCate(data);
-  };
+  }
   const fetchProduct = async () => {
     Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "product/getProducts?page=1&limit=12"
+      process.env.REACT_APP_API_ENDPOINT + `product/getProducts?page=${pageNumber}&limit=12`
     );
     const data = await res.json();
     if (data) {
       Notiflix.Loading.remove();
     }
+    console.log(dataProduct);
     _isMounted.current && setdataProduct(data);
     _isMounted.current && setListProduct(data.products);
-
   };
-  useEffect(()=>{
-    _isMounted.current = true;
-    return  () => {
-      _isMounted.current = false
-    }
-  },[])
-
   useEffect(() => {
-    fetchCate();
-    fetchProduct();
+    _isMounted.current = true;
+    return () => {
+      _isMounted.current = false;
+    };
   }, []);
 
+  useEffect(() => {
+    fetchProduct();
+  }, [pageNumber]);
 
   return (
     <div className="contents">
@@ -59,8 +63,7 @@ function Products(props) {
                   Tất cả sản phẩm
                 </h4>
               </div>
-              <Breadcrumb/>
-
+              <Breadcrumb />
             </div>
           </div>
         </div>
@@ -69,395 +72,7 @@ function Products(props) {
         <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
-              <div className="widget">
-                <div className="widget-header-title px-20 py-15 border-bottom">
-                  <h6 className="d-flex align-content-center fw-500">
-                    <span data-feather="sliders" /> Filters
-                  </h6>
-                </div>
-                <div className="category_sidebar">
-                  {/* Start: Aside */}
-                  <aside className="product-sidebar-widget mb-30">
-                    {/* Title */}
-                    <div className="widget_title mb-20">
-                      <h6>Price Range</h6>
-                    </div>
-                    {/* Title */}
-                    {/* Body */}
-                    <div className="card border-0">
-                      <div className="product-price-ranges">
-                        <div id="price-range">
-                          <div className="section price">
-                            <div className="price-slider" />
-                            <p className="price-value" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Body */}
-                  </aside>
-                  {/* End: Aside */}
-
-                  {/* Start: Aside */}
-                  <aside className="product-sidebar-widget mb-30">
-                    {/* Title */}
-                    <div className="widget_title mb-20">
-                      <h6>Loại sản phẩm (số bên phải lấy tạm ordinal)</h6>
-                    </div>
-                    {/* Title */}
-                    {/* Body */}
-                    <div className="card border-0">
-                      <div className="product-brands">
-                        <ul>
-                          {listCate.map((item, index) => (
-                            <li key={index}>
-                              <div className="checkbox-theme-default custom-checkbox ">
-                                <input
-                                  className="checkbox"
-                                  type="checkbox"
-                                  id={`check-${item._id}`}
-                                />
-                                <label htmlFor={`check-${item._id}`}>
-                                  <span className="checkbox-text">
-                                    {item.Name}
-                                    <span className="item-numbers">
-                                      {item.Ordinal}
-                                    </span>
-                                  </span>
-                                </label>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="mt-2">
-                          <a href="#" className=" fs-13 fw-500 text-capitalize">
-                            Xem thêm
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Body */}
-                  </aside>
-                  {/* End: Aside */}
-
-                  {/* Start: Aside */}
-                  <aside className="product-sidebar-widget mb-30">
-                    {/* Title */}
-                    <div className="widget_title mb-20">
-                      <h6>Category</h6>
-                    </div>
-                    {/* Title */}
-                    {/* Body */}
-                    <div className="card border-0">
-                      <div className="product-category">
-                        <ul>
-                          <li>
-                            <div className="w-100">
-                              <span className="fs-14 color-gray">
-                                Accessories
-                                <span className="item-numbers">25</span>
-                              </span>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="w-100">
-                              <span className="fs-14 color-gray">
-                                Appliances
-                                <span className="item-numbers">54</span>
-                              </span>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="w-100">
-                              <span className="fs-14 color-gray">
-                                Bags<span className="item-numbers">78</span>
-                              </span>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="w-100">
-                              <span className="fs-14 color-gray">
-                                Electronic
-                                <span className="item-numbers">42</span>
-                              </span>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="w-100">
-                              <span className="fs-14 color-gray">
-                                Entertainment
-                                <span className="item-numbers">35</span>
-                              </span>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="w-100">
-                              <span className="fs-14 color-gray">
-                                Induction
-                                <span className="item-numbers">64</span>
-                              </span>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="w-100">
-                              <span className="fs-14 color-gray">
-                                Mobile phone
-                                <span className="item-numbers">92</span>
-                              </span>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="mt-2">
-                          <a href="#" className=" fs-13 fw-500 text-capitalize">
-                            see more
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Body */}
-                  </aside>
-                  {/* End: Aside */}
-                  {/* Start: Aside */}
-                  <aside className="product-sidebar-widget mb-30">
-                    {/* Title */}
-                    <div className="widget_title mb-20">
-                      <h6>Brands</h6>
-                    </div>
-                    {/* Title */}
-                    {/* Body */}
-                    <div className="card border-0">
-                      <div className="product-brands">
-                        <ul>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="check-1"
-                              />
-                              <label htmlFor="check-1">
-                                <span className="checkbox-text">
-                                  Appliances
-                                  <span className="item-numbers">25</span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="check-2"
-                              />
-                              <label htmlFor="check-2">
-                                <span className="checkbox-text">
-                                  Bags
-                                  <span className="item-numbers">54</span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="check-3"
-                              />
-                              <label htmlFor="check-3">
-                                <span className="checkbox-text">
-                                  Electronic
-                                  <span className="item-numbers">78</span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="check-4"
-                              />
-                              <label htmlFor="check-4">
-                                <span className="checkbox-text">
-                                  Entertainment
-                                  <span className="item-numbers">42</span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="check-5"
-                              />
-                              <label htmlFor="check-5">
-                                <span className="checkbox-text">
-                                  Induction
-                                  <span className="item-numbers">35</span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="check-6"
-                              />
-                              <label htmlFor="check-6">
-                                <span className="checkbox-text">
-                                  Laptops
-                                  <span className="item-numbers">64</span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                        </ul>
-                        <div className="mt-2">
-                          <a href="#" className=" fs-13 fw-500 text-capitalize">
-                            see more
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    {/* Body */}
-                  </aside>
-                  {/* End: Aside */}
-                  {/* Start: Aside */}
-                  <aside className="product-sidebar-widget mb-30">
-                    {/* Title */}
-                    <div className="widget_title mb-20">
-                      <h6>Đánh giá</h6>
-                    </div>
-                    {/* Title */}
-                    {/* Body */}
-                    <div className="card border-0">
-                      <div className="product-ratings">
-                        <ul>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="rating-1"
-                              />
-                              <label htmlFor="rating-1">
-                                <span className="stars-rating d-flex align-items-center">
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="checkbox-text">
-                                    and up
-                                    <span className="item-numbers">42</span>
-                                  </span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="rating-3"
-                              />
-                              <label htmlFor="rating-3">
-                                <span className="stars-rating d-flex align-items-center">
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="checkbox-text">
-                                    and up
-                                    <span className="item-numbers">54</span>
-                                  </span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="rating-4"
-                              />
-                              <label htmlFor="rating-4">
-                                <span className="stars-rating d-flex align-items-center">
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="checkbox-text">
-                                    and up
-                                    <span className="item-numbers">78</span>
-                                  </span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="rating-5"
-                              />
-                              <label htmlFor="rating-5">
-                                <span className="stars-rating d-flex align-items-center">
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="checkbox-text">
-                                    and up
-                                    <span className="item-numbers">42</span>
-                                  </span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                          <li>
-                            <div className="checkbox-theme-default custom-checkbox ">
-                              <input
-                                className="checkbox"
-                                type="checkbox"
-                                id="rating-6"
-                              />
-                              <label htmlFor="rating-6">
-                                <span className="stars-rating d-flex align-items-center">
-                                  <span className="star-icon las la-star active" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="star-icon las la-star inactive" />
-                                  <span className="checkbox-text">
-                                    and up
-                                    <span className="item-numbers">35</span>
-                                  </span>
-                                </span>
-                              </label>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    {/* Body */}
-                  </aside>
-                  {/* End: Aside */}
-                </div>
-              </div>
+              <Filters />
               {/* End: .widget */}
             </div>
             {/* End: .columns-1 */}
@@ -482,7 +97,7 @@ function Products(props) {
                     </div>
                     <span className="project-result-showing fs-14 color-gray ml-xl-25 mr-xl-0 text-center mt-lg-0 mt-20">
                       Hiển thị
-                      <span>1–8</span> trong <span>86</span>
+                      <span> 1–{listProduct.length}</span> trong <span>{dataProduct.totalItem} </span>
                       kết quả
                     </span>
                   </div>
@@ -614,9 +229,10 @@ function Products(props) {
                 >
                   {/* Start: Shop Item */}
                   <div className="row product-page-list justify-content-center">
-                    {listProduct && listProduct.map((item, index) => {
-                      return <Product prod={item} key={index} />;
-                    })}
+                    {listProduct &&
+                      listProduct.map((item, index) => {
+                        return <Product prod={item} key={index} />;
+                      })}
                   </div>
                   {/* End: Shop Item */}
                 </div>
@@ -1452,6 +1068,29 @@ function Products(props) {
                   </div>
                 </div>
               </div>
+              <nav className="atbd-page ">
+                <ul className="atbd-pagination d-flex">
+                  <li className="atbd-pagination__item">
+                    <a
+                      href="#"
+                      className="atbd-pagination__link pagination-control"
+                    >
+                      <span className="la la-angle-left" />
+                    </a>
+
+                    {listPage}
+
+                    <a
+                      href="#"
+                      className="atbd-pagination__link pagination-control"
+                    >
+                      <span className="la la-angle-right" />
+                    </a>
+                    <a href="#" className="atbd-pagination__option"></a>
+                  </li>
+                </ul>
+              </nav>
+
               {/* End: .product-list */}
             </div>
             {/* End: .columns-2 */}
