@@ -9,6 +9,10 @@ const defaultBreadcrumb = [
     title: "Sản phẩm",
     link: "products",
   },
+  {
+    title: "Loại sản phẩm",
+    link: "category",
+  }
 ]
 
 function Breadcrumb() {

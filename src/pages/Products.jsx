@@ -14,7 +14,7 @@ function Products(props) {
 
   const [param] = useSearchParams();
   let pageNumber
-  if (!param.get("page") == null) {
+  if (param.get("page") == null) {
     pageNumber = 1
   }else{
     pageNumber = param.get("page")
