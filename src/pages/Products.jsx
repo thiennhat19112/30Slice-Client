@@ -68,7 +68,7 @@ function Products(props) {
       <div className="products_page product_page--grid mb-30">
         <div className="container-fluid">
           <div className="row justify-content-center">
-            <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
+            <div className="columns-1 col-lg-4 col-md-4 col-sm-8 order-md-0 order-1">
               <div className="widget">
                 <div className="widget-header-title px-20 py-15 border-bottom">
                   <h6 className="d-flex align-content-center fw-500">
@@ -461,7 +461,7 @@ function Products(props) {
               {/* End: .widget */}
             </div>
             {/* End: .columns-1 */}
-            <div className="columns-2 col-lg-8 col-md-7 col-sm-8 order-md-1 order-0">
+            <div className="columns-2 col-lg-8 col-md-8 col-sm-8 order-md-1 order-0">
               {/* Start: Top Bar */}
               <div className="shop_products_top_filter">
                 <div className="project-top-wrapper d-flex flex-wrap align-items-center">

@@ -17176,7 +17176,7 @@ table.fc-scrollgrid thead .fc-scroller-harness .fc-scroller {
 }
 
 .product--grid:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 @media only screen and (max-width: 1399px) {
