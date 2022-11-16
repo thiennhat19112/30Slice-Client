@@ -1,8 +1,24 @@
 import { NavLink } from 'react-router-dom'
-
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../redux/CartSlice'
 function Product(props) {
+  const dispatch = useDispatch()
+  const addToCart = (item) => {
+    const product = {
+      _id: item._id,
+      Name: item.Name,
+      Price: (item.Price * (100 - item.Saled)) / 100,
+      Images: item.Images,
+      Quantity: 1
+    };
+    console.log(product);
+    dispatch(addProduct(product));
+
+
+  }
+
    return (
-      <div className="cus-xl-3 col-lg-6 col-md-11 col-12 mb-30 px-10">
+      <div className="cus-xl-3 col-lg-3 col-md-6 col-12 mb-30 px-10">
       <div className="card product product--grid">
         <div className="h-100">
           <div className="product-item">
@@ -27,10 +43,12 @@ function Product(props) {
                 </NavLink>
                 <div className="d-flex align-items-center mb-10 flex-wrap">
                   <span className="product-desc-price">
-                   {(props.prod.Price - (props.prod.Price * props.prod.Saled/100)).toLocaleString('vi-VN')} VND
+                   {(props.prod.Price * (1 - props.prod.Saled/100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} 
                   </span>
-                  <span className="product-price">{props.prod.Price.toLocaleString('vi-VN')} VND</span>
-                  <span className="product-discount">{props.prod.Saled}% Off</span>
+                  <span className="product-price">{props.prod.Saled > 0 && props.prod.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </span>
+                  {props.prod.Saled > 0 && (
+                    <span className="product-discount px-2"> Giảm {props.prod.Saled}% </span>
+                  )}
                 </div>
               </div>
               <div className="product-item__footer">
@@ -47,11 +65,11 @@ function Product(props) {
                 </div>
               </div>
               <div className="product-item__button d-flex mt-20 flex-wrap">
-                <button className="btn btn-default btn-squared btn-outline-light px-15 ">
+                <button onClick={()=>addToCart(props.prod)} className="btn btn-default btn-squared btn-outline-light px-15 ">
                   <span data-feather="shopping-bag" />
                   Thêm vào giỏ hàng
                 </button>
-                <button className="btn btn-primary btn-default btn-squared border-0 ">
+                <button onClick={()=>addToCart(props.prod)} className="btn btn-primary btn-default btn-squared border-0 ">
                  Mua đê
                 </button>
               </div>

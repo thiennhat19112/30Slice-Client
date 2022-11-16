@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addCategory } from "../redux/CategoriesSlice";
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const _isMounted = useRef(false);
+  const dispatch = useDispatch();
 
   const loadDataCategories = async () => {
     const res = await fetch(
@@ -17,6 +19,7 @@ const Categories = () => {
       ...item,
       Children: data.filter((x) => x["Parent_Id"] === item._id),
     }));
+    dispatch(addCategory(treeData));
     _isMounted.current && setCategories(treeData);
   };
 
@@ -29,25 +32,27 @@ const Categories = () => {
 
   useEffect(() => {
     loadDataCategories();
-  }, []);
+  }, [dispatch]);
 
   return (
     <li className="mega-item has-subMenu">
-      <a href="#" className="">
+      <NavLink to="/category" className="">
         Danh mục
-      </a>
+      </NavLink>
       <ul className="megaMenu-wrapper megaMenu-wide">
         {categories.length > 0 &&
           categories.map((category) => (
-            <li>
-              <Link key={category._id} className="mega-title">
+            <li key={category._id}>
+              <Link className="mega-title">
                 {category?.Name}
               </Link>
               <ul>
                 {category?.Children.length > 0 &&
                   category?.Children.map((child) => (
-                    <li>
-                      <Link>{child?.Name}</Link>
+                    <li key={child._id}>
+                      <NavLink to={/category/ + child._id}>
+                        {child?.Name}
+                      </NavLink>
                     </li>
                   ))}
               </ul>

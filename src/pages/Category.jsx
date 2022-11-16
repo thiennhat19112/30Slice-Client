@@ -1,56 +1,45 @@
 import { useEffect, useState } from "react";
 import Notiflix from "notiflix";
+import { useParams } from "react-router-dom";
+
 
 import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
 import Filters from "../components/Filters";
 import { useRef } from "react";
-import { Link,useSearchParams } from "react-router-dom";
 
-function Products(props) {
-  const [dataProduct, setdataProduct] = useState({});
-  const [listProduct, setListProduct] = useState([]);
-  const _isMounted = useRef(false);
+function Category(props) {
 
-  const [param] = useSearchParams();
-  let pageNumber
-  if (param.get("page") == null) {
-    pageNumber = 1
-  }else{
-    pageNumber = param.get("page")
-  }
+    const [dataProduct, setdataProduct] = useState({});
+    const [listProduct, setListProduct] = useState([]);
+    const _isMounted = useRef(false)
+    const params = useParams()
 
-  let listPage = [];
-  for (let i = 1; i <= dataProduct.totalPage; i++) {
-    listPage.push(
-      <Link to={"?page=" + i} className={`atbd-pagination__link ${pageNumber == i ? 'active':''}`}>
-        <span className="page-number">{i}</span>
-      </Link>
-    );
-  }
-  const fetchProduct = async () => {
-    Notiflix.Loading.standard("Đang tải...");
-    const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + `product/getProducts?page=${pageNumber}&limit=12`
-    );
-    const data = await res.json();
-    if (data) {
-      Notiflix.Loading.remove();
-    }
-    console.log(dataProduct);
-    _isMounted.current && setdataProduct(data);
-    _isMounted.current && setListProduct(data.products);
-  };
-  useEffect(() => {
-    _isMounted.current = true;
-    return () => {
-      _isMounted.current = false;
+
+    const fetchProduct = async () => {
+      Notiflix.Loading.standard("Đang tải...");
+      const res = await fetch(
+        process.env.REACT_APP_API_ENDPOINT + "product/getProductsByCategory/" + params.id
+      );
+      const data = await res.json();
+      if (data) {
+        Notiflix.Loading.remove();
+      }
+
+      _isMounted.current && setListProduct(data);
+  
     };
-  }, []);
+    useEffect(()=>{
+      _isMounted.current = true;
+      return  () => {
+        _isMounted.current = false
+      }
+    },[])
+  
+    useEffect(() => {
+      fetchProduct();
+    }, [params.id]);
 
-  useEffect(() => {
-    fetchProduct();
-  }, [pageNumber]);
 
   return (
     <div className="contents">
@@ -60,7 +49,7 @@ function Products(props) {
             <div className="shop-breadcrumb">
               <div className="breadcrumb-main">
                 <h4 className="text-capitalize breadcrumb-title">
-                  Tất cả sản phẩm
+                 Sản phẩm theo loại
                 </h4>
               </div>
               <Breadcrumb />
@@ -72,11 +61,11 @@ function Products(props) {
         <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
-              <Filters />
+             <Filters/>
               {/* End: .widget */}
             </div>
             {/* End: .columns-1 */}
-            <div className="columns-2 col-lg-8 col-md-8 col-sm-8 order-md-1 order-0">
+            <div className="columns-2 col-lg-8 col-md-7 col-sm-8 order-md-1 order-0">
               {/* Start: Top Bar */}
               <div className="shop_products_top_filter">
                 <div className="project-top-wrapper d-flex flex-wrap align-items-center">
@@ -97,7 +86,7 @@ function Products(props) {
                     </div>
                     <span className="project-result-showing fs-14 color-gray ml-xl-25 mr-xl-0 text-center mt-lg-0 mt-20">
                       Hiển thị
-                      <span> 1–{listProduct.length}</span> trong <span>{dataProduct.totalItem} </span>
+                      <span>1–8</span> trong <span>86</span>
                       kết quả
                     </span>
                   </div>
@@ -229,10 +218,9 @@ function Products(props) {
                 >
                   {/* Start: Shop Item */}
                   <div className="row product-page-list justify-content-center">
-                    {listProduct &&
-                      listProduct.map((item, index) => {
-                        return <Product prod={item} key={index} />;
-                      })}
+                    {listProduct && listProduct.map((item, index) => {
+                      return <Product prod={item} key={index} />;
+                    })}
                   </div>
                   {/* End: Shop Item */}
                 </div>
@@ -1068,29 +1056,6 @@ function Products(props) {
                   </div>
                 </div>
               </div>
-              <nav className="atbd-page ">
-                <ul className="atbd-pagination d-flex">
-                  <li className="atbd-pagination__item">
-                    <a
-                      href="#"
-                      className="atbd-pagination__link pagination-control"
-                    >
-                      <span className="la la-angle-left" />
-                    </a>
-
-                    {listPage}
-
-                    <a
-                      href="#"
-                      className="atbd-pagination__link pagination-control"
-                    >
-                      <span className="la la-angle-right" />
-                    </a>
-                    <a href="#" className="atbd-pagination__option"></a>
-                  </li>
-                </ul>
-              </nav>
-
               {/* End: .product-list */}
             </div>
             {/* End: .columns-2 */}
@@ -1101,4 +1066,4 @@ function Products(props) {
     </div>
   );
 }
-export default Products;
+export default Category;

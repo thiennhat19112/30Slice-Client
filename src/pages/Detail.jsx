@@ -2,9 +2,12 @@ import { useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breakcumb";
 import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux'
+import { addProduct } from '../redux/CartSlice'
 function Detail(props) {
+  const dispatch = useDispatch()
+
   const params = useParams();
-  console.log(params.id);
   const [product, setProduct] = useState({});
   const fetchDetail = async () => {
     Notiflix.Loading.standard("Đang tải...");
@@ -16,8 +19,20 @@ function Detail(props) {
       Notiflix.Loading.remove();
     }
     setProduct(data);
-    console.log(data);
   };
+  const addToCart = (item) => {
+    const product = {
+      _id: item._id,
+      Name: item.Name,
+      Price: (item.Price * (100 - item.Saled)) / 100,
+      Images: item.Images,
+      Quantity: 1
+    };
+    console.log(product);
+    dispatch(addProduct(product));
+
+
+  }
   useEffect(() => {
     fetchDetail();
   }, []);
@@ -32,6 +47,7 @@ function Detail(props) {
                   Chi tiết sản phẩm
                 </h4>
               </div>
+              <Breadcrumb />
             </div>
           </div>
         </div>
@@ -87,9 +103,8 @@ function Detail(props) {
                             product.Images.map((item, index) => {
                               return (
                                 <div
-                                  className={`carousel-item ${
-                                    index === 0 ? "active" : ""
-                                  }`}
+                                  className={`carousel-item ${index === 0 ? "active" : ""
+                                    }`}
                                   key={index}
                                 >
                                   <img
@@ -137,7 +152,7 @@ function Detail(props) {
                       {/* Start: Product Title */}
                       <div className="product-item__title">
                         <h2 className="card-title fw-500">
-                          <a href="#">{product.Name}</a>
+                          <p>{product.Name}</p>
                         </h2>
                       </div>
                       {/* End: Product Title */}
@@ -160,34 +175,36 @@ function Detail(props) {
                           Brand:<span>Louis Poulsen</span>
                         </span>
                         <span className="product-desc-price">
-                        {product && (product.Price - (product.Price * product.Saled/100)).toLocaleString('vi-VN')} VND
+                          {product && (product.Price * (1 - product.Saled / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </span>
-                        <div className="d-flex align-items-center mb-2">
-                          <span className="product-price">{product.Price}</span>
-                          <span className="product-discount">{product.Saled}% Off</span>
-                        </div>
+                        {product.Saled > 0 && (
+                          <div className="d-flex align-items-center mb-2">
+                            <span className="product-price">{product.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                            <span className="product-discount">Giảm {product.Saled}%</span>
+                          </div>
+                        )}
                         {/* End: Product Brand */}
                         {/* Start: Product Description */}
                         <p className=" product-deatils-pera">
-                         {product.Details}
+                          {product.Details}
                         </p>
                         {/* End: Product Description */}
                         {/* Start: Product Stock */}
                         <div className="product-details__availability">
                           <div className="title">
-                            <p>Available:</p>
-                            <span className="stock">In stock</span>
+                            <p>Tình trạng:</p>
+                            <span className="stock"> Còn hàng </span>
                           </div>
                           <div className="title">
-                            <p>Shipping:</p>
-                            <span className="free"> Free</span>
+                            <p>Phí vận chuyển:</p>
+                            <span className="free"> Miễn phí</span>
                           </div>
                         </div>
                         {/* End: Product Stock */}
                         {/* Start: Product Quantity */}
                         <div className="quantity product-quantity flex-wrap">
                           <div className="mr-15 d-flex align-items-center flex-wrap">
-                            <p className="fs-14 fw-500 color-dark">Quantity:</p>
+                            <p className="fs-14 fw-500 color-dark"> Số lượng: </p>
                             <input
                               type="button"
                               defaultValue="-"
@@ -205,17 +222,17 @@ function Detail(props) {
                             />
                           </div>
                           <span className="fs-13 fw-400 color-light my-sm-0 my-10">
-                          {product.InStock} sản phẩm còn lại
+                            Còn lại {product.InStock} sản phẩm
                           </span>
                         </div>
                         {/* End: Product Quantity */}
                         {/* Start: Product Selections */}
                         <div className="product-item__button mt-lg-30 mt-sm-25 mt-20 d-flex flex-wrap">
                           <div className=" d-flex flex-wrap product-item__action align-items-center">
-                            <button className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2">
-                             Mua ngay
+                            <button onClick={()=>addToCart(product)}  className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2">
+                              Mua ngay
                             </button>
-                            <button className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2">
+                            <button onClick={()=>addToCart(product)}  className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2">
                               <span data-feather="shopping-bag" />
                               Thêm vào giỏ
                             </button>
