@@ -20,8 +20,6 @@ const Categories = () => {
     _isMounted.current && setCategories(treeData);
   };
 
-  console.log(categories);
-
   useEffect(() => {
     _isMounted.current = true;
     return () => {
