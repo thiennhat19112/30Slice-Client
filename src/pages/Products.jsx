@@ -96,8 +96,8 @@ function Products(props) {
                       </form>
                     </div>
                     <span className="project-result-showing fs-14 color-gray ml-xl-25 mr-xl-0 text-center mt-lg-0 mt-20">
-                      Hiển thị
-                      <span> 1–{listProduct.length}</span> trong <span>{dataProduct.totalItem} </span>
+                      Hiển thị 
+                      <span> {(pageNumber-1)*12+1}-{pageNumber*12}</span> trong <span>{dataProduct.totalItem} </span>
                       kết quả
                     </span>
                   </div>
