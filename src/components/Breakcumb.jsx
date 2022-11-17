@@ -21,19 +21,28 @@ function Breadcrumb() {
   let path = location.pathname.split("/").slice(1);
 
   let brc = path.map((item, index, row) => {
+    console.log(item, row.length);
     let link = path.slice(0, index + 1).join("/");
     if (index + 1 === row.length) {
-      return (
-        <li className="atbd-breadcrumb__item" key={index}>
-          {" "}
-          {item}{" "}
-        </li>
-      );
+      if(row.length !== 1) {
+        return (
+          <li className="atbd-breadcrumb__item" key={index}>
+            {" "}
+            {item}{" "}
+          </li>
+        );
+      } else {
+        return (
+          <li className="atbd-breadcrumb__item" key={index}>
+            {" "}{defaultBreadcrumb.find((i) => i.link === link).title}{" "}
+          </li>
+        );
+      }
     } else {
       return (
         <li className="atbd-breadcrumb__item" key={index}>
           <NavLink to={`/${link}`}>
-            {defaultBreadcrumb.find((item) => item.link === link).title}
+            {defaultBreadcrumb.find((i) => i.link === link).title}
           </NavLink>
           <span className="breadcrumb__seperator">
             <span className="la la-angle-right" />
