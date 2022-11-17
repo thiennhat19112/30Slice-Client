@@ -61,13 +61,7 @@ function Product(props) {
                   </span>
                   {props.prod.Discount > 0 && (
                     <div className="d-flex align-items-center">
-                      <span className="product-price">
-                        {props.prod.Price.toLocaleString("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        })}
-                      </span>
-                      <span className="product-discount">
+                      <span className="product-discount px-2">
                         Giảm {props.prod.Discount}%
                       </span>
                     </div>
@@ -78,11 +72,10 @@ function Product(props) {
                 <div className="stars-rating d-flex align-items-center flex-wrap">
                   {Rating}
                   <span className="stars-rating__point">
-                    {" "}
-                    {props.prod.Rating}{" "}
+                    {" "} {props.prod.Rating} {" "}
                   </span>
                   <span className="stars-rating__review">
-                    <span>{props.prod.Views}</span> Lượt xem
+                    Đã bán <span>{props.prod.Saled}</span>
                   </span>
                 </div>
               </div>
