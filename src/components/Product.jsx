@@ -16,10 +16,10 @@ function Product(props) {
   };
   let Rating = [];
   for (let i = 1; i <= 5; i++) {
-    if(i <= props.prod.Rating  ){
-      Rating.push(<span className="star-icon las la-star active" />)
-    }else {
-      Rating.push(<span className="star-icon las la-star" />)
+    if (i <= props.prod.Rating) {
+      Rating.push(<span key={props.prod._id +"Rating"+i} className="star-icon las la-star active" />)
+    } else {
+      Rating.push(<span key={props.prod._id +"Rating"+i} className="star-icon las la-star" />)
     }
   }
 
@@ -51,13 +51,13 @@ function Product(props) {
                 </NavLink>
                 <div className="d-flex align-items-center mb-10 flex-wrap">
                   <span className="product-desc-price">
-                    {(
-                      props.prod.Price *
-                      (1 - props.prod.Discount / 100)
-                    ).toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
-                    })}
+                    {
+                      (props.prod.Price * (1 - props.prod.Discount / 100))
+                        .toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        })
+                    }
                   </span>
                   {props.prod.Discount > 0 && (
                     <div className="d-flex align-items-center">

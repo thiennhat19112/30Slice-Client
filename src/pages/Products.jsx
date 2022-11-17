@@ -23,7 +23,7 @@ function Products(props) {
   let listPage = [];
   for (let i = 1; i <= dataProduct.totalPage; i++) {
     listPage.push(
-      <Link to={"?page=" + i} className={`atbd-pagination__link ${pageNumber == i ? 'active':''}`}>
+      <Link to={"?page=" + i} key={"toPage"+i} className={`atbd-pagination__link ${pageNumber == i ? 'active':''}`}>
         <span className="page-number">{i}</span>
       </Link>
     );
@@ -231,7 +231,7 @@ function Products(props) {
                   <div className="row product-page-list justify-content-center">
                     {listProduct &&
                       listProduct.map((item, index) => {
-                        return <Product prod={item} key={index} />;
+                        return <Product prod={item} key={item._id} />;
                       })}
                   </div>
                   {/* End: Shop Item */}
@@ -1071,19 +1071,13 @@ function Products(props) {
               <nav className="atbd-page ">
                 <ul className="atbd-pagination d-flex">
                   <li className="atbd-pagination__item">
-                    <a
-                      href="#"
-                      className="atbd-pagination__link pagination-control"
-                    >
+                    <a href="#" className="atbd-pagination__link pagination-control">
                       <span className="la la-angle-left" />
                     </a>
 
                     {listPage}
 
-                    <a
-                      href="#"
-                      className="atbd-pagination__link pagination-control"
-                    >
+                    <a href="#" className="atbd-pagination__link pagination-control">
                       <span className="la la-angle-right" />
                     </a>
                     <a href="#" className="atbd-pagination__option"></a>

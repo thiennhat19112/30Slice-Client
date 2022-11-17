@@ -62,7 +62,7 @@ const Filters = () => {
             <div className="product-brands">
               <ul>
                 {listCate.map((item, index) => (
-                  <li key={index}>
+                  <li key={item._id}>
                     <div className="checkbox-theme-default custom-checkbox ">
                       <input
                         className="checkbox"
