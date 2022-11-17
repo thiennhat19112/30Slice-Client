@@ -17,8 +17,8 @@ function Product(props) {
 
   }
 
-   return (
-      <div className="cus-xl-3 col-lg-4 col-md-6 col-12 mb-30 px-10">
+  return (
+    <div className="cus-xl-3 col-lg-4 col-md-6 col-12 mb-30 px-10">
       <div className="card product product--grid h-100">
         <div className="h-100">
           <div className="product-item">
@@ -39,11 +39,11 @@ function Product(props) {
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
                 <NavLink to={/products/ + props.prod._id}>
-                  <h6 className="card-title">{props.prod.Name.substring(0,40)}...</h6>
+                  <h6 className="card-title">{props.prod.Name.substring(0, 40)}...</h6>
                 </NavLink>
                 <div className="d-flex align-items-center mb-10 flex-wrap">
                   <span className="product-desc-price">
-                   {(props.prod.Price * (1 - props.prod.Saled/100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} 
+                    {(props.prod.Price * (1 - props.prod.Saled / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                   </span>
                   {props.prod.Saled > 0 && (
                     <span className="product-discount px-2"> Giảm {props.prod.Saled}% </span>
@@ -57,19 +57,19 @@ function Product(props) {
                   <span className="star-icon las la-star active" />
                   <span className="star-icon las la-star active" />
                   <span className="star-icon las la-star-half-alt active" />
-                  <span className="stars-rating__point">4.9</span>
+                  <span className="stars-rating__point"> {props.prod.Rating} </span>
                   <span className="stars-rating__review">
                     <span>778</span> Reviews
                   </span>
                 </div>
               </div>
               <div className="product-item__button d-flex mt-20 flex-wrap">
-                <button onClick={()=>addToCart(props.prod)} className="btn btn-default btn-squared btn-outline-light px-15 ">
+                <button onClick={() => addToCart(props.prod)} className="btn btn-default btn-squared btn-outline-light px-15 ">
                   <span data-feather="shopping-bag" />
                   Thêm vào giỏ hàng
                 </button>
-                <button onClick={()=>addToCart(props.prod)} className="btn btn-primary btn-default btn-squared border-0 ">
-                 Mua đê
+                <button onClick={() => addToCart(props.prod)} className="btn btn-primary btn-default btn-squared border-0 ">
+                  Mua đê
                 </button>
               </div>
             </div>
@@ -77,6 +77,6 @@ function Product(props) {
         </div>
       </div>
     </div>
-   )
+  )
 }
 export default Product
