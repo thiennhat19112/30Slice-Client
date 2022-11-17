@@ -8,6 +8,7 @@ import Error from "./pages/Error";
 import Cart from "./pages/Cart";
 import Category from "./pages/Category";
 import Checkout from "./pages/Checkout";
+import Login from "./pages/Login";
 
 // import component
 import Header from "./components/Header";
@@ -27,7 +28,7 @@ function App(props) {
           <Route path="/products/:id" exact element={<Detail />} />
           <Route path="/cart" exact element={<Cart />} />
           <Route path="/checkout" exact element={<Checkout />} />
-
+          <Route path="/login" exact element={<Login />} />
           <Route path="/category/:id" exact element={<Category />} />
 
 

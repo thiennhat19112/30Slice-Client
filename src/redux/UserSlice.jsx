@@ -6,9 +6,11 @@ const UserSlice = createSlice({
         isLogin : false,
         info : []
     },
-   extraReducers : {
+   reducers : {
     
    }
 })
 
-export default UserSlice
+const { actions, reducer } = UserSlice;
+export const { } = actions;
+export default reducer

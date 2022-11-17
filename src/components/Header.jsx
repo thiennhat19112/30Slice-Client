@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 const Header = () => {
   const cartLength = useSelector((state) => state.cart.length);
+  const UserInfo = useSelector((state) => state.user);
   return (
     <>
       <div className="mobile-search">
@@ -62,7 +63,6 @@ const Header = () => {
                       Tin tức
                     </NavLink>
                   </li>
-              
                 </ul>
               </div>
             </div>
@@ -74,7 +74,9 @@ const Header = () => {
                 <i className="fa-solid fa-cart-shopping"></i>
                 <div className="badge badge-red color-dark">
                   <div className="badge-dot-wrap">
-                    <span className="badge badge-danger badge- badge-sm">{cartLength}</span>
+                    <span className="badge badge-danger badge- badge-sm">
+                      {cartLength}
+                    </span>
                   </div>
                 </div>
               </NavLink>
@@ -93,66 +95,74 @@ const Header = () => {
                   />
                 </form>
               </li>
-
-              <li className="nav-author">
-                <div className="dropdown-custom">
-                  <a href="#" className="nav-item-toggle">
-                    <img
-                      src="/assets/img/author-nav.jpg"
-                      alt=""
-                      className="rounded-circle"
-                    />
-                  </a>
-                  <div className="dropdown-wrapper">
-                    <div className="nav-author__info">
-                      <div className="author-img">
-                        <img
-                          src="/assets/img/author-nav.jpg"
-                          alt=""
-                          className="rounded-circle"
-                        />
+              {UserInfo.isLogin ? (
+                <li className="nav-author">
+                  <div className="dropdown-custom">
+                    <a href="#" className="nav-item-toggle">
+                      <img
+                        src="/assets/img/author-nav.jpg"
+                        alt=""
+                        className="rounded-circle"
+                      />
+                    </a>
+                    <div className="dropdown-wrapper">
+                      <div className="nav-author__info">
+                        <div className="author-img">
+                          <img
+                            src="/assets/img/author-nav.jpg"
+                            alt=""
+                            className="rounded-circle"
+                          />
+                        </div>
+                        <div>
+                          <h6>ADMIN</h6>
+                          <span>ADMIN</span>
+                        </div>
                       </div>
-                      <div>
-                        <h6>ADMIN</h6>
-                        <span>ADMIN</span>
+                      <div className="nav-author__options">
+                        <ul>
+                          <li>
+                            <Link to="/profile">
+                              <span data-feather="user" /> Thông tin tài khoản
+                            </Link>
+                          </li>
+                          <li>
+                            <a href="">
+                              <span data-feather="settings" /> Settings
+                            </a>
+                          </li>
+                          <li>
+                            <a href="">
+                              <span data-feather="key" /> Billing
+                            </a>
+                          </li>
+                          <li>
+                            <a href="">
+                              <span data-feather="users" /> Activity
+                            </a>
+                          </li>
+                          <li>
+                            <a href="">
+                              <span data-feather="bell" /> Help
+                            </a>
+                          </li>
+                        </ul>
+                        <a className="nav-author__signout">
+                          <span data-feather="log-out" /> Đăng xuất
+                        </a>
                       </div>
                     </div>
-                    <div className="nav-author__options">
-                      <ul>
-                        <li>
-                          <Link to="/profile">
-                            <span data-feather="user" /> Thông tin tài khoản
-                          </Link>
-                        </li>
-                        <li>
-                          <a href="">
-                            <span data-feather="settings" /> Settings
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            <span data-feather="key" /> Billing
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            <span data-feather="users" /> Activity
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            <span data-feather="bell" /> Help
-                          </a>
-                        </li>
-                      </ul>
-                      <a className="nav-author__signout">
-                        <span data-feather="log-out" /> Đăng xuất
-                      </a>
-                    </div>
+                    {/* ends: .dropdown-wrapper */}
                   </div>
-                  {/* ends: .dropdown-wrapper */}
-                </div>
-              </li>
+                </li>
+              ) : (
+                <li>
+                  <NavLink exact="true" to="/login">
+                    <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                  </NavLink>
+                </li>
+              )}
+
               {/* ends: .nav-author */}
             </ul>
             {/* ends: .navbar-right__menu */}
