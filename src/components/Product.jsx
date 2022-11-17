@@ -18,8 +18,8 @@ function Product(props) {
   }
 
    return (
-      <div className="cus-xl-3 col-lg-3 col-md-6 col-12 mb-30 px-10">
-      <div className="card product product--grid">
+      <div className="cus-xl-3 col-lg-4 col-md-6 col-12 mb-30 px-10">
+      <div className="card product product--grid h-100">
         <div className="h-100">
           <div className="product-item">
             <div className="product-item__image">
@@ -45,7 +45,6 @@ function Product(props) {
                   <span className="product-desc-price">
                    {(props.prod.Price * (1 - props.prod.Saled/100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} 
                   </span>
-                  <span className="product-price">{props.prod.Saled > 0 && props.prod.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} </span>
                   {props.prod.Saled > 0 && (
                     <span className="product-discount px-2"> Giảm {props.prod.Saled}% </span>
                   )}
