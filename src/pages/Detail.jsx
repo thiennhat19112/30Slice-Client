@@ -36,9 +36,9 @@ function Detail(props) {
   let Rating = [];
   for (let i = 1; i <= 5; i++) {
     if(i <= product.Rating  ){
-      Rating.push(<span className="star-icon las la-star active" />)
+      Rating.push(<span key={i} className="star-icon las la-star active" />)
     }else {
-      Rating.push(<span className="star-icon las la-star" />)
+      Rating.push(<span key={i} className="star-icon las la-star" />)
     }
   }
   useEffect(() => {
@@ -290,12 +290,12 @@ function Detail(props) {
                   {/* Start: Product Availability */}
                   <div className="product-details__availability">
                     <div className="title">
-                      <p>Category:</p>
-                      <span className="free">Furniture</span>
+                      <p>Đã bán:</p>
+                      <span className="free"> <strong>{product.Saled}</strong> sản phẩm </span>
                     </div>
                     <div className="title">
-                      <p>Tags:</p>
-                      <span className="free"> Blue, Green, Light</span>
+                      <p>Danh mục:</p>
+                      <span className="free"> {product.Id_Categories} </span>
                     </div>
                   </div>
                   {/* End: Product Availability */}
