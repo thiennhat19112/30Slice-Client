@@ -21,7 +21,6 @@ function Breadcrumb() {
   let path = location.pathname.split("/").slice(1);
 
   let brc = path.map((item, index, row) => {
-    console.log(item, row.length);
     let link = path.slice(0, index + 1).join("/");
     if (index + 1 === row.length) {
       if(row.length !== 1) {
