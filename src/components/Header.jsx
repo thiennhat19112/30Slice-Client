@@ -158,7 +158,7 @@ const Header = () => {
               ) : (
                 <li>
                   <NavLink exact="true" to="/login">
-                    <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                    <i className="fa-solid fa-right-to-bracket"></i> Đăng nhập
                   </NavLink>
                 </li>
               )}
