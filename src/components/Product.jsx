@@ -39,6 +39,7 @@ function Product(props) {
                   className="card-img-top img-fluid"
                   src={props.prod.Images[0]}
                   alt="digital-chair"
+                  style={{borderTopLeftRadius: "10px", borderTopRightRadius: "10px"}}
                 />
               </NavLink>
             </div>
