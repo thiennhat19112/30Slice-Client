@@ -24,7 +24,7 @@ function Detail(props) {
     const product = {
       _id: item._id,
       Name: item.Name,
-      Price: (item.Price * (100 - item.Saled)) / 100,
+      Price: (item.Price * (100 - item.Discount)) / 100,
       Images: item.Images,
       Quantity: 1
     };
@@ -164,9 +164,9 @@ function Detail(props) {
                           <span className="star-icon las la-star active" />
                           <span className="star-icon las la-star active" />
                           <span className="star-icon las la-star-half-alt active" />
-                          <span className="stars-rating__point">4.9</span>
+                          <span className="stars-rating__point">{product.Rating}</span>
                           <span className="stars-rating__review">
-                            <span>778</span> Reviews
+                            <span>{product.Views}</span> Lượt xem
                           </span>
                         </div>
                         {/* End: Product Ratings */}
@@ -175,12 +175,12 @@ function Detail(props) {
                           Brand:<span>Louis Poulsen</span>
                         </span>
                         <span className="product-desc-price">
-                          {product && (product.Price * (1 - product.Saled / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                          {product && (product.Price * (1 - product.Discount / 100)).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </span>
-                        {product.Saled > 0 && (
+                        {product.Discount > 0 && (
                           <div className="d-flex align-items-center mb-2">
                             <span className="product-price">{product.Price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                            <span className="product-discount">Giảm {product.Saled}%</span>
+                            <span className="product-discount">Giảm {product.Discount}%</span>
                           </div>
                         )}
                         {/* End: Product Brand */}
