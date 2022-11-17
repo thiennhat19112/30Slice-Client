@@ -33,6 +33,14 @@ function Detail(props) {
 
 
   }
+  let Rating = [];
+  for (let i = 1; i <= 5; i++) {
+    if(i <= product.Rating  ){
+      Rating.push(<span className="star-icon las la-star active" />)
+    }else {
+      Rating.push(<span className="star-icon las la-star" />)
+    }
+  }
   useEffect(() => {
     fetchDetail();
   }, []);
@@ -159,11 +167,9 @@ function Detail(props) {
                       <div className="product-item__content text-capitalize">
                         {/* Start: Product Ratings */}
                         <div className="stars-rating d-flex align-items-center">
-                          <span className="star-icon las la-star active" />
-                          <span className="star-icon las la-star active" />
-                          <span className="star-icon las la-star active" />
-                          <span className="star-icon las la-star active" />
-                          <span className="star-icon las la-star-half-alt active" />
+                          {
+                            Rating
+                          }
                           <span className="stars-rating__point">{product.Rating}</span>
                           <span className="stars-rating__review">
                             <span>{product.Views}</span> Lượt xem
