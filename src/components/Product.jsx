@@ -14,6 +14,14 @@ function Product(props) {
     console.log(product);
     dispatch(addProduct(product));
   };
+  let Rating = [];
+  for (let i = 1; i <= 5; i++) {
+    if(i <= props.prod.Rating  ){
+      Rating.push(<span className="star-icon las la-star active" />)
+    }else {
+      Rating.push(<span className="star-icon las la-star" />)
+    }
+  }
 
   return (
     <div className="cus-xl-3 col-lg-4 col-md-6 col-12 mb-30 px-10">
@@ -51,21 +59,24 @@ function Product(props) {
                       currency: "VND",
                     })}
                   </span>
-                  {props.prod.Saled > 0 && (
-                    <span className="product-discount px-2">
-                      {" "}
-                      Giảm {props.prod.Discount}%{" "}
-                    </span>
+                  {props.prod.Discount > 0 && (
+                    <div className="d-flex align-items-center">
+                      <span className="product-price">
+                        {props.prod.Price.toLocaleString("vi-VN", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </span>
+                      <span className="product-discount">
+                        Giảm {props.prod.Discount}%
+                      </span>
+                    </div>
                   )}
                 </div>
               </div>
               <div className="product-item__footer">
                 <div className="stars-rating d-flex align-items-center flex-wrap">
-                  <span className="star-icon las la-star active" />
-                  <span className="star-icon las la-star active" />
-                  <span className="star-icon las la-star active" />
-                  <span className="star-icon las la-star active" />
-                  <span className="star-icon las la-star-half-alt active" />
+                  {Rating}
                   <span className="stars-rating__point">
                     {" "}
                     {props.prod.Rating}{" "}
