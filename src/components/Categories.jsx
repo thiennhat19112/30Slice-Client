@@ -11,7 +11,7 @@ const Categories = () => {
 
   const loadDataCategories = async () => {
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "category/getAllCategories"
+      process.env.REACT_APP_API_ENDPOINT + "category/getCategories"
     );
     const data = await res.json();
     const parent = data.filter((item) => item["Parent_Id"] === null);
