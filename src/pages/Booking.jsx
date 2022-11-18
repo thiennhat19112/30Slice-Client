@@ -68,7 +68,7 @@ function Booking(props) {
   const fetchArrEmployee = async () => {
     Notiflix.Loading.standard("Loading...");
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT +
+      import.meta.env.REACT_APP_API_ENDPOINT +
         "stylelist/getAvailableEmployee?bookedDate=" +
         refDate.current.value
     );
@@ -82,7 +82,7 @@ function Booking(props) {
   const fetchArrService = async () => {
     Notiflix.Loading.standard("Loading...");
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "service/getAllServices"
+      import.meta.env.REACT_APP_API_ENDPOINT + "service/getAllServices"
     );
     const data = await res.json();
     if (data) {
@@ -94,7 +94,7 @@ function Booking(props) {
   const LoginCustomer = async (phone) => {
     Notiflix.Loading.standard("Loading...");
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "user/booking",
+      import.meta.env.REACT_APP_API_ENDPOINT + "user/booking",
       {
         method: "POST",
         headers: {
@@ -137,7 +137,7 @@ function Booking(props) {
   // hàm khỏi tạo khách hàng
   const RegisterCustomer = async (Info) => {
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "user/register",
+      import.meta.env.REACT_APP_API_ENDPOINT + "user/register",
       {
         method: "POST",
         headers: {
@@ -151,7 +151,7 @@ function Booking(props) {
   };
   // hàm đặt lịch
   const Booking = async (Info) => {
-    const res = await fetch(process.env.REACT_APP_API_ENDPOINT + "booking", {
+    const res = await fetch(import.meta.env.REACT_APP_API_ENDPOINT + "booking", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

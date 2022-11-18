@@ -19,7 +19,7 @@ function Category(props) {
     const fetchProduct = async () => {
       Notiflix.Loading.standard("Đang tải...");
       const res = await fetch(
-        process.env.REACT_APP_API_ENDPOINT + "product/getProductsByCategory/" + params.id
+        import.meta.env.REACT_APP_API_ENDPOINT + "product/getProductsByCategory/" + params.id
       );
       const data = await res.json();
       if (data) {

@@ -1,19 +1,19 @@
-import { BrowserRouter, Routes, Route, Link, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, NavLink } from 'react-router-dom';
 // import page
-import Booking from "./pages/Booking";
-import Products from "./pages/Products";
-import Detail from "./pages/Detail";
-import Home from "./pages/Home";
-import Error from "./pages/Error";
-import Cart from "./pages/Cart";
-import Category from "./pages/Category";
-import Checkout from "./pages/Checkout";
-import Login from "./pages/Login";
+import Booking from './pages/Booking';
+import Products from './pages/Products';
+import Detail from './pages/Detail';
+import Home from './pages/Home';
+import Error from './pages/Error';
+import Cart from './pages/Cart';
+import Category from './pages/Category';
+import Checkout from './pages/Checkout';
+import Login from './pages/Login';
 
 // import component
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar";
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Sidebar from './components/Sidebar';
 
 function App(props) {
   return (
@@ -30,8 +30,6 @@ function App(props) {
           <Route path="/checkout" exact element={<Checkout />} />
           <Route path="/login" exact element={<Login />} />
           <Route path="/category/:id" exact element={<Category />} />
-
-
           <Route path="*" element={<Error />} />
         </Routes>
       </main>

@@ -31,7 +31,7 @@ function Products(props) {
   const fetchProduct = async () => {
     Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + `product/getProducts?page=${pageNumber}&limit=12`
+      import.meta.env.REACT_APP_API_ENDPOINT + `product/getProducts?page=${pageNumber}&limit=12`
     );
     const data = await res.json();
     if (data) {

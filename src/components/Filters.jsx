@@ -7,7 +7,7 @@ const Filters = () => {
   const fetchCate = async () => {
     Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "category/getAllCategories"
+      import.meta.env.REACT_APP_API_ENDPOINT + "category/getAllCategories"
     );
     const data = await res.json();
     if (data) {

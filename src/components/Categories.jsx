@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { useRef } from "react";
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { addCategory } from "../redux/CategoriesSlice";
+import { useEffect } from 'react';
+import { useRef } from 'react';
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCategory } from '../redux/CategoriesSlice';
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const _isMounted = useRef(false);
@@ -11,13 +11,13 @@ const Categories = () => {
 
   const loadDataCategories = async () => {
     const res = await fetch(
-      process.env.REACT_APP_API_ENDPOINT + "category/getCategories"
+      import.meta.env.REACT_APP_API_ENDPOINT + 'category/getCategories'
     );
     const data = await res.json();
-    const parent = data.filter((item) => item["Parent_Id"] === null);
+    const parent = data.filter((item) => item['Parent_Id'] === null);
     const treeData = parent.map((item) => ({
       ...item,
-      Children: data.filter((x) => x["Parent_Id"] === item._id),
+      Children: data.filter((x) => x['Parent_Id'] === item._id),
     }));
     dispatch(addCategory(treeData));
     _isMounted.current && setCategories(treeData);
@@ -43,9 +43,7 @@ const Categories = () => {
         {categories.length > 0 &&
           categories.map((category) => (
             <li key={category._id}>
-              <Link className="mega-title">
-                {category?.Name}
-              </Link>
+              <Link className="mega-title">{category?.Name}</Link>
               <ul>
                 {category?.Children.length > 0 &&
                   category?.Children.map((child) => (
