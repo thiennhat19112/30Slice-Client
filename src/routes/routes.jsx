@@ -14,7 +14,7 @@ import Error from '../pages/Error';
 import Cart from '../pages/Cart';
 import Category from '../pages/Category';
 import Checkout from '../pages/Checkout';
-import Login from '../pages/Login';
+import Login from '../pages/login';
 
 const routes = createBrowserRouter([
   {
