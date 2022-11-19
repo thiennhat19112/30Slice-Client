@@ -15,13 +15,13 @@ function Footer() {
               <div className="footer-menu text-right">
                 <ul>
                   <li>
-                    <a href="#">About</a>
+                    <a href="#">Về chúng tôi</a>
                   </li>
                   <li>
-                    <a href="#">Team</a>
+                    <a href="#">Đội ngũ coder</a>
                   </li>
                   <li>
-                    <a href="#">Contact</a>
+                    <a href="#">Liên hệ</a>
                   </li>
                 </ul>
               </div>
