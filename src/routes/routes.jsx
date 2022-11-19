@@ -1,28 +1,20 @@
 import { createBrowserRouter } from 'react-router-dom';
-// import { lazy } from 'react';
-
-// const ProtectedRoute = lazy(() => import('./protectedRoute'));
-// const PrivateRoute = lazy(() => import('./privateRoute'));
-
-// const App = lazy(() => import('../app/App'));
-// const Login = lazy(() => import('../pages/login'));
-// const Error = lazy(() => import('../pages/error'));
-// const Dashboard = lazy(() => import('../pages/dashboard'));
 
 import ProtectedRoute from './protectedRoute';
 import PrivateRoute from './privateRoute';
 
 import App from '../App';
-import Login from '../pages/login';
-import Error from '../pages/error';
-import Dashboard from '../pages/dashboard';
-import Profile from '../pages/profile';
-import ForgetPassword from '../pages/forget-password';
-import ResetPassword from '../pages/reset-password';
-import Category from '../pages/category';
-import Product from '../pages/product';
-import News from '../pages/news';
-import EditCategory from '../pages/category/edit';
+
+// import page
+import Booking from '../pages/Booking';
+import Products from '../pages/Products';
+import Detail from '../pages/Detail';
+import Home from '../pages/Home';
+import Error from '../pages/Error';
+import Cart from '../pages/Cart';
+import Category from '../pages/Category';
+import Checkout from '../pages/Checkout';
+import Login from '../pages/Login';
 
 const routes = createBrowserRouter([
   {
@@ -33,30 +25,32 @@ const routes = createBrowserRouter([
         path: '',
         exact: true,
         element: (
-          <PrivateRoute>
-            <App />
-          </PrivateRoute>
+          <>
+            {/* <PrivateRoute>
+            </PrivateRoute> */}
+              <App />
+          </>
         ),
         children: [
           {
             path: '',
             exact: true,
-            element: <Dashboard />,
+            element: <Home />,
           },
           {
-            path: 'item',
+            path: 'booking',
             exact: true,
-            element: <div>Item</div>,
+            element: <Booking />,
           },
           {
             path: 'products',
             exact: true,
-            element: <Product />,
+            element: <Products />,
           },
           {
-            path: 'profile',
+            path: 'products/:id',
             exact: true,
-            element: <Profile />,
+            element: <Detail />,
           },
           {
             path: 'category',
@@ -66,13 +60,23 @@ const routes = createBrowserRouter([
           {
             path: 'category/:id',
             exact: true,
-            element: <EditCategory />,
+            element: <Category />,
           },
           {
-            path: 'news',
+            path: 'cart',
             exact: true,
-            element: <News />,
+            element: <Cart />,
           },
+          {
+            path: 'checkout',
+            exact: true,
+            element: <Checkout />,
+          },
+          // {
+          //   path: 'news',
+          //   exact: true,
+          //   element: <News />,
+          // },
         ],
       },
       {
@@ -84,24 +88,24 @@ const routes = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: 'forget-password',
-        exact: true,
-        element: (
-          <ProtectedRoute>
-            <ForgetPassword />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: 'reset-password',
-        exact: true,
-        element: (
-          <ProtectedRoute>
-            <ResetPassword />
-          </ProtectedRoute>
-        ),
-      },
+      // {
+      //   path: 'forget-password',
+      //   exact: true,
+      //   element: (
+      //     <ProtectedRoute>
+      //       <ForgetPassword />
+      //     </ProtectedRoute>
+      //   ),
+      // },
+      // {
+      //   path: 'reset-password',
+      //   exact: true,
+      //   element: (
+      //     <ProtectedRoute>
+      //       <ResetPassword />
+      //     </ProtectedRoute>
+      //   ),
+      // },
     ],
     errorElement: <Error />,
   },

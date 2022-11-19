@@ -1,40 +1,41 @@
-import { BrowserRouter, Routes, Route, Link, NavLink } from 'react-router-dom';
-// import page
-import Booking from './pages/Booking';
-import Products from './pages/Products';
-import Detail from './pages/Detail';
-import Home from './pages/Home';
-import Error from './pages/Error';
-import Cart from './pages/Cart';
-import Category from './pages/Category';
-import Checkout from './pages/Checkout';
-import Login from './pages/Login';
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { clearMessage } from './app/redux/slices/auth/message';
+
 
 // import component
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Sidebar from './components/Sidebar';
 
-function App(props) {
+function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = '/assets/theme_assets/js/main.js';
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
-    <BrowserRouter>
+    <>
       <Header />
       <main className="main-content">
-        {/* <Sidebar /> */}
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/booking" exact element={<Booking />} />
-          <Route path="/products" exact element={<Products />} />
-          <Route path="/products/:id" exact element={<Detail />} />
-          <Route path="/cart" exact element={<Cart />} />
-          <Route path="/checkout" exact element={<Checkout />} />
-          <Route path="/login" exact element={<Login />} />
-          <Route path="/category/:id" exact element={<Category />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
+        <div className="contents">
+          <Outlet />
+        </div>
+        <Footer />
       </main>
-      <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 
