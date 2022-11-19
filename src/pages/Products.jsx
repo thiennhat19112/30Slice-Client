@@ -5,7 +5,7 @@ import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
 import Filters from "../components/Filters";
 import { useRef } from "react";
-import { Link,useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 function Products(props) {
   const [dataProduct, setdataProduct] = useState({});
@@ -13,17 +13,21 @@ function Products(props) {
   const _isMounted = useRef(false);
 
   const [param] = useSearchParams();
-  let pageNumber
+  let pageNumber;
   if (param.get("page") == null) {
-    pageNumber = 1
-  }else{
-    pageNumber = param.get("page")
+    pageNumber = 1;
+  } else {
+    pageNumber = param.get("page");
   }
 
   let listPage = [];
   for (let i = 1; i <= dataProduct.totalPage; i++) {
     listPage.push(
-      <Link to={"?page=" + i} key={"toPage"+i} className={`atbd-pagination__link ${pageNumber == i ? 'active':''}`}>
+      <Link
+        to={"?page=" + i}
+        key={"toPage" + i}
+        className={`atbd-pagination__link ${pageNumber == i ? "active" : ""}`}
+      >
         <span className="page-number">{i}</span>
       </Link>
     );
@@ -31,7 +35,8 @@ function Products(props) {
   const fetchProduct = async () => {
     Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT + `product/getProducts?page=${pageNumber}&limit=12`
+      import.meta.env.REACT_APP_API_ENDPOINT +
+        `product/getProducts?page=${pageNumber}&limit=12`
     );
     const data = await res.json();
     if (data) {
@@ -53,7 +58,7 @@ function Products(props) {
   }, [pageNumber]);
 
   return (
-    <div className="contents">
+    <>
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12">
@@ -96,8 +101,12 @@ function Products(props) {
                       </form>
                     </div>
                     <span className="project-result-showing fs-14 color-gray ml-xl-25 mr-xl-0 text-center mt-lg-0 mt-20">
-                      Hiển thị 
-                      <span> {(pageNumber-1)*12+1}-{pageNumber*12}</span> trong <span>{dataProduct.totalItem} </span>
+                      Hiển thị
+                      <span>
+                        {" "}
+                        {(pageNumber - 1) * 12 + 1}-{pageNumber * 12}
+                      </span>{" "}
+                      trong <span>{dataProduct.totalItem} </span>
                       kết quả
                     </span>
                   </div>
@@ -1071,13 +1080,19 @@ function Products(props) {
               <nav className="atbd-page ">
                 <ul className="atbd-pagination d-flex">
                   <li className="atbd-pagination__item">
-                    <a href="#" className="atbd-pagination__link pagination-control">
+                    <a
+                      href="#"
+                      className="atbd-pagination__link pagination-control"
+                    >
                       <span className="la la-angle-left" />
                     </a>
 
                     {listPage}
 
-                    <a href="#" className="atbd-pagination__link pagination-control">
+                    <a
+                      href="#"
+                      className="atbd-pagination__link pagination-control"
+                    >
                       <span className="la la-angle-right" />
                     </a>
                     <a href="#" className="atbd-pagination__option"></a>
@@ -1092,7 +1107,7 @@ function Products(props) {
         </div>
       </div>
       {/* End: .products */}
-    </div>
+    </>
   );
 }
 export default Products;

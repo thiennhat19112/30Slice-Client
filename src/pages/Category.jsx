@@ -2,54 +2,51 @@ import { useEffect, useState } from "react";
 import Notiflix from "notiflix";
 import { useParams } from "react-router-dom";
 
-
 import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
 import Filters from "../components/Filters";
 import { useRef } from "react";
 
 function Category(props) {
+  const [dataProduct, setdataProduct] = useState({});
+  const [listProduct, setListProduct] = useState([]);
+  const _isMounted = useRef(false);
+  const params = useParams();
 
-    const [dataProduct, setdataProduct] = useState({});
-    const [listProduct, setListProduct] = useState([]);
-    const _isMounted = useRef(false)
-    const params = useParams()
+  const fetchProduct = async () => {
+    Notiflix.Loading.standard("Đang tải...");
+    const res = await fetch(
+      import.meta.env.REACT_APP_API_ENDPOINT +
+        "product/getProductsByCategory/" +
+        params.id
+    );
+    const data = await res.json();
+    if (data) {
+      Notiflix.Loading.remove();
+    }
 
-
-    const fetchProduct = async () => {
-      Notiflix.Loading.standard("Đang tải...");
-      const res = await fetch(
-        import.meta.env.REACT_APP_API_ENDPOINT + "product/getProductsByCategory/" + params.id
-      );
-      const data = await res.json();
-      if (data) {
-        Notiflix.Loading.remove();
-      }
-
-      _isMounted.current && setListProduct(data);
-  
+    _isMounted.current && setListProduct(data);
+  };
+  useEffect(() => {
+    _isMounted.current = true;
+    return () => {
+      _isMounted.current = false;
     };
-    useEffect(()=>{
-      _isMounted.current = true;
-      return  () => {
-        _isMounted.current = false
-      }
-    },[])
-  
-    useEffect(() => {
-      fetchProduct();
-    }, [params.id]);
+  }, []);
 
+  useEffect(() => {
+    fetchProduct();
+  }, [params.id]);
 
   return (
-    <div className="contents">
+    <>
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12">
             <div className="shop-breadcrumb">
               <div className="breadcrumb-main">
                 <h4 className="text-capitalize breadcrumb-title">
-                 Sản phẩm theo loại
+                  Sản phẩm theo loại
                 </h4>
               </div>
               <Breadcrumb />
@@ -61,7 +58,7 @@ function Category(props) {
         <div className="container-fluid">
           <div className="row justify-content-center">
             <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
-             <Filters/>
+              <Filters />
               {/* End: .widget */}
             </div>
             {/* End: .columns-1 */}
@@ -218,9 +215,10 @@ function Category(props) {
                 >
                   {/* Start: Shop Item */}
                   <div className="row product-page-list justify-content-center">
-                    {listProduct && listProduct.map((item, index) => {
-                      return <Product prod={item} key={index} />;
-                    })}
+                    {listProduct &&
+                      listProduct.map((item, index) => {
+                        return <Product prod={item} key={index} />;
+                      })}
                   </div>
                   {/* End: Shop Item */}
                 </div>
@@ -1063,7 +1061,7 @@ function Category(props) {
         </div>
       </div>
       {/* End: .products */}
-    </div>
+    </>
   );
 }
 export default Category;

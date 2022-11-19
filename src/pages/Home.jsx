@@ -1,6 +1,6 @@
 function Home() {
   return (
-    <div className="contents">
+    <>
       <div className="atbd-page-content">
         <div className="container-fluid">
           <div className="row">
@@ -9,7 +9,7 @@ function Home() {
         </div>
       </div>
       {/* ends: .atbd-page-content */}
-    </div>
+    </>
   );
 }
 export default Home;

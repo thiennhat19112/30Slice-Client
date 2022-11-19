@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate,NavLink } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate, NavLink, Link } from "react-router-dom";
 
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 
-import Input from '../../components/sharedComponents/input';
-import { usernameValidator } from '../../components/sharedComponents/validatorPatterns';
-import { passwordValidator } from '../../components/sharedComponents/validatorPatterns';
+import Input from "../../components/sharedComponents/input";
+import { usernameValidator } from "../../components/sharedComponents/validatorPatterns";
+import { passwordValidator } from "../../components/sharedComponents/validatorPatterns";
 
-import { selectMessage } from '../../app/redux/slices/auth/message';
+import { selectMessage } from "../../app/redux/slices/auth/message";
 
-import { login } from '../../app/redux/slices/auth/auth';
-import { clearMessage } from '../../app/redux/slices/auth/message';
+import { login } from "../../app/redux/slices/auth/auth";
+import { clearMessage } from "../../app/redux/slices/auth/message";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -68,15 +68,15 @@ const Login = () => {
                   {/* End: .signUP-overlay  */}
                   <div className="signUP-admin-left__content">
                     <div className="mb-md-30 mb-15 d-flex align-items-center justify-content-md-start justify-content-center">
-                      <a
+                      <Link
                         className="wh-36 bg-primary text-white radius-md mr-10 content-center"
-                        href="index.html"
+                        to="/"
                       >
-                        A
-                      </a>
-                      <span className="text-dark">Admin</span>
+                        C
+                      </Link>
+                      <span className="text-dark">Client</span>
                     </div>
-                    <h1>Trang Quản Trị Hệ Thống 30Slice</h1>
+                    <h1>Trang Thành Viên Hệ Thống 30Slice</h1>
                   </div>
                   {/* End: .signUP-admin-left__content  */}
                   <div className="signUP-admin-left__img">
@@ -106,8 +106,8 @@ const Login = () => {
                           <div className="card-header border-0  pb-md-15 pb-10 pt-md-20 pt-10 ">
                             <div className="edit-profile__title">
                               <h6>
-                                Đăng nhập vào{' '}
-                                <span className="color-primary">Admin</span>
+                                Đăng nhập vào{" "}
+                                <span className="color-primary">Client</span>
                               </h6>
                             </div>
                           </div>
@@ -148,9 +148,10 @@ const Login = () => {
                                         Giữ tôi đăng nhập
                                       </span>
                                     </label>
-                                    
                                   </div>
-                                  <NavLink to="/forget-password">Quên mật khẩu</NavLink>
+                                  <NavLink to="/forget-password">
+                                    Quên mật khẩu
+                                  </NavLink>
                                 </div>
                                 {message && (
                                   <div className="form-group">
@@ -172,6 +173,12 @@ const Login = () => {
                                     )}
                                     Đăng nhập
                                   </button>
+                                  <Link
+                                    to="/sign-up"
+                                    className="btn btn-info btn-default btn-squared mr-15 lh-normal px-50 signIn-createBtn "
+                                  >
+                                    Đăng ký
+                                  </Link>
                                 </div>
                                 <p className="social-connector text-center mb-sm-25 mb-15  mt-sm-30 mt-20">
                                   <span>Hoặc</span>
@@ -186,7 +193,7 @@ const Login = () => {
                                         src="/assets/img/svg/google.svg"
                                         alt="img"
                                       />
-                                      {'  '}
+                                      {"  "}
                                       <span
                                         style={{
                                           marginLeft: 10,

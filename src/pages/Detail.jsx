@@ -45,7 +45,7 @@ function Detail(props) {
     fetchDetail();
   }, []);
   return (
-    <div className="contents">
+    <>
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12">
@@ -307,7 +307,7 @@ function Detail(props) {
           {/* End: Card */}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Detail;

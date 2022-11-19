@@ -1,74 +1,79 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from "react-router-dom";
 
-import ProtectedRoute from './protectedRoute';
-import PrivateRoute from './privateRoute';
+import ProtectedRoute from "./protectedRoute";
+import PrivateRoute from "./privateRoute";
 
-import App from '../App';
+import App from "../App";
 
 // import page
-import Booking from '../pages/Booking';
-import Products from '../pages/Products';
-import Detail from '../pages/Detail';
-import Home from '../pages/Home';
-import Error from '../pages/Error';
-import Cart from '../pages/Cart';
-import Category from '../pages/Category';
-import Checkout from '../pages/Checkout';
-import Login from '../pages/login';
+import Booking from "../pages/Booking";
+import Products from "../pages/Products";
+import Detail from "../pages/Detail";
+import Home from "../pages/Home";
+import Error from "../pages/Error";
+import Cart from "../pages/Cart";
+import Category from "../pages/Category";
+import Checkout from "../pages/Checkout";
+import Login from "../pages/login";
 
 const routes = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     exact: true,
     children: [
       {
-        path: '',
+        path: "",
         exact: true,
-        element: (
-          <PrivateRoute>
-            <App />
-          </PrivateRoute>
-        ),
+        element: <App />,
         children: [
           {
-            path: '',
+            path: "",
             exact: true,
             element: <Home />,
           },
           {
-            path: 'booking',
+            path: "booking",
             exact: true,
             element: <Booking />,
           },
           {
-            path: 'products',
+            path: "products",
             exact: true,
             element: <Products />,
           },
           {
-            path: 'products/:id',
+            path: "products/:id",
             exact: true,
             element: <Detail />,
           },
           {
-            path: 'category',
+            path: "category",
             exact: true,
             element: <Category />,
           },
           {
-            path: 'category/:id',
+            path: "category/:id",
             exact: true,
             element: <Category />,
           },
           {
-            path: 'cart',
+            path: "cart",
             exact: true,
             element: <Cart />,
           },
           {
-            path: 'checkout',
+            path: "checkout",
             exact: true,
             element: <Checkout />,
+          },
+          {
+            path: "login",
+            exact: true,
+            element: (
+              <ProtectedRoute>
+                <Login />
+              </ProtectedRoute>
+            ),
           },
           // {
           //   path: 'news',
@@ -77,15 +82,7 @@ const routes = createBrowserRouter([
           // },
         ],
       },
-      {
-        path: 'login',
-        exact: true,
-        element: (
-          <ProtectedRoute>
-            <Login />
-          </ProtectedRoute>
-        ),
-      },
+
       // {
       //   path: 'forget-password',
       //   exact: true,
