@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory } from '../redux/CategoriesSlice';
+import { addCategory } from '../app/redux/slices/user/CategoriesSlice';
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const _isMounted = useRef(false);

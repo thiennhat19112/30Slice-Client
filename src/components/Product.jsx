@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../redux/CartSlice";
+import { addProduct } from "../app/redux/slices/user/CartSlice";
 function Product(props) {
   const dispatch = useDispatch();
   const addToCart = (item) => {

@@ -3,7 +3,7 @@ import Breadcrumb from "../components/Breakcumb";
 import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
-import { addProduct } from '../redux/CartSlice'
+import { addProduct } from '../app/redux/slices/user/CartSlice'
 function Detail(props) {
   const dispatch = useDispatch()
 

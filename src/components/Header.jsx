@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 const Header = () => {
   const cartLength = useSelector((state) => state.cart.length);
-  const UserInfo = useSelector((state) => state.user);
+  const UserInfo = useSelector((state) => state.auth);
   return (
     <>
       <div className="mobile-search">
@@ -95,7 +95,7 @@ const Header = () => {
                   />
                 </form>
               </li>
-              {UserInfo.isLogin ? (
+              {UserInfo.isLoggedIn ? (
                 <li className="nav-author">
                   <div className="dropdown-custom">
                     <a href="#" className="nav-item-toggle">
