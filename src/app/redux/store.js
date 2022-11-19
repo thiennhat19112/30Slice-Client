@@ -1,8 +1,6 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import userReducer from "./slices/auth/auth";
-import messageReducer from "./slices/auth/message";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import {
   FLUSH,
   REHYDRATE,
@@ -10,16 +8,24 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from "redux-persist";
+} from 'redux-persist';
+
+import userReducer from './slices/auth/auth';
+import messageReducer from './slices/auth/message';
+
+import cartReducer from './CartSlice';
+import categoryReducer from './CategoriesSlice';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
 };
 
 const rootReducer = combineReducers({
   auth: userReducer,
   message: messageReducer,
+  cart: cartReducer,
+  categories: categoryReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -33,5 +39,4 @@ export const store = configureStore({
       },
     }),
 });
-export let persistor = persistStore(store);
-
+export const persistor = persistStore(store);
