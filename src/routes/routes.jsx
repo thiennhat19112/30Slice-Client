@@ -25,11 +25,9 @@ const routes = createBrowserRouter([
         path: '',
         exact: true,
         element: (
-          <>
-            {/* <PrivateRoute>
-            </PrivateRoute> */}
-              <App />
-          </>
+          <PrivateRoute>
+            <App />
+          </PrivateRoute>
         ),
         children: [
           {
