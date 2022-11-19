@@ -13,8 +13,8 @@ import {
 import userReducer from './slices/auth/auth';
 import messageReducer from './slices/auth/message';
 
-import cartReducer from './CartSlice';
-import categoryReducer from './CategoriesSlice';
+import cartReducer from './slices/user/CartSlice';
+import categoryReducer from './slices/user/CategoriesSlice';
 
 const persistConfig = {
   key: 'root',
@@ -39,4 +39,5 @@ export const store = configureStore({
       },
     }),
 });
+
 export const persistor = persistStore(store);
