@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Notiflix from "notiflix";
 
 import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
 import Filters from "../components/Filters";
-import { useRef } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { Search } from "react-feather";
 function Products(props) {
   const [dataProduct, setdataProduct] = useState({});
   const [listProduct, setListProduct] = useState([]);
   const _isMounted = useRef(false);
+  const refSearch = useRef("");
+  const navigate = useNavigate();
 
   const [param] = useSearchParams();
   let pageNumber;
@@ -19,12 +20,18 @@ function Products(props) {
   } else {
     pageNumber = param.get("page");
   }
+let search;
+  if (param.get("search") == null) {
+    search = "";
+  } else {
+    search = param.get("search");
+  }
 
   let listPage = [];
   for (let i = 1; i <= dataProduct.totalPage; i++) {
     listPage.push(
       <Link
-        to={"?page=" + i}
+        to={"?page=" + i + "&search=" + search}
         key={"toPage" + i}
         className={`atbd-pagination__link ${pageNumber == i ? "active" : ""}`}
       >
@@ -36,9 +43,10 @@ function Products(props) {
     Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
       import.meta.env.REACT_APP_API_ENDPOINT +
-        `product/getProducts?page=${pageNumber}&limit=12`
+        `product/getProducts?page=${pageNumber}&limit=12&search=${search}`
     );
     const data = await res.json();
+    console.log(data);
     if (data) {
       Notiflix.Loading.remove();
     }
@@ -55,7 +63,7 @@ function Products(props) {
 
   useEffect(() => {
     fetchProduct();
-  }, [pageNumber]);
+  }, [pageNumber,search]);
 
   return (
     <>
@@ -88,15 +96,19 @@ function Products(props) {
                   <div className="project-top-left d-flex flex-wrap align-items-center">
                     <div className="project-search shop-search  global-shadow ">
                       <form
-                        action="/"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          navigate(`?search=${refSearch.current.value}`);
+                        }}
                         className="d-flex align-items-center user-member__form"
                       >
-                        <span data-feather="search" />
+                        <Search />
                         <input
                           className="form-control mr-sm-2 border-0 box-shadow-none"
                           type="search"
                           placeholder="Tìm kiếm"
                           aria-label="Search"
+                          ref={refSearch}
                         />
                       </form>
                     </div>
@@ -153,7 +165,7 @@ function Products(props) {
                               aria-controls="activity"
                               aria-selected="false"
                             >
-                             Giá
+                              Giá
                             </a>
                           </li>
                           <li className="nav-item">
@@ -166,7 +178,7 @@ function Products(props) {
                               aria-controls="draft"
                               aria-selected="false"
                             >
-                             Đánh giá
+                              Đánh giá
                             </a>
                           </li>
                         </ul>
@@ -245,7 +257,11 @@ function Products(props) {
                   <div className="row product-page-list">
                     {listProduct &&
                       listProduct
-                        .sort((a, b) => ((b.Price * (100 - b.Discount)) / 100) - ((a.Price * (100 - a.Discount)) / 100))
+                        .sort(
+                          (a, b) =>
+                            (b.Price * (100 - b.Discount)) / 100 -
+                            (a.Price * (100 - a.Discount)) / 100
+                        )
                         .map((item) => {
                           return <Product prod={item} key={item._id} />;
                         })}
@@ -258,13 +274,12 @@ function Products(props) {
                   aria-labelledby="draft-tab"
                 >
                   <div className="row product-page-list">
-                  {listProduct &&
+                    {listProduct &&
                       listProduct
                         .sort((a, b) => b.Rating - a.Rating)
                         .map((item) => {
                           return <Product prod={item} key={item._id} />;
                         })}
-                   
                   </div>
                 </div>
               </div>
