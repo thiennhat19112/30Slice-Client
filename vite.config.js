@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   envPrefix: ['REACT_APP'],
   server: {
-    port: 3000,
+    port: 3100,
   },
 });
