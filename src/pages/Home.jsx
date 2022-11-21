@@ -2,12 +2,15 @@ function Home() {
   return (
     <>
       <div className="container-fluid m-0 p-0">
-        <img
-          src="https://4rau.vn/upload/hinhanh/dsc01875-8577.jpg"
-          alt=""
-          width="100%"
-          height="100%"
-        />
+        <div className="image-home">
+          <button className="offset">Đặt lịch</button>
+          <img
+            src="https://4rau.vn/upload/hinhanh/dsc01875-8577.jpg"
+            alt=""
+            width="100%"
+            height="100%"
+          />
+        </div>
 
         <div className="container pt-3">
           <h1>Sản phẩm mới nhất</h1>
