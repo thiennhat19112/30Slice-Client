@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { NavLink } from 'react-router-dom';
-import "./dangki.css";
+import "./Regis.css";
 
 
 const Register = () => {

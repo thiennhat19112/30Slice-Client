@@ -15,6 +15,7 @@ import Cart from "../pages/Cart";
 import Category from "../pages/Category";
 import Checkout from "../pages/Checkout";
 import Login from "../pages/login";
+import Register from "../pages/Register";
 
 const routes = createBrowserRouter([
   {
@@ -65,6 +66,11 @@ const routes = createBrowserRouter([
             path: "checkout",
             exact: true,
             element: <Checkout />,
+          },
+          {
+            path: "register",
+            exact: true,
+            element: <Register />,
           },
           {
             path: "login",

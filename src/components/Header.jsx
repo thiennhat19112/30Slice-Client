@@ -63,6 +63,10 @@ const Header = () => {
                       Tin tức
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink exact="true" to="/register">
+                      Đăng Kí                  </NavLink>
+                  </li>
                 </ul>
               </div>
             </div>
