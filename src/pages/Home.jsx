@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 function Home() {
   return (
     <>
       <div className="container-fluid m-0 p-0">
         <div className="image-home">
-          <button className="offset">Đặt lịch</button>
+          <Link to="/booking" className="offset">Đặt lịch</Link>
           <img
-            src="https://4rau.vn/upload/hinhanh/dsc01875-8577.jpg"
+            src="/assets/images/dsc01875-8577.jpg"
             alt=""
             width="100%"
             height="100%"

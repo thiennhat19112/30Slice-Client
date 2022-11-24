@@ -22,7 +22,7 @@ a {
   font-weight: bold;
 }
 
-.image-home button {
+.image-home a {
   align-self: center !important;
   justify-self: center !important;
   position: absolute;
@@ -72,18 +72,18 @@ a {
   --hover: #1973bc;
 }
 
-.image-home button {
+.image-home a {
   color: var(--color);
   transition: 0.25s;
 }
 
-.image-home button:hover,
-.image-home button:focus {
+.image-home a:hover,
+.image-home a:focus {
   border-color: var(--hover);
   color: #fff;
 }
 
-.image-home button {
+.image-home a {
   background: none;
   border: 2px solid;
   font: inherit;
