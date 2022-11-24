@@ -15,7 +15,7 @@ import Error from "../pages/Error";
 import Cart from "../pages/Cart";
 import Category from "../pages/Category";
 import Checkout from "../pages/Checkout";
-import Checkout2 from "../pages/Checkout2";
+import Checkout2 from "../pages/checkout2";
 import Login from "../pages/login";
 import Register from "../pages/Register";
 
