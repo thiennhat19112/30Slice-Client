@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import ProtectedRoute from "./protectedRoute";
 import PrivateRoute from "./privateRoute";
+import ProtectedCheckoutRoute from "./protectedCheckoutRoute";
 
 import App from "../App";
 
@@ -14,6 +15,7 @@ import Error from "../pages/Error";
 import Cart from "../pages/Cart";
 import Category from "../pages/Category";
 import Checkout from "../pages/Checkout";
+import Checkout2 from "../pages/Checkout2";
 import Login from "../pages/login";
 import Register from "../pages/Register";
 
@@ -65,7 +67,16 @@ const routes = createBrowserRouter([
           {
             path: "checkout",
             exact: true,
-            element: <Checkout />,
+            element: (
+              <ProtectedCheckoutRoute>
+                <Checkout />
+              </ProtectedCheckoutRoute>
+            ),
+          },
+          {
+            path: "checkout2",
+            exact: true,
+            element: <Checkout2 />,
           },
           {
             path: "register",

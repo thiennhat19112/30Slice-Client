@@ -2,6 +2,8 @@ import { NavLink, Link } from "react-router-dom";
 import Categories from "./Categories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
+import { logout } from '../app/redux/slices/auth/auth';
+
 const Header = () => {
   const cartLength = useSelector((state) => state.cart.length);
   const UserInfo = useSelector((state) => state.auth);

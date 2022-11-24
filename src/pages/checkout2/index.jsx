@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import Breakcumb from "../components/Breakcumb";
+
 import { Link } from "react-router-dom";
-import OrderSummary from "../components/OrderSummary";
-const Checkout = () => {
+import OrderSummary from "../../components/OrderSummary";
+const Checkout2 = () => {
   const dataCart = useSelector((state) => state.cart);
   console.log(dataCart);
+
   return (
     <>
       <div className="container-fluid">
@@ -12,7 +13,7 @@ const Checkout = () => {
           <div className="col-lg-12">
             <div className="shop-breadcrumb">
               <div className="breadcrumb-main">
-                <h4 className="text-capitalize breadcrumb-title">checkout</h4>
+                <h4 className="text-capitalize breadcrumb-title">Địa chỉ nhận hàng</h4>
               </div>
             </div>
           </div>
@@ -24,24 +25,40 @@ const Checkout = () => {
             <div className="col-xl-8">
               <div className="checkout-progress-indicator content-center">
                 <div className="checkout-progress">
-                  <div className="step " id={1}>
+                  <div className="step" id={1}>
                     <span>
                       {" "}
-                      <img className="svg" src="/assets/img/svg/user.svg" alt="" />{" "}
+                      <img
+                        className="svg"
+                        src="/assets/img/svg/user-success.svg"
+                        alt=""
+                      />{" "}
                     </span>
                     <span>Đăng nhập</span>
                   </div>
                   <div className="current">
-                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
+                    <img
+                      src="/assets/img/svg/checkoutin.svg"
+                      alt="img"
+                      className="svg"
+                    />
                   </div>
-                  <div className="step" id={2}>
+                  <div className="step active" id={2}>
                     <span>
-                      <img className="svg" src="/assets/img/svg/address.svg" alt="" />
+                      <img
+                        className="svg"
+                        src="/assets/img/svg/adress-active.svg"
+                        alt=""
+                      />
                     </span>
                     <span>Địa chỉ nhận hàng</span>
                   </div>
                   <div className="current">
-                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
+                    <img
+                      src="/assets/img/svg/checkout.svg"
+                      alt="img"
+                      className="svg"
+                    />
                   </div>
                   <div className="step" id={3}>
                     <span>
@@ -54,11 +71,19 @@ const Checkout = () => {
                     <span>Phương thức thanh toán</span>
                   </div>
                   <div className="current">
-                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
+                    <img
+                      src="/assets/img/svg/checkout.svg"
+                      alt="img"
+                      className="svg"
+                    />
                   </div>
                   <div className="step" id={4}>
                     <span>
-                      <img className="svg" src="/assets/img/svg/024-like.svg" alt="" />
+                      <img
+                        className="svg"
+                        src="/assets/img/svg/024-like.svg"
+                        alt=""
+                      />
                     </span>
                     <span>Hoàn thành đơn hàng</span>
                   </div>
@@ -144,4 +169,4 @@ const Checkout = () => {
     </>
   );
 };
-export default Checkout;
+export default Checkout2;
