@@ -357,8 +357,11 @@ function Booking(props) {
       </div>
       <label className="m-3">Chọn thời gian</label>
       <div className="row my-3">{listTime}</div>
-      <button className="btn btn-info m-3" onClick={bookingSave}>
-        Lưu
+      <button
+        className="btn btn-primary btn-lg btn-squared btn-block "
+        onClick={bookingSave}
+      >
+       Nút bự nha thầy
       </button>
     </div>
   );
