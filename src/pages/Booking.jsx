@@ -346,7 +346,7 @@ function Booking(props) {
               </label>
             </div>
             {arrEmployee.map((item, index) => {
-              if (item.Info.Status == "active" && item.Info.Status_Code == 0) {
+              if (item.Info.Status == "active") {
                 return (
                   <div key={index} className="col">
                     <input
