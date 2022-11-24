@@ -64,6 +64,7 @@ function Booking(props) {
   }
 
   const refDate = useRef(arrDate[0].dateEn);
+  const refStyleList = useRef(0);
   // hàm get stylist theo ngày
   const fetchArrEmployee = async () => {
     Notiflix.Loading.standard("Loading...");
@@ -151,13 +152,16 @@ function Booking(props) {
   };
   // hàm đặt lịch
   const Booking = async (Info) => {
-    const res = await fetch(import.meta.env.REACT_APP_API_ENDPOINT + "booking", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(Info),
-    });
+    const res = await fetch(
+      import.meta.env.REACT_APP_API_ENDPOINT + "booking",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Info),
+      }
+    );
     const data = await res.json();
     if (res.status == 200) {
       Notiflix.Notify.success("Đặt lịch thành công!");
@@ -176,27 +180,27 @@ function Booking(props) {
     return /^\+84[3|5|7|8|9][0-9]{8}$/.test(phoneNumber);
   };
 
-  useEffect(() => {
-    Notiflix.Confirm.prompt(
-      "Đặt lịch cắt tóc",
-      "Nhập số điện thoại của bạn",
-      "",
-      "Đặt ngay",
-      "Trở Lại",
-      (phoneNumber) => {
-        if (isValidPhoneNumber(phoneNumber)) {
-          LoginCustomer(phoneNumber);
-        } else {
-          Notiflix.Notify.failure("Số điện thoại không hợp lệ!");
-          navi("/");
-        }
-      },
-      (phoneNumber) => {
-        navi("/");
-      },
-      {}
-    );
-  }, []);
+  // useEffect(() => {
+  //   Notiflix.Confirm.prompt(
+  //     "Đặt lịch cắt tóc",
+  //     "Nhập số điện thoại của bạn",
+  //     "",
+  //     "Đặt ngay",
+  //     "Trở Lại",
+  //     (phoneNumber) => {
+  //       if (isValidPhoneNumber(phoneNumber)) {
+  //         LoginCustomer(phoneNumber);
+  //       } else {
+  //         Notiflix.Notify.failure("Số điện thoại không hợp lệ!");
+  //         navi("/");
+  //       }
+  //     },
+  //     (phoneNumber) => {
+  //       navi("/");
+  //     },
+  //     {}
+  //   );
+  // }, []);
   useEffect(() => {
     fetchArrEmployee();
     fetchArrService();
@@ -204,7 +208,7 @@ function Booking(props) {
 
   useEffect(() => {
     reloadListTime();
-  }, [BookedTime, EmployeeId, arrEmployee, CustomerInfo]);
+  }, [BookedTime, refStyleList.current.value, arrEmployee, CustomerInfo]);
 
   // hàm get thời gian theo stylist
   function getAvailableTime(bookedDate, employeeId) {
@@ -225,29 +229,31 @@ function Booking(props) {
   const reloadListTime = () => {
     const arrAvailableTime = getAvailableTime(
       refDate.current.value,
-      EmployeeId
+      refStyleList.current.value
     );
     setListTime(
       allAvailableTime.map((ele, index) => {
         const isAvailable = arrAvailableTime.includes(ele);
 
         return (
-          <div key={index} className="form-check col-1 mb-2 mx-3">
+          <div key={index} className="form-check col-1 mb-2">
             <input
-              className="btn-check"
+              className="btn-check "
               type="radio"
               name="flexRadioDefault"
               onChange={() => setBookedTime(ele)}
               disabled={!isAvailable}
               id={ele}
+              style={{ display: "none" }}
             />
             <label
-              className={`form-check-label btn px-4 border border-warning ${
+              className={`form-check-label btn px-4 border ${
                 BookedTime == ele && isAvailable
-                  ? "btn-warning border-warning"
-                  : ""
-              }`}
+                  ? "btn-success"
+                  : "border-success text-success"
+              }${!isAvailable ? "btn-default border-light" : ""}`}
               htmlFor={ele}
+              style={{ opacity: !isAvailable ? "0.5" : "1" }}
             >
               {ele}
             </label>
@@ -261,7 +267,7 @@ function Booking(props) {
     const data = {
       BookedDate: refDate.current.value,
       BookedTime: BookedTime,
-      Id_Style_List: EmployeeId,
+      Id_Style_List: refStyleList.current.value,
       Id_Service: ServiceId,
       Id_Customer: CustomerInfo.Id_User,
     };
@@ -272,7 +278,7 @@ function Booking(props) {
     <div className="contents ">
       <h1>Chào anh {CustomerInfo && CustomerInfo.Full_Name}</h1>
       <div className="form-floating m-3">
-      <label htmlFor="date">Chọn ngày</label>
+        <label htmlFor="date">Chọn ngày</label>
 
         <select
           className="form-control  form-control-lg"
@@ -311,12 +317,23 @@ function Booking(props) {
                     <div className="ap-nameAddress">
                       <h6 className="ap-nameAddress__title">{item.Name}</h6>
                       <p className="ap-nameAddress__subTitle  fs-14 pt-1 m-0 ">
-                       {item.Price.toLocaleString('vi-VN')} vnđ
+                        {item.Price.toLocaleString("vi-VN")} vnđ
                       </p>
                     </div>
                     <div className="ap-button account-profile-cards__button button-group d-flex justify-content-center flex-wrap pt-20 mb-2">
-                    <input type="radio" className="btn-check" name="option-outlined" id={item._id} onChange={() => setServiceId(item._id)} />
-                    <label className="btn btn-default btn-squared btn-outline-primary  " htmlFor={item._id}>Chọn Dịch Vụ</label>
+                      <input
+                        type="radio"
+                        className="btn-check"
+                        name="option-outlined"
+                        id={item._id}
+                        onChange={() => setServiceId(item._id)}
+                      />
+                      <label
+                        className="btn btn-default btn-squared btn-outline-primary  "
+                        htmlFor={item._id}
+                      >
+                        Chọn Dịch Vụ
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -324,52 +341,28 @@ function Booking(props) {
             );
           })}
       </div>
-      <div className="row m-3">
-        <div className="col">
-          <div className="row">
-            <label>Chọn nhân viên</label>
-            <div className="col">
-              <input
-                type="radio"
-                className="btn-check"
-                name="options-outlined"
-                id="randomEmployee"
-                onChange={() => setEmployeeId(0)}
-                onClick={() => reloadListTime()}
-                defaultChecked
-              />
-              <label
-                className="btn btn-outline-warning rounded-5"
-                htmlFor="randomEmployee"
-              >
-                Ngẫu nhiên
-              </label>
-            </div>
-            {arrEmployee.map((item, index) => {
-              if (item.Info.Status == "active") {
-                return (
-                  <div key={index} className="col">
-                    <input
-                      type="radio"
-                      className="btn-check"
-                      name="options-outlined"
-                      id={item._id}
-                      onChange={() => setEmployeeId(item._id)}
-                      onClick={() => reloadListTime()}
-                    />
-                    <label
-                      className="btn btn-outline-warning  rounded-5"
-                      htmlFor={item._id}
-                    >
-                      {item.Full_Name}
-                    </label>
-                  </div>
-                );
-              }
-            })}
-          </div>
-        </div>
+      <div className="form-floating m-3">
+        <label htmlFor="stylelist">Chọn nhân viên</label>
+
+        <select
+          className="form-control  form-control-lg"
+          id="stylelist"
+          aria-label="Chọn nhân viên"
+          ref={refStyleList}
+          onChange={() => {
+            reloadListTime();
+          }}
+        >
+          <option value="0">Ngẫu nhiên</option>
+          {arrEmployee &&
+            arrEmployee.map((item) => (
+              <option key={item._id} value={item._id}>
+                {item.Full_Name}
+              </option>
+            ))}
+        </select>
       </div>
+      <label className="m-3">Chọn thời gian</label>
       <div className="row my-3">{listTime}</div>
       <button className="btn btn-info m-3" onClick={bookingSave}>
         Lưu
