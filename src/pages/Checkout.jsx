@@ -1,10 +1,51 @@
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Breakcumb from "../components/Breakcumb";
-import { Link } from "react-router-dom";
+import { Navigate, useNavigate, NavLink, Link } from "react-router-dom";
+
+import { useForm } from "react-hook-form";
+
+import Input from "../components/sharedComponents/input";
+import { usernameValidator } from "../components/sharedComponents/validatorPatterns";
+import { passwordValidator } from "../components/sharedComponents/validatorPatterns";
+
+import { selectMessage } from "../app/redux/slices/auth/message";
+
+import { login } from "../app/redux/slices/auth/auth";
+import { clearMessage } from "../app/redux/slices/auth/message";
+
 import OrderSummary from "../components/OrderSummary";
 const Checkout = () => {
   const dataCart = useSelector((state) => state.cart);
-  console.log(dataCart);
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+
+  const message = useSelector(selectMessage);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, [dispatch]);
+
+  const onSubmit = (user) => {
+    const { username, password } = user;
+    setLoading(true);
+    dispatch(login({ username, password }))
+      .unwrap()
+      .then(() => {
+        // navigate('/');
+        // window.location.reload();
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
   return (
     <>
       <div className="container-fluid">
@@ -12,7 +53,7 @@ const Checkout = () => {
           <div className="col-lg-12">
             <div className="shop-breadcrumb">
               <div className="breadcrumb-main">
-                <h4 className="text-capitalize breadcrumb-title">checkout</h4>
+                <h4 className="text-capitalize breadcrumb-title">Đăng nhập</h4>
               </div>
             </div>
           </div>
@@ -27,21 +68,37 @@ const Checkout = () => {
                   <div className="step " id={1}>
                     <span>
                       {" "}
-                      <img className="svg" src="/assets/img/svg/user.svg" alt="" />{" "}
+                      <img
+                        className="svg"
+                        src="/assets/img/svg/user.svg"
+                        alt=""
+                      />{" "}
                     </span>
                     <span>Đăng nhập</span>
                   </div>
                   <div className="current">
-                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
+                    <img
+                      src="/assets/img/svg/checkout.svg"
+                      alt="img"
+                      className="svg"
+                    />
                   </div>
                   <div className="step" id={2}>
                     <span>
-                      <img className="svg" src="/assets/img/svg/address.svg" alt="" />
+                      <img
+                        className="svg"
+                        src="/assets/img/svg/address.svg"
+                        alt=""
+                      />
                     </span>
                     <span>Địa chỉ nhận hàng</span>
                   </div>
                   <div className="current">
-                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
+                    <img
+                      src="/assets/img/svg/checkout.svg"
+                      alt="img"
+                      className="svg"
+                    />
                   </div>
                   <div className="step" id={3}>
                     <span>
@@ -54,11 +111,19 @@ const Checkout = () => {
                     <span>Phương thức thanh toán</span>
                   </div>
                   <div className="current">
-                    <img src="/assets/img/svg/checkout.svg" alt="img" className="svg" />
+                    <img
+                      src="/assets/img/svg/checkout.svg"
+                      alt="img"
+                      className="svg"
+                    />
                   </div>
                   <div className="step" id={4}>
                     <span>
-                      <img className="svg" src="/assets/img/svg/024-like.svg" alt="" />
+                      <img
+                        className="svg"
+                        src="/assets/img/svg/024-like.svg"
+                        alt=""
+                      />
                     </span>
                     <span>Hoàn thành đơn hàng</span>
                   </div>
@@ -76,46 +141,55 @@ const Checkout = () => {
                     </div>
                     <div className="card-body">
                       <div className="edit-profile__body">
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                           <div className="form-group">
-                            <label htmlFor="name1">Tên đăng nhập</label>
-                            <input
+                            <Input
+                              register={register}
                               type="text"
-                              className="form-control"
-                              id="name1"
-                              placeholder="Usename"
+                              label="Tên người dùng"
+                              id="username"
+                              required="Trường này không được để trống"
+                              pattern={usernameValidator}
+                              error={errors.username}
                             />
                           </div>
                           <div className="form-group create-passord">
-                            <label htmlFor="phoneNumber">Mật khẩu</label>
-                            <input
+                            <Input
+                              register={register}
                               type="password"
-                              className="form-control"
-                              id="phoneNumber"
-                              placeholder="Password"
-                              defaultValue={121445}
+                              label="Mật khẩu"
+                              id="password"
+                              required="Trường này không được để trống"
+                              pattern={passwordValidator}
+                              error={errors.password}
                             />
-                            <span className="create-passord-warn">
-                              Enter a valid password. Min 6 characters long
-                            </span>
                           </div>
+                          {message && (
+                          <div className="form-group">
+                            <div className="alert alert-danger" role="alert">
+                              {message}
+                            </div>
+                          </div>
+                        )}
                           <div className="button-group d-flex pt-20 mb-20 justify-content-md-end justify-content-center">
                             <Link
                               to="/signup"
                               className="btn btn-info btn-default btn-squared text-capitalize text-white mx-3"
                             >
                               Đăng ký
-                              <i className="ml-10 mr-0 las la-arrow-right" />
                             </Link>
-                            <a
-                              href="checkout2.html"
-                              className="btn btn-primary btn-default btn-squared text-capitalize text-white"
+                            <button
+                              type="submit"
+                              className="btn btn-primary btn-default btn-squared mr-15 lh-normal px-50 py-15 signIn-createBtn "
                             >
+                              {loading && (
+                                <span className="spinner-border spinner-border-sm"></span>
+                              )}
                               Đăng nhập
-                              <i className="ml-10 mr-0 las la-arrow-right" />
-                            </a>
+                            </button>
                           </div>
                         </form>
+                       
                       </div>
                     </div>
                   </div>

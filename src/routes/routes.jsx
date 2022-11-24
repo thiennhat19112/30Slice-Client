@@ -76,7 +76,11 @@ const routes = createBrowserRouter([
           {
             path: "checkout2",
             exact: true,
-            element: <Checkout2 />,
+            element: (
+              <PrivateRoute>
+                <Checkout2 />
+              </PrivateRoute>
+            ),
           },
           {
             path: "register",
