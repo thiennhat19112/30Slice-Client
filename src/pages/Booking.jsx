@@ -275,7 +275,7 @@ function Booking(props) {
   };
 
   return (
-    <div className="contents ">
+    <div className="contents container   ">
       <h1>Chào anh {CustomerInfo && CustomerInfo.Full_Name}</h1>
       <div className="form-floating m-3">
         <label htmlFor="date">Chọn ngày</label>
@@ -298,22 +298,14 @@ function Booking(props) {
             ))}
         </select>
       </div>
+      <label htmlFor="">Chọn Dịch vụ</label>
       <div className="row m-3">
-        <h6>Chọn Dịch Vụ</h6>
         {arrService &&
           arrService.map((item, index) => {
             return (
-              <div className="card m-auto">
+              <div key={item._id} className="card">
                 <div className="card-body text-center pt-30 px-25 pb-0">
                   <div className="account-profile-cards  ">
-                    <div className="ap-img d-flex justify-content-center">
-                      {/* Profile picture image*/}
-                      <img
-                        className="ap-img__main bg-opacity-primary  wh-120 rounded-circle mb-3 "
-                        src={item.Images}
-                        alt="profile"
-                      />
-                    </div>
                     <div className="ap-nameAddress">
                       <h6 className="ap-nameAddress__title">{item.Name}</h6>
                       <p className="ap-nameAddress__subTitle  fs-14 pt-1 m-0 ">
@@ -327,6 +319,7 @@ function Booking(props) {
                         name="option-outlined"
                         id={item._id}
                         onChange={() => setServiceId(item._id)}
+                        style={{ display: "none" }}
                       />
                       <label
                         className="btn btn-default btn-squared btn-outline-primary  "
