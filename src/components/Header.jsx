@@ -1,12 +1,18 @@
 import { NavLink, Link } from "react-router-dom";
 import Categories from "./Categories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
-import { logout } from '../app/redux/slices/auth/auth';
-
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../app/redux/slices/auth/auth";
+import { LogOut } from "react-feather";
 const Header = () => {
   const cartLength = useSelector((state) => state.cart.length);
   const UserInfo = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+console.log(UserInfo)
+
+  const logOut = () => {
+    dispatch(logout());
+  };
   return (
     <>
       <div className="mobile-search">
@@ -67,7 +73,8 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink exact="true" to="/register">
-                      Đăng Kí                  </NavLink>
+                      Đăng Kí{" "}
+                    </NavLink>
                   </li>
                 </ul>
               </div>
@@ -121,8 +128,8 @@ const Header = () => {
                           />
                         </div>
                         <div>
-                          <h6>ADMIN</h6>
-                          <span>ADMIN</span>
+                          <h6>{UserInfo.user.username}</h6>
+                          <span>{UserInfo.user.name}</span>
                         </div>
                       </div>
                       <div className="nav-author__options">
@@ -153,8 +160,8 @@ const Header = () => {
                             </a>
                           </li>
                         </ul>
-                        <a className="nav-author__signout">
-                          <span data-feather="log-out" /> Đăng xuất
+                        <a onClick={logOut} className="nav-author__signout">
+                          <LogOut /> Đăng xuất
                         </a>
                       </div>
                     </div>
