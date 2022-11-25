@@ -6,6 +6,7 @@ import {
   fetchArrEmployee,
   fetchArrService,
   LoginCustomer,
+  RegisterCustomer,
 } from "../../app/services/booking/booking.service";
 import { create7Date, allAvailableTime } from "./func";
 function Booking(props) {
@@ -64,43 +65,22 @@ function Booking(props) {
       _isMounted.current && setLoading(false);
     }
   };
-
-  // hàm khỏi tạo khách hàng
-  const RegisterCustomer = async (Info) => {
-    const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT + "user/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(Info),
-      }
-    );
-    const data = await res.json();
-    setCustomerInfo(data);
-  };
-  // hàm đặt lịch
-  const Booking = async (Info) => {
-    const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT + "booking",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(Info),
-      }
-    );
-    const data = await res.json();
-    if (res.status == 200) {
-      Notiflix.Notify.success("Đặt lịch thành công!");
-      navigate("/booking-history");
+  const onBlurName = async () => {
+    let name = refCustomerName.current.value;
+    let phone = refPhone.current.value;
+    if (phone.charAt(0) == 0) {
+      phone = `+84${phone.slice(1)}`;
     } else {
-      Notiflix.Notify.failure("Có lỗi xảy ra vui lòng thử lại!");
+      phone = `+84${phone}`;
+    }
+    _isMounted.current && setLoading(true);
+    const res = await RegisterCustomer({ name, phone });
+    console.log(res);
+    if (res.status === 200) {
+      setCustomerInfo(res.data);
+      _isMounted.current && setLoading(false);
     }
   };
-  // hàm check số điện thoại valid
 
   // loading bingchilling...
   if (loading) {
@@ -179,44 +159,40 @@ function Booking(props) {
       })
     );
   };
-  // hàm đặt lịch
-  const bookingSave = () => {
-    const data = {
-      BookedDate: refDate.current.value,
-      BookedTime: BookedTime,
-      Id_Style_List: refStyleList.current.value,
-      Id_Service: ServiceId,
-      Id_Customer: CustomerInfo.Id_User,
-    };
-    Booking(data);
-  };
 
   return (
     <div className="contents container   ">
-      <h1>Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt lịch 30Slice</h1>
+      <h1>
+        Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt
+        lịch 30Slice
+      </h1>
 
       <div className="form-floating m-3">
         <label htmlFor="phone">
           Nhập số điện thoại<sup className="text-danger">*</sup>
         </label>
         <input
-          type="text"
+          type="number"
           className="form-control form-control-lg"
           placeholder="Số điện thoại..."
           id="phone"
           ref={refPhone}
           onBlur={onBlurPhone}
+          disabled={CustomerInfo && CustomerInfo.Phone}
           required
         />
       </div>
       <div className="form-floating m-3">
-        <label htmlFor="name">Nhập họ và tên<sup className="text-danger">*</sup></label>
+        <label htmlFor="name">
+          Nhập họ và tên<sup className="text-danger">*</sup>
+        </label>
         <input
           type="text"
           className="form-control form-control-lg"
           placeholder="Họ và tên."
           id="name"
           ref={refCustomerName}
+          onBlur={onBlurName}
           disabled={CustomerInfo && CustomerInfo.Full_Name}
           required
         />
@@ -243,7 +219,9 @@ function Booking(props) {
         </select>
       </div>
       <div className="form-floating m-3">
-        <label htmlFor="">Chọn Dịch vụ<sup className="text-danger">*</sup></label>
+        <label htmlFor="">
+          Chọn Dịch vụ<sup className="text-danger">*</sup>
+        </label>
         <div className="row m-3">
           {arrService &&
             arrService.map((item, index) => {
@@ -301,11 +279,14 @@ function Booking(props) {
             ))}
         </select>
       </div>
-      <label className="m-3">Chọn thời gian<sup className="text-danger">*</sup></label>
+      <label className="m-3">
+        Chọn thời gian<sup className="text-danger">*</sup>
+      </label>
       <div className="row my-3">{listTime}</div>
       <button
         className="btn btn-primary btn-lg btn-squared btn-block "
-        onClick={bookingSave}
+        // onClick={bookingSave}
+        type="submit"
       >
         Nút bự nha thầy
       </button>

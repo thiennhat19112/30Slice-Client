@@ -43,45 +43,33 @@ export const LoginCustomer = async (phone) => {
     throw new Error(err);
   }
 };
+export const RegisterCustomer = async (Info) => {
+  try {
+    const response = await api.post("user/register", {
+      full_name: Info.name,
+      phone: Info.phone,
+    });
+    if (response) {
+      return response;
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
-//     const res = await fetch(
-//       import.meta.env.REACT_APP_API_ENDPOINT + "user/booking",
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           phone: phone,
-//         }),
-//       }
-//     );
-//     const data = await res.json();
-//     console.log(data);
-//     if (data.status_code == 404) {
-//       Notiflix.Loading.remove();
-//       let full_name = prompt("Nhập họ tên của bạn", "");
-//       let Info = {
-//         phone: phone,
-//         full_name: full_name,
-//       };
-//       RegisterCustomer(Info);
-//       console.log("Chưa có tài khoản");
-//       Notiflix.Confirm.prompt(
-//         "Hello",
-//         "How are you feeling?",
-//         "Awesome!",
-//         "Answer",
-//         "Cancel",
-//         (clientAnswer) => {
-//           alert("Client answer is: " + clientAnswer);
-//         },
-//         (clientAnswer) => {
-//           alert("Client answer was: " + clientAnswer);
-//         }
-//       );
-//     } else {
-//       Notiflix.Loading.remove();
-//       setCustomerInfo(data);
-//     }
-//   };
+export const Booking = async (Info) => {
+  try {
+    const response = await api.post("booking", {
+      Id_Customer: Info.user_id,
+      Id_Service: Info.service_id,
+      Id_Style_List: Info.employee_id,
+      BookedDate: Info.booked_date,
+      BookedTime: Info.booked_time,
+    });
+    if (response) {
+      return response;
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+};
