@@ -57,15 +57,9 @@ export const RegisterCustomer = async (Info) => {
   }
 };
 
-export const Booking = async (Info) => {
+export const CreateBooking = async (Info) => {
   try {
-    const response = await api.post("booking", {
-      Id_Customer: Info.user_id,
-      Id_Service: Info.service_id,
-      Id_Style_List: Info.employee_id,
-      BookedDate: Info.booked_date,
-      BookedTime: Info.booked_time,
-    });
+    const response = await api.post("booking", Info);
     if (response) {
       return response;
     }

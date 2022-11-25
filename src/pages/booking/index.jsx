@@ -1,12 +1,16 @@
 import { useState, useRef, useEffect } from "react";
 import Notiflix from "notiflix";
-
+import {
+  toastSuccess,
+  toastError,
+} from "../../components/sharedComponents/toast";
 import { useNavigate } from "react-router-dom";
 import {
   fetchArrEmployee,
   fetchArrService,
   LoginCustomer,
   RegisterCustomer,
+  CreateBooking,
 } from "../../app/services/booking/booking.service";
 import { create7Date, allAvailableTime } from "./func";
 function Booking(props) {
@@ -43,8 +47,6 @@ function Booking(props) {
       _isMounted.current && setLoading(false);
     }
   };
-
-  // hàm đăng nhập khách hàng
   const onBlurPhone = async () => {
     let phone = refPhone.current.value;
     if (phone.charAt(0) == 0) {
@@ -78,6 +80,30 @@ function Booking(props) {
     console.log(res);
     if (res.status === 200) {
       setCustomerInfo(res.data);
+      _isMounted.current && setLoading(false);
+    }
+  };
+const CreateBook = async () => {
+    const data = {
+      Id_Customer: CustomerInfo.Id_User,
+      Id_Service: ServiceId,
+      Id_Style_List: refStyleList.current.value,
+      BookedTime: BookedTime,
+      BookedDate: refDate.current.value,
+      Phone: CustomerInfo.Phone,
+    };
+    console.log(data);
+    _isMounted.current && setLoading(true);
+    const res = await CreateBooking(data);
+    console.log(res);
+    if (res.status === 200) {
+      // Notiflix.Notify.Success("Đặt lịch thành công");
+      toastSuccess("Đặt lịch thành công");
+      _isMounted.current && setLoading(false);
+      navigate("/");
+    } else {
+      // Notiflix.Notify.Failure("Đặt lịch thất bại");
+      toastError("Đặt lịch thất bại");
       _isMounted.current && setLoading(false);
     }
   };
@@ -118,7 +144,7 @@ function Booking(props) {
       arrAvailableTime = arrEmployee.find((ele) => ele._id == employeeId).Info
         .Shifts;
     }
-    return arrAvailableTime.filter((time, index) => {
+    return arrAvailableTime.filter((time) => {
       return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime();
     });
   }
@@ -131,7 +157,6 @@ function Booking(props) {
     setListTime(
       allAvailableTime.map((ele, index) => {
         const isAvailable = arrAvailableTime.includes(ele);
-
         return (
           <div key={index} className="form-check col-1 mb-2">
             <input
@@ -166,7 +191,6 @@ function Booking(props) {
         Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt
         lịch 30Slice
       </h1>
-
       <div className="form-floating m-3">
         <label htmlFor="phone">
           Nhập số điện thoại<sup className="text-danger">*</sup>
@@ -197,10 +221,8 @@ function Booking(props) {
           required
         />
       </div>
-
       <div className="form-floating m-3">
         <label htmlFor="date">Chọn ngày</label>
-
         <select
           className="form-control  form-control-lg"
           id="date"
@@ -224,7 +246,7 @@ function Booking(props) {
         </label>
         <div className="row m-3">
           {arrService &&
-            arrService.map((item, index) => {
+            arrService.map((item) => {
               return (
                 <div key={item._id} className="card">
                   <div className="card-body text-center pt-30 px-25 pb-0">
@@ -260,7 +282,6 @@ function Booking(props) {
       </div>
       <div className="form-floating m-3">
         <label htmlFor="stylelist">Chọn nhân viên</label>
-
         <select
           className="form-control  form-control-lg"
           id="stylelist"
@@ -285,7 +306,7 @@ function Booking(props) {
       <div className="row my-3">{listTime}</div>
       <button
         className="btn btn-primary btn-lg btn-squared btn-block "
-        // onClick={bookingSave}
+        onClick={CreateBook}
         type="submit"
       >
         Nút bự nha thầy
