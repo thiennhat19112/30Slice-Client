@@ -55,12 +55,12 @@ function Booking(props) {
     // console.log(phone);
     _isMounted.current && setLoading(true);
     const res = await LoginCustomer(phone);
-    console.log(res)
+    console.log(res);
     if (res.status === 200) {
       setCustomerInfo(res.data);
       refCustomerName.current.value = res.data.Full_Name;
       _isMounted.current && setLoading(false);
-    }else{
+    } else {
       _isMounted.current && setLoading(false);
     }
   };
@@ -193,10 +193,12 @@ function Booking(props) {
 
   return (
     <div className="contents container   ">
-      <h1>Chào anh {CustomerInfo && CustomerInfo.Full_Name}</h1>
+      <h1>Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt lịch 30Slice</h1>
 
       <div className="form-floating m-3">
-        <label htmlFor="phone">Nhập số điện thoại:</label>
+        <label htmlFor="phone">
+          Nhập số điện thoại<sup className="text-danger">*</sup>
+        </label>
         <input
           type="text"
           className="form-control form-control-lg"
@@ -204,10 +206,11 @@ function Booking(props) {
           id="phone"
           ref={refPhone}
           onBlur={onBlurPhone}
+          required
         />
       </div>
       <div className="form-floating m-3">
-        <label htmlFor="name">Nhập họ và tên:</label>
+        <label htmlFor="name">Nhập họ và tên<sup className="text-danger">*</sup></label>
         <input
           type="text"
           className="form-control form-control-lg"
@@ -215,6 +218,7 @@ function Booking(props) {
           id="name"
           ref={refCustomerName}
           disabled={CustomerInfo && CustomerInfo.Full_Name}
+          required
         />
       </div>
 
@@ -239,7 +243,7 @@ function Booking(props) {
         </select>
       </div>
       <div className="form-floating m-3">
-        <label htmlFor="">Chọn Dịch vụ</label>
+        <label htmlFor="">Chọn Dịch vụ<sup className="text-danger">*</sup></label>
         <div className="row m-3">
           {arrService &&
             arrService.map((item, index) => {
@@ -297,7 +301,7 @@ function Booking(props) {
             ))}
         </select>
       </div>
-      <label className="m-3">Chọn thời gian</label>
+      <label className="m-3">Chọn thời gian<sup className="text-danger">*</sup></label>
       <div className="row my-3">{listTime}</div>
       <button
         className="btn btn-primary btn-lg btn-squared btn-block "
