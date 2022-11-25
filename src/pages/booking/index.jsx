@@ -2,139 +2,65 @@ import { useState, useRef, useEffect } from "react";
 import Notiflix from "notiflix";
 
 import { useNavigate } from "react-router-dom";
-
+import {
+  fetchArrEmployee,
+  fetchArrService,
+  LoginCustomer,
+} from "../../app/services/booking/booking.service";
+import { create7Date, allAvailableTime } from "./func";
 function Booking(props) {
-  const navi = useNavigate();
+  const navigate = useNavigate();
   const [BookedTime, setBookedTime] = useState("");
-  const [EmployeeId, setEmployeeId] = useState(0);
   const [ServiceId, setServiceId] = useState(0);
   const [CustomerInfo, setCustomerInfo] = useState({});
   const [arrEmployee, setArrEmployee] = useState([]);
   const [arrService, setArrService] = useState([]);
   const [listTime, setListTime] = useState([]);
-  const allAvailableTime = [
-    "07:00",
-    "07:30",
-    "08:00",
-    "08:30",
-    "09:00",
-    "09:30",
-    "10:00",
-    "10:30",
-    "11:00",
-    "11:30",
-    "12:00",
-    "12:30",
-    "13:00",
-    "13:30",
-    "14:00",
-    "14:30",
-    "15:00",
-    "15:30",
-    "16:00",
-    "16:30",
-    "17:00",
-    "17:30",
-    "18:00",
-    "18:30",
-    "19:00",
-    "19:30",
-    "20:00",
-    "20:30",
-    "21:00",
-  ];
-  const arrDate = [];
-  // khỏi tạo 7 ngày tiếp theo
-  for (var i = 0; i <= 6; i++) {
-    var date = new Date();
-    date.setDate(date.getDate() + i);
-    arrDate.push({
-      dateVn: date.toLocaleDateString("vi-VN", {
-        year: "2-digit",
-        month: "2-digit",
-        day: "2-digit",
-        weekday: "long",
-      }),
-      dateEn: date.toLocaleDateString("en", {
-        year: "2-digit",
-        month: "2-digit",
-        day: "2-digit",
-      }),
-    });
-  }
-
+  const [loading, setLoading] = useState(false);
+  const [arrDate, setArrDate] = useState(create7Date());
+  const _isMounted = useRef(false);
   const refDate = useRef(arrDate[0].dateEn);
   const refStyleList = useRef(0);
+  const refPhone = useRef("");
+  const refCustomerName = useRef("");
+
   // hàm get stylist theo ngày
-  const fetchArrEmployee = async () => {
-    Notiflix.Loading.standard("Loading...");
-    const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT +
-        "stylelist/getAvailableEmployee?bookedDate=" +
-        refDate.current.value
-    );
-    const data = await res.json();
+  const loadArrStyleList = async () => {
+    _isMounted.current && setLoading(true);
+    const data = await fetchArrEmployee(refDate.current.value);
     if (data) {
-      Notiflix.Loading.remove();
+      _isMounted.current && setArrEmployee(data);
+      _isMounted.current && setLoading(false);
     }
-    setArrEmployee(data);
   };
   // hàm get dịch vụ
-  const fetchArrService = async () => {
-    Notiflix.Loading.standard("Loading...");
-    const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT + "service/getAllServices"
-    );
-    const data = await res.json();
+  const loadArrService = async () => {
+    _isMounted.current && setLoading(true);
+    const data = await fetchArrService();
     if (data) {
-      Notiflix.Loading.remove();
+      _isMounted.current && setArrService(data);
+      _isMounted.current && setLoading(false);
     }
-    setArrService(data);
   };
+
   // hàm đăng nhập khách hàng
-  const LoginCustomer = async (phone) => {
-    Notiflix.Loading.standard("Loading...");
-    const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT + "user/booking",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phone: phone,
-        }),
-      }
-    );
-    const data = await res.json();
-    console.log(data);
-    if (data.status_code == 404) {
-      Notiflix.Loading.remove();
-      let full_name = prompt("Nhập họ tên của bạn", "");
-      let Info = {
-        phone: phone,
-        full_name: full_name,
-      };
-      RegisterCustomer(Info);
-      console.log("Chưa có tài khoản");
-      Notiflix.Confirm.prompt(
-        "Hello",
-        "How are you feeling?",
-        "Awesome!",
-        "Answer",
-        "Cancel",
-        (clientAnswer) => {
-          alert("Client answer is: " + clientAnswer);
-        },
-        (clientAnswer) => {
-          alert("Client answer was: " + clientAnswer);
-        }
-      );
+  const onBlurPhone = async () => {
+    let phone = refPhone.current.value;
+    if (phone.charAt(0) == 0) {
+      phone = `+84${phone.slice(1)}`;
     } else {
-      Notiflix.Loading.remove();
-      setCustomerInfo(data);
+      phone = `+84${phone}`;
+    }
+    // /^\+84[3|5|7|8|9][0-9]{8}$/.test(phone);
+    // console.log(phone);
+    const res = await LoginCustomer(phone);
+    console.log(res)
+    if (res) {
+      setCustomerInfo(res);
+      refCustomerName.current.value = res.Full_Name;
     }
   };
+
   // hàm khỏi tạo khách hàng
   const RegisterCustomer = async (Info) => {
     const res = await fetch(
@@ -165,46 +91,33 @@ function Booking(props) {
     const data = await res.json();
     if (res.status == 200) {
       Notiflix.Notify.success("Đặt lịch thành công!");
-      navi("/booking-history");
+      navigate("/booking-history");
     } else {
       Notiflix.Notify.failure("Có lỗi xảy ra vui lòng thử lại!");
     }
   };
   // hàm check số điện thoại valid
-  const isValidPhoneNumber = (phoneNumber) => {
-    if (phoneNumber.charAt(0) == 0) {
-      phoneNumber = `+84${phoneNumber.slice(1)}`;
-    } else {
-      phoneNumber = `+84${phoneNumber}`;
-    }
-    return /^\+84[3|5|7|8|9][0-9]{8}$/.test(phoneNumber);
-  };
 
-  // useEffect(() => {
-  //   Notiflix.Confirm.prompt(
-  //     "Đặt lịch cắt tóc",
-  //     "Nhập số điện thoại của bạn",
-  //     "",
-  //     "Đặt ngay",
-  //     "Trở Lại",
-  //     (phoneNumber) => {
-  //       if (isValidPhoneNumber(phoneNumber)) {
-  //         LoginCustomer(phoneNumber);
-  //       } else {
-  //         Notiflix.Notify.failure("Số điện thoại không hợp lệ!");
-  //         navi("/");
-  //       }
-  //     },
-  //     (phoneNumber) => {
-  //       navi("/");
-  //     },
-  //     {}
-  //   );
-  // }, []);
+  // loading bingchilling...
+  if (loading) {
+    Notiflix.Loading.standard("Loading...");
+  } else {
+    Notiflix.Loading.remove();
+  }
+
   useEffect(() => {
-    fetchArrEmployee();
-    fetchArrService();
+    _isMounted.current = true;
+
+    return () => {
+      _isMounted.current = false;
+    };
+  });
+  useEffect(() => {
+    loadArrService();
   }, []);
+  useEffect(() => {
+    loadArrStyleList();
+  }, [refDate.current.value]);
 
   useEffect(() => {
     reloadListTime();
@@ -277,6 +190,29 @@ function Booking(props) {
   return (
     <div className="contents container   ">
       <h1>Chào anh {CustomerInfo && CustomerInfo.Full_Name}</h1>
+
+      <div className="form-floating m-3">
+        <label htmlFor="phone">Nhập số điện thoại:</label>
+        <input
+          type="text"
+          className="form-control form-control-lg"
+          placeholder="Số điện thoại..."
+          id="phone"
+          ref={refPhone}
+          onBlur={onBlurPhone}
+        />
+      </div>
+      <div className="form-floating m-3">
+        <label htmlFor="name">Nhập họ và tên:</label>
+        <input
+          type="text"
+          className="form-control form-control-lg"
+          placeholder="Họ và tên."
+          id="name"
+          ref={refCustomerName}
+        />
+      </div>
+
       <div className="form-floating m-3">
         <label htmlFor="date">Chọn ngày</label>
 
@@ -287,7 +223,6 @@ function Booking(props) {
           ref={refDate}
           onChange={() => {
             reloadListTime();
-            fetchArrEmployee();
           }}
         >
           {arrDate &&
@@ -298,41 +233,43 @@ function Booking(props) {
             ))}
         </select>
       </div>
-      <label htmlFor="">Chọn Dịch vụ</label>
-      <div className="row m-3">
-        {arrService &&
-          arrService.map((item, index) => {
-            return (
-              <div key={item._id} className="card">
-                <div className="card-body text-center pt-30 px-25 pb-0">
-                  <div className="account-profile-cards  ">
-                    <div className="ap-nameAddress">
-                      <h6 className="ap-nameAddress__title">{item.Name}</h6>
-                      <p className="ap-nameAddress__subTitle  fs-14 pt-1 m-0 ">
-                        {item.Price.toLocaleString("vi-VN")} vnđ
-                      </p>
-                    </div>
-                    <div className="ap-button account-profile-cards__button button-group d-flex justify-content-center flex-wrap pt-20 mb-2">
-                      <input
-                        type="radio"
-                        className="btn-check"
-                        name="option-outlined"
-                        id={item._id}
-                        onChange={() => setServiceId(item._id)}
-                        style={{ display: "none" }}
-                      />
-                      <label
-                        className="btn btn-default btn-squared btn-outline-primary  "
-                        htmlFor={item._id}
-                      >
-                        Chọn Dịch Vụ
-                      </label>
+      <div className="form-floating m-3">
+        <label htmlFor="">Chọn Dịch vụ</label>
+        <div className="row m-3">
+          {arrService &&
+            arrService.map((item, index) => {
+              return (
+                <div key={item._id} className="card">
+                  <div className="card-body text-center pt-30 px-25 pb-0">
+                    <div className="account-profile-cards  ">
+                      <div className="ap-nameAddress">
+                        <h6 className="ap-nameAddress__title">{item.Name}</h6>
+                        <p className="ap-nameAddress__subTitle  fs-14 pt-1 m-0 ">
+                          {item.Price.toLocaleString("vi-VN")} vnđ
+                        </p>
+                      </div>
+                      <div className="ap-button account-profile-cards__button button-group d-flex justify-content-center flex-wrap pt-20 mb-2">
+                        <input
+                          type="radio"
+                          className="btn-check"
+                          name="option-outlined"
+                          id={item._id}
+                          onChange={() => setServiceId(item._id)}
+                          style={{ display: "none" }}
+                        />
+                        <label
+                          className="btn btn-default btn-squared btn-outline-primary  "
+                          htmlFor={item._id}
+                        >
+                          Chọn Dịch Vụ
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
       </div>
       <div className="form-floating m-3">
         <label htmlFor="stylelist">Chọn nhân viên</label>
@@ -361,7 +298,7 @@ function Booking(props) {
         className="btn btn-primary btn-lg btn-squared btn-block "
         onClick={bookingSave}
       >
-       Nút bự nha thầy
+        Nút bự nha thầy
       </button>
     </div>
   );

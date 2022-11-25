@@ -7,7 +7,7 @@ import ProtectedCheckoutRoute from "./protectedCheckoutRoute";
 import App from "../App";
 
 // import page
-import Booking from "../pages/Booking";
+import Booking from "../pages/booking";
 import Products from "../pages/Products";
 import Detail from "../pages/Detail";
 import Home from "../pages/Home";
