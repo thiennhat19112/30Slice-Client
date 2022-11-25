@@ -36,8 +36,8 @@ export const LoginCustomer = async (phone) => {
     const response = await api.post("user/booking", {
       phone: phone,
     });
-    if (response.status === 200) {
-      return response.data;
+    if (response) {
+      return response;
     }
   } catch (err) {
     throw new Error(err);

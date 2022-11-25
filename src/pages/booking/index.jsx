@@ -53,11 +53,15 @@ function Booking(props) {
     }
     // /^\+84[3|5|7|8|9][0-9]{8}$/.test(phone);
     // console.log(phone);
+    _isMounted.current && setLoading(true);
     const res = await LoginCustomer(phone);
     console.log(res)
-    if (res) {
-      setCustomerInfo(res);
-      refCustomerName.current.value = res.Full_Name;
+    if (res.status === 200) {
+      setCustomerInfo(res.data);
+      refCustomerName.current.value = res.data.Full_Name;
+      _isMounted.current && setLoading(false);
+    }else{
+      _isMounted.current && setLoading(false);
     }
   };
 
@@ -210,6 +214,7 @@ function Booking(props) {
           placeholder="Họ và tên."
           id="name"
           ref={refCustomerName}
+          disabled={CustomerInfo && CustomerInfo.Full_Name}
         />
       </div>
 
