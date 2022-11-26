@@ -83,7 +83,7 @@ function Booking(props) {
       _isMounted.current && setLoading(false);
     }
   };
-const CreateBook = async () => {
+  const CreateBook = async () => {
     const data = {
       Id_Customer: CustomerInfo.Id_User,
       Id_Service: ServiceId,
@@ -131,53 +131,65 @@ const CreateBook = async () => {
 
   useEffect(() => {
     reloadListTime();
-  }, [BookedTime, refStyleList.current.value, arrEmployee, CustomerInfo]);
+  }, [BookedTime, arrEmployee]);
 
   // hàm get thời gian theo stylist
-  function getAvailableTime(bookedDate, employeeId) {
-    let arrAvailableTime = [];
-    if (employeeId == 0) {
-      arrAvailableTime = [
-        ...new Set(arrEmployee.flatMap((num) => num.Info.Shifts)),
-      ];
-    } else {
-      arrAvailableTime = arrEmployee.find((ele) => ele._id == employeeId).Info
-        .Shifts;
-    }
-    return arrAvailableTime.filter((time) => {
-      return new Date(`${bookedDate} ${time}`).getTime() > new Date().getTime();
+  function getAvailableTime(bookedDate) {
+    let arrAvailableTime = {};
+    allAvailableTime.forEach((time) => {
+      arrAvailableTime[time] = {};
     });
+    arrEmployee.forEach((employee) => {
+      employee.Info.Shifts.filter((time) => {
+        return (
+          new Date(`${bookedDate} ${time}`).getTime() >= new Date().getTime()
+        );
+      }).forEach((shift) => {
+        if (arrAvailableTime[shift]) {
+          arrAvailableTime[shift][employee._id] = true;
+        }
+      });
+    });
+    return arrAvailableTime;
   }
   // hàm load lại danh sách thời gian
   const reloadListTime = () => {
-    const arrAvailableTime = getAvailableTime(
-      refDate.current.value,
-      refStyleList.current.value
-    );
+    const arrAvailableTime = getAvailableTime(refDate.current.value);
     setListTime(
-      allAvailableTime.map((ele, index) => {
-        const isAvailable = arrAvailableTime.includes(ele);
+      Object.entries(arrAvailableTime).map((ele, index) => {
+        const isAvailable =
+          Object.values(ele[1]).length === 0
+            ? false
+            : refStyleList.current.value !== "0"
+            ? typeof ele[1][refStyleList.current.value] !== undefined &&
+              ele[1][refStyleList.current.value] === true
+            : true;
+        // get idstylist value  == true
+        const idStylist = Object.keys(ele[1]).filter(
+          (key) => ele[1][key] === true
+        );
+        console.log(idStylist[0]);
         return (
           <div key={index} className="form-check col-1 mb-2">
             <input
               className="btn-check "
               type="radio"
               name="flexRadioDefault"
-              onChange={() => setBookedTime(ele)}
+              onChange={() => setBookedTime(ele[0])}
               disabled={!isAvailable}
-              id={ele}
+              id={ele[0]}
               style={{ display: "none" }}
             />
             <label
               className={`form-check-label btn px-4 border ${
-                BookedTime == ele && isAvailable
+                BookedTime == ele[0] && isAvailable
                   ? "btn-success"
                   : "border-success text-success"
               }${!isAvailable ? "btn-default border-light" : ""}`}
-              htmlFor={ele}
+              htmlFor={ele[0]}
               style={{ opacity: !isAvailable ? "0.5" : "1" }}
             >
-              {ele}
+              {ele[0]}
             </label>
           </div>
         );
