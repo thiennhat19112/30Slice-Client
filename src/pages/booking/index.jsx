@@ -85,6 +85,9 @@ function Booking(props) {
     }
   };
   const CreateBook = async () => {
+    if (!CustomerInfo.Customer_Id) {
+      onBlurName();
+    }
     let idStylelist;
     if (refStyleList.current.value === "0") {
       idStylelist = idStylist;
@@ -104,12 +107,10 @@ function Booking(props) {
     const res = await CreateBooking(data);
     console.log(res);
     if (res.status === 200) {
-      // Notiflix.Notify.Success("Đặt lịch thành công");
       toastSuccess("Đặt lịch thành công");
       _isMounted.current && setLoading(false);
       navigate("/");
     } else {
-      // Notiflix.Notify.Failure("Đặt lịch thất bại");
       toastError("Đặt lịch thất bại");
       _isMounted.current && setLoading(false);
     }
@@ -238,7 +239,6 @@ function Booking(props) {
           placeholder="Họ và tên."
           id="name"
           ref={refCustomerName}
-          onBlur={onBlurName}
           disabled={CustomerInfo && CustomerInfo.Full_Name}
           required
         />
