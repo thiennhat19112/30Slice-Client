@@ -165,19 +165,14 @@ const Checkout = () => {
                             />
                           </div>
                           {message && (
-                          <div className="form-group">
-                            <div className="alert alert-danger" role="alert">
-                              {message}
+                            <div className="form-group">
+                              <div className="alert alert-danger" role="alert">
+                                {message}
+                              </div>
                             </div>
-                          </div>
-                        )}
+                          )}
+                          <span>Nếu chưa có tài khoản? <Link to="/sign-up">Đăng ký</Link></span>
                           <div className="button-group d-flex pt-20 mb-20 justify-content-md-end justify-content-center">
-                            <Link
-                              to="/signup"
-                              className="btn btn-info btn-default btn-squared text-capitalize text-white mx-3"
-                            >
-                              Đăng ký
-                            </Link>
                             <button
                               type="submit"
                               className="btn btn-primary btn-default btn-squared mr-15 lh-normal px-50 py-15 signIn-createBtn "
@@ -189,7 +184,6 @@ const Checkout = () => {
                             </button>
                           </div>
                         </form>
-                       
                       </div>
                     </div>
                   </div>

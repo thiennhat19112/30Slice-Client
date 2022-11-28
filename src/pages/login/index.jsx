@@ -163,7 +163,8 @@ const Login = () => {
                                     </div>
                                   </div>
                                 )}
-                                <div className="button-group d-flex pt-1 justify-content-md-start justify-content-center">
+                                <span>Nếu chưa có tài khoản? <Link to="/sign-up">Đăng ký</Link></span>
+                                <div className="button-group d-flex pt-3 justify-content-md-start justify-content-center">
                                   <button
                                     type="submit"
                                     className="btn btn-primary btn-default btn-squared mr-15 lh-normal px-50 py-15 signIn-createBtn "
@@ -173,56 +174,9 @@ const Login = () => {
                                     )}
                                     Đăng nhập
                                   </button>
-                                  <Link
-                                    to="/sign-up"
-                                    className="btn btn-info btn-default btn-squared mr-15 lh-normal px-50 signIn-createBtn "
-                                  >
-                                    Đăng ký
-                                  </Link>
                                 </div>
-                                <p className="social-connector text-center mb-sm-25 mb-15  mt-sm-30 mt-20">
-                                  <span>Hoặc</span>
-                                </p>
                               </form>
-                              <div className="button-group d-flex align-items-center justify-content-md-start justify-content-center ">
-                                <ul className="signUp-socialBtn">
-                                  <li>
-                                    <button className="btn text-dark px-30">
-                                      <img
-                                        className="svg"
-                                        src="/assets/img/svg/google.svg"
-                                        alt="img"
-                                      />
-                                      {"  "}
-                                      <span
-                                        style={{
-                                          marginLeft: 10,
-                                        }}
-                                      >
-                                        Đăng nhập bằng Google
-                                      </span>
-                                    </button>
-                                  </li>
-                                  {/* <li>
-                                    <button className=" radius-md wh-48 content-center">
-                                      <img
-                                        className="svg"
-                                        src="/assets/img/svg/facebook.svg"
-                                        alt="img"
-                                      />
-                                    </button>
-                                  </li>
-                                  <li>
-                                    <button className="radius-md wh-48 content-center">
-                                      <img
-                                        className="svg"
-                                        src="/assets/img/svg/twitter.svg"
-                                        alt="img"
-                                      />
-                                    </button>
-                                  </li> */}
-                                </ul>
-                              </div>
+                             
                             </div>
                           </div>
                           {/* End: .card-body */}
