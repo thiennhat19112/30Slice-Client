@@ -4,6 +4,8 @@ import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux'
 import { addProduct } from '../app/redux/slices/user/CartSlice'
+import { toastSuccess } from "../components/sharedComponents/toast";
+
 function Detail(props) {
   const dispatch = useDispatch()
 
@@ -28,7 +30,7 @@ function Detail(props) {
       Images: item.Images,
       Quantity: 1
     };
-    console.log(product);
+    toastSuccess("Thêm vào giỏ hàng thành công!");
     dispatch(addProduct(product));
 
 

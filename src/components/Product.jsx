@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../app/redux/slices/user/CartSlice";
+import { toastSuccess } from "../components/sharedComponents/toast";
 function Product(props) {
   const dispatch = useDispatch();
   const addToCart = (item) => {
@@ -11,15 +12,25 @@ function Product(props) {
       Images: item.Images,
       Quantity: 1,
     };
-    console.log(product);
+    toastSuccess("Thêm vào giỏ hàng thành công!");
     dispatch(addProduct(product));
   };
   let Rating = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= props.prod.Rating) {
-      Rating.push(<span key={props.prod._id +"Rating"+i} className="star-icon las la-star active" />)
+      Rating.push(
+        <span
+          key={props.prod._id + "Rating" + i}
+          className="star-icon las la-star active"
+        />
+      );
     } else {
-      Rating.push(<span key={props.prod._id +"Rating"+i} className="star-icon las la-star" />)
+      Rating.push(
+        <span
+          key={props.prod._id + "Rating" + i}
+          className="star-icon las la-star"
+        />
+      );
     }
   }
 
@@ -39,7 +50,10 @@ function Product(props) {
                   className="card-img-top img-fluid"
                   src={props.prod.Images[0]}
                   alt="digital-chair"
-                  style={{borderTopLeftRadius: "10px", borderTopRightRadius: "10px"}}
+                  style={{
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
+                  }}
                 />
               </NavLink>
             </div>
@@ -52,13 +66,13 @@ function Product(props) {
                 </NavLink>
                 <div className="d-flex align-items-center mb-10 flex-wrap">
                   <span className="product-desc-price">
-                    {
-                      (props.prod.Price * (1 - props.prod.Discount / 100))
-                        .toLocaleString("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        })
-                    }
+                    {(
+                      props.prod.Price *
+                      (1 - props.prod.Discount / 100)
+                    ).toLocaleString("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    })}
                   </span>
                   {props.prod.Discount > 0 && (
                     <div className="d-flex align-items-center">
@@ -73,7 +87,8 @@ function Product(props) {
                 <div className="stars-rating d-flex align-items-center flex-wrap">
                   {Rating}
                   <span className="stars-rating__point">
-                    {" "} {props.prod.Rating} {" "}
+                    {" "}
+                    {props.prod.Rating}{" "}
                   </span>
                   <span className="stars-rating__review">
                     Đã bán <span>{props.prod.Saled}</span>
