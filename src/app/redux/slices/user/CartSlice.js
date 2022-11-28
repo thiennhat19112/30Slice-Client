@@ -20,9 +20,16 @@ const CartSlice = createSlice({
         state.splice(index, 1);
       }
     },
+    updateProduct(state, action) {
+      const product = action.payload;
+      const index = state.findIndex((item) => item._id === product._id);
+      if (index !== -1) {
+        state[index].Quantity = product.Quantity;
+      }
+    }
   },
 });
 
 const { actions, reducer } = CartSlice;
-export const { addProduct, removeProduct } = actions;
+export const { addProduct, removeProduct,updateProduct } = actions;
 export default reducer;

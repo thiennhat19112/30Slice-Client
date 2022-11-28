@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Breakcumb from "../components/Breakcumb";
 import OrderSummary from "../components/OrderSummary";
-import { removeProduct } from "../app/redux/slices/user/CartSlice";
+import {
+  removeProduct,
+  updateProduct,
+} from "../app/redux/slices/user/CartSlice";
 const Cart = () => {
   const dataCart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -71,6 +74,14 @@ const Cart = () => {
                                 type="number"
                                 defaultValue={item.Quantity}
                                 className="qty qh-36 input"
+                                onChange={(e) => {
+                                  dispatch(
+                                    updateProduct({
+                                      _id: item._id,
+                                      Quantity: e.target.value,
+                                    })
+                                  );
+                                }}
                               />
                               <input
                                 type="button"
@@ -88,7 +99,7 @@ const Cart = () => {
                           </td>
                           <td className="actions">
                             <button
-                            onClick={() => dispatch(removeProduct(item._id))}
+                              onClick={() => dispatch(removeProduct(item._id))}
                               type="button"
                               className="action-btn float-right"
                             >
