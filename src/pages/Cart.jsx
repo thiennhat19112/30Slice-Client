@@ -11,6 +11,12 @@ const Cart = () => {
   const dataCart = useSelector((state) => state.cart);
   console.log(dataCart);
   const dispatch = useDispatch();
+  const handleUpdate = (_id, Quantity) => {
+    if (Quantity <= 0 || Quantity === "") {
+      return;
+    }
+    dispatch(updateProduct({ _id, Quantity: parseInt(Quantity) }));
+  };
 
   return (
     <>
@@ -73,12 +79,7 @@ const Cart = () => {
                                 defaultValue="-"
                                 className="bttn bttn-left wh-36"
                                 onClick={() => {
-                                  dispatch(
-                                    updateProduct({
-                                      _id: item._id,
-                                      Quantity: item.Quantity - 1,
-                                    })
-                                  );
+                                  handleUpdate(item._id, item.Quantity - 1);
                                 }}
                               />
                               <input
@@ -86,12 +87,7 @@ const Cart = () => {
                                 value={item.Quantity}
                                 className="qty qh-36 input"
                                 onChange={(e) => {
-                                  dispatch(
-                                    updateProduct({
-                                      _id: item._id,
-                                      Quantity: parseInt(e.target.value),
-                                    })
-                                  );
+                                  handleUpdate(item._id, e.target.value);
                                 }}
                               />
                               <input
@@ -99,12 +95,7 @@ const Cart = () => {
                                 defaultValue="+"
                                 className="bttn bttn-right wh-36"
                                 onClick={() => {
-                                  dispatch(
-                                    updateProduct({
-                                      _id: item._id,
-                                      Quantity: item.Quantity + 1,
-                                    })
-                                  );
+                                  handleUpdate(item._id, item.Quantity + 1);
                                 }}
                               />
                             </div>
