@@ -23,6 +23,7 @@ function Booking(props) {
   const [listTime, setListTime] = useState([]);
   const [loading, setLoading] = useState(false);
   const [arrDate, setArrDate] = useState(create7Date());
+  const [idStylist, setIdStylist] = useState(0);
   const _isMounted = useRef(false);
   const refDate = useRef(arrDate[0].dateEn);
   const refStyleList = useRef(0);
@@ -84,10 +85,16 @@ function Booking(props) {
     }
   };
   const CreateBook = async () => {
+    let idStylelist;
+    if (refStyleList.current.value === "0") {
+      idStylelist = idStylist;
+    } else {
+      idStylelist = refStyleList.current.value;
+    }
     const data = {
       Id_Customer: CustomerInfo.Id_User,
       Id_Service: ServiceId,
-      Id_Style_List: refStyleList.current.value,
+      Id_Style_List: idStylelist,
       BookedTime: BookedTime,
       BookedDate: refDate.current.value,
       Phone: CustomerInfo.Phone,
@@ -150,6 +157,7 @@ function Booking(props) {
         }
       });
     });
+    console.log(arrAvailableTime);
     return arrAvailableTime;
   }
   // hàm load lại danh sách thời gian
@@ -168,7 +176,8 @@ function Booking(props) {
         const idStylist = Object.keys(ele[1]).filter(
           (key) => ele[1][key] === true
         );
-        console.log(idStylist[0]);
+        // console.log(idStylist[0]);
+
         return (
           <div key={index} className="form-check col-1 mb-2">
             <input
@@ -179,6 +188,7 @@ function Booking(props) {
               disabled={!isAvailable}
               id={ele[0]}
               style={{ display: "none" }}
+              onClick={() => setIdStylist(idStylist[0])}
             />
             <label
               className={`form-check-label btn px-4 border ${
