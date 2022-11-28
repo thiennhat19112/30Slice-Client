@@ -1,6 +1,6 @@
 import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 const Filters = () => {
   const [listCate, setCate] = useState([]);
 
@@ -43,19 +43,21 @@ const Filters = () => {
               <ul>
                 {listCate.map((item, index) => (
                   <li key={item._id}>
-                    <div className="checkbox-theme-default custom-checkbox ">
-                      <input
-                        className="checkbox"
-                        type="checkbox"
-                        id={`check-${item._id}`}
-                      />
-                      <label htmlFor={`check-${item._id}`}>
-                        <span className="checkbox-text">
-                          {item.Name}
-                          <span className="item-numbers">{item.Ordinal}</span>
-                        </span>
-                      </label>
-                    </div>
+                    <Link to={/category/ + item._id} >
+                      <div className="checkbox-theme-default custom-checkbox ">
+                        <input
+                          className="checkbox"
+                          type="checkbox"
+                          id={`check-${item._id}`}
+                        />
+                        <label htmlFor={`check-${item._id}`}>
+                          <span className="checkbox-text">
+                            {item.Name}
+                            <span className="item-numbers">{item.Ordinal}</span>
+                          </span>
+                        </label>
+                      </div>
+                    </Link>
                   </li>
                 ))}
               </ul>
