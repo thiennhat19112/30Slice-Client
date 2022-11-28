@@ -13,12 +13,16 @@ const CartSlice = createSlice({
         state[index].Quantity += 1;
       }
     },
-    removePost(state, action) {
-      state.splice(action.payload, 1);
+    removeProduct(state, action) {
+      const id = action.payload;
+      const index = state.findIndex((item) => item._id === id);
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
     },
   },
 });
 
 const { actions, reducer } = CartSlice;
-export const { addProduct, removePost } = actions;
+export const { addProduct, removeProduct } = actions;
 export default reducer;

@@ -2,13 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Breakcumb from "../components/Breakcumb";
 import OrderSummary from "../components/OrderSummary";
+import { removeProduct } from "../app/redux/slices/user/CartSlice";
 const Cart = () => {
   const dataCart = useSelector((state) => state.cart);
-  console.log(dataCart);
-  const subTotal = dataCart.reduce((total, item) => {
-    return total + item.Price * item.Quantity;
-  }, 0);
-  const shippingFree = 30000;
+  const dispatch = useDispatch();
   return (
     <>
       <div className="container-fluid">
@@ -91,6 +88,7 @@ const Cart = () => {
                           </td>
                           <td className="actions">
                             <button
+                            onClick={() => dispatch(removeProduct(item._id))}
                               type="button"
                               className="action-btn float-right"
                             >
