@@ -29,6 +29,7 @@ function Booking(props) {
   const refStyleList = useRef(0);
   const refPhone = useRef("");
   const refCustomerName = useRef("");
+  const refNote = useRef("");
 
   // hàm get stylist theo ngày
   const loadArrStyleList = async () => {
@@ -101,6 +102,7 @@ function Booking(props) {
       BookedTime: BookedTime,
       BookedDate: refDate.current.value,
       Phone: CustomerInfo.Phone,
+      Note: refNote.current.value,
     };
     console.log(data);
     _isMounted.current && setLoading(true);
@@ -326,6 +328,20 @@ function Booking(props) {
         Chọn thời gian<sup className="text-danger">*</sup>
       </label>
       <div className="row my-3">{listTime}</div>
+      <div className="form-group form-element-textarea mb-20">
+        <label htmlFor="note" className="il-gray fs-14 fw-500 align-center">
+          Ghi chú
+        </label>
+        <textarea
+          className="form-control"
+          id="note"
+          rows={3}
+          defaultValue={""}
+          placeholder="Tôi muốn ghi chú..."
+          ref={refNote}
+        />
+      </div>
+
       <button
         className="btn btn-primary btn-lg btn-squared btn-block "
         onClick={CreateBook}
