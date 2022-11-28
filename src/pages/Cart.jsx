@@ -6,9 +6,12 @@ import {
   removeProduct,
   updateProduct,
 } from "../app/redux/slices/user/CartSlice";
+import { useRef } from "react";
 const Cart = () => {
   const dataCart = useSelector((state) => state.cart);
+  console.log(dataCart);
   const dispatch = useDispatch();
+
   return (
     <>
       <div className="container-fluid">
@@ -68,17 +71,25 @@ const Cart = () => {
                               <input
                                 type="button"
                                 defaultValue="-"
-                                className="qty-minus bttn bttn-left wh-36"
+                                className="bttn bttn-left wh-36"
+                                onClick={() => {
+                                  dispatch(
+                                    updateProduct({
+                                      _id: item._id,
+                                      Quantity: item.Quantity - 1,
+                                    })
+                                  );
+                                }}
                               />
                               <input
                                 type="number"
-                                defaultValue={item.Quantity}
+                                value={item.Quantity}
                                 className="qty qh-36 input"
                                 onChange={(e) => {
                                   dispatch(
                                     updateProduct({
                                       _id: item._id,
-                                      Quantity: e.target.value,
+                                      Quantity: parseInt(e.target.value),
                                     })
                                   );
                                 }}
@@ -86,7 +97,15 @@ const Cart = () => {
                               <input
                                 type="button"
                                 defaultValue="+"
-                                className="qty-plus bttn bttn-right wh-36"
+                                className="bttn bttn-right wh-36"
+                                onClick={() => {
+                                  dispatch(
+                                    updateProduct({
+                                      _id: item._id,
+                                      Quantity: item.Quantity + 1,
+                                    })
+                                  );
+                                }}
                               />
                             </div>
                             {/* End: Product Quantity */}
