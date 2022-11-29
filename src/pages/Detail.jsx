@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Breadcrumb from "../components/Breakcumb";
 import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
@@ -297,7 +297,7 @@ function Detail(props) {
                     </div>
                     <div className="title">
                       <p>Danh mục:</p>
-                      <span className="free"> {product.Id_Categories} </span>
+                      <span className="free"> <Link to={"/category/"+product.Id_Categories}>{product.Id_Categories}</Link> </span>
                     </div>
                   </div>
                   {/* End: Product Availability */}
