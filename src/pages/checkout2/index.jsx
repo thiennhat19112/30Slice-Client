@@ -126,7 +126,7 @@ const Checkout2 = () => {
                           </div>
                           <div className="button-group d-flex pt-20 mb-20 justify-content-md-end justify-content-center">
                             <Link
-                              to="/signup"
+                              to="/register"
                               className="btn btn-info btn-default btn-squared text-capitalize text-white mx-3"
                             >
                               Đăng ký

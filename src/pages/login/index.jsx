@@ -163,7 +163,7 @@ const Login = () => {
                                     </div>
                                   </div>
                                 )}
-                                <span>Nếu chưa có tài khoản? <Link to="/sign-up">Đăng ký</Link></span>
+                                <span>Chưa có tài khoản? <Link to="/register">Đăng ký</Link></span>
                                 <div className="button-group d-flex pt-3 justify-content-md-start justify-content-center">
                                   <button
                                     type="submit"

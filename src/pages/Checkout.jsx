@@ -171,7 +171,7 @@ const Checkout = () => {
                               </div>
                             </div>
                           )}
-                          <span>Nếu chưa có tài khoản? <Link to="/sign-up">Đăng ký</Link></span>
+                          <span>Chưa có tài khoản? <Link to="/register">Đăng ký</Link></span>
                           <div className="button-group d-flex pt-20 mb-20 justify-content-md-end justify-content-center">
                             <button
                               type="submit"

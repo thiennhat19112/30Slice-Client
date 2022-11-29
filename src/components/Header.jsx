@@ -73,7 +73,7 @@ console.log(UserInfo)
                   </li>
                   <li>
                     <NavLink exact="true" to="/register">
-                      Đăng Kí{" "}
+                      Đăng Ký
                     </NavLink>
                   </li>
                 </ul>

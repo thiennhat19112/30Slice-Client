@@ -37,7 +37,7 @@ const Register = () => {
 
             username: Yup.string()
                 .required("Bắt buộc")
-                .min(4, "Ít nhất cần 4 kí tự"),
+                .min(4, "Ít nhất cần 4 ký tự"),
             email: Yup.string()
                 .required("Bắt buộc")
                 .matches(
@@ -63,7 +63,7 @@ const Register = () => {
                 body: JSON.stringify(formik.values)
             }).then((resp) => {
                 resp.json().then((result) => {
-                    window.alert("Đăng kí thành công");
+                    window.alert("Đăng ký thành công");
                     window.location.assign("https://www.facebook.com/phandinhtungfanpage")
 
                     console.warn("result", result)
@@ -84,7 +84,7 @@ const Register = () => {
                                 <div className="row justify-content-center">
                                     <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                                         <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                                            Đăng kí thành viên
+                                            Đăng ký thành viên
                                         </p>
                                         <form className="mx-1 mx-md-4">
                                             <div className="d-flex flex-row align-items-center mb-4">
@@ -190,7 +190,7 @@ const Register = () => {
 
                                             <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                                 <button type="submit" className="btn btn-primary btn-lg" >
-                                                    Đăng kí
+                                                    Đăng ký
                                                 </button>
                                             </div>
                                         </form>
