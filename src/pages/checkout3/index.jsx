@@ -53,7 +53,7 @@ const Checkout3 = () => {
                         alt=""
                       />
                     </span>
-                    <span>Địa chỉ nhận hàng</span>
+                    <span>Thông tin người nhận</span>
                   </div>
                   <div className="current">
                     <img
@@ -108,14 +108,14 @@ const Checkout3 = () => {
                               type="radio"
                               name="radio-vertical"
                               defaultValue={0}
-                              id="radio-vl6"
+                              id="vnpay"
                             />
-                            <label htmlFor="radio-vl6">
+                            <label htmlFor="vnpay">
                               <span className="radio-text" />
                             </label>
                           </div>
-                          <button
-                            type="button"
+                          <label
+                            htmlFor="vnpay"
                             className=" form-control d-flex align-items-center justify-content-between"
                           >
                             Thanh toán bằng VNPAY
@@ -124,7 +124,7 @@ const Checkout3 = () => {
                               alt="paypal"
                               className="d-lg-block d-none"
                             />
-                          </button>
+                          </label>
                         </div>
                         <div className="d-flex align-items-center">
                           <div className="radio-theme-default custom-radio  d-flex mr-2">
@@ -133,27 +133,40 @@ const Checkout3 = () => {
                               type="radio"
                               name="radio-vertical"
                               defaultValue={0}
-                              id="radio-vl7"
+                              id="cod"
                             />
-                            <label htmlFor="radio-vl7">
+                            <label htmlFor="cod">
                               <span className="radio-text" />
                             </label>
                           </div>
-                          <button
-                            type="button"
+                          <label
+                            htmlFor="cod"
                             className=" form-control d-flex align-items-center justify-content-between"
                             id="payment3"
                           >
                             Thanh toán khi nhận hàng (COD)
                             <Truck className="d-lg-block d-none m-4" />
-                          </button>
+                          </label>
                         </div>
                       </div>
 
                       <div className="col-md-12 mt-5 form-group">
-                        <button className="btn btn-primary btn-default btn-squared ">
-                          Tiếp tục
-                        </button>
+                        <div className="button-group d-flex pt-40 mb-xl-20  justify-content-sm-between justify-content-center m-0 mb-xl-30 mb-30 flex-wrap">
+                          <Link
+                            to="/checkout2"
+                            className="btn btn-light btn-default btn-squared fw-400 text-capitalize m-sm-0 m-1"
+                          >
+                            <i className="las la-arrow-left mr-10" />
+                            Trở lại
+                          </Link>
+                          <a
+                            href="checkout-review.html"
+                            className="btn text-white btn-primary btn-default btn-squared text-capitalize m-sm-0 m-1"
+                          >
+                            tiếp tục
+                            <i className="ml-10 mr-0 las la-arrow-right" />
+                          </a>
+                        </div>
                       </div>
                     </div>
                   </div>
