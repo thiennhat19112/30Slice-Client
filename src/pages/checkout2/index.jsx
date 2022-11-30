@@ -6,16 +6,11 @@ import useLocationSelect from "./useLocationSelect";
 import { Link } from "react-router-dom";
 import OrderSummary from "../../components/OrderSummary";
 const Checkout2 = () => {
-  const dataCart = useSelector((state) => state.cart);
-  console.log(dataCart);
+  const dataUser = useSelector((state) => state.auth.user);
+  console.log(dataUser);
 
-  const {
-    state,
-    onCitySelect,
-    onDistrictSelect,
-    onWardSelect,
-    onSubmit
-  } = useLocationSelect(false);
+  const { state, onCitySelect, onDistrictSelect, onWardSelect, onSubmit } =
+    useLocationSelect(false);
 
   const {
     cityOptions,
@@ -23,7 +18,7 @@ const Checkout2 = () => {
     wardOptions,
     selectedCity,
     selectedDistrict,
-    selectedWard
+    selectedWard,
   } = state;
 
   const refCustomerName = useRef();
@@ -32,16 +27,31 @@ const Checkout2 = () => {
   const refCustomerStreet = useRef();
   const refCustomerNote = useRef();
   const nextStepCheckout = () => {
-    if (refCustomerName.current.value === "" || refCustomerPhone.current.value === "" || refCustomerEmail.current.value === "" || refCustomerStreet.current.value === "" || selectedCity === null || selectedDistrict === null || selectedWard === null) {
-      alert('Vui lòng nhập đầy đủ thông tin');
+    if (
+      refCustomerName.current.value === "" ||
+      refCustomerPhone.current.value === "" ||
+      refCustomerEmail.current.value === "" ||
+      refCustomerStreet.current.value === "" ||
+      selectedCity === null ||
+      selectedDistrict === null ||
+      selectedWard === null
+    ) {
+      alert("Vui lòng nhập đầy đủ thông tin");
     } else {
       let data = {
         name: refCustomerName.current.value,
         phone: refCustomerPhone.current.value,
         email: refCustomerEmail.current.value,
-        address: refCustomerStreet.current.value + ", " + selectedWard.label + ", " + selectedDistrict.label + ", " + selectedCity.label,
+        address:
+          refCustomerStreet.current.value +
+          ", " +
+          selectedWard.label +
+          ", " +
+          selectedDistrict.label +
+          ", " +
+          selectedCity.label,
         note: refCustomerNote.current.value,
-      }
+      };
       console.log(data);
     }
   };
@@ -52,7 +62,9 @@ const Checkout2 = () => {
           <div className="col-lg-12">
             <div className="shop-breadcrumb">
               <div className="breadcrumb-main">
-                <h4 className="text-capitalize breadcrumb-title">Địa chỉ nhận hàng</h4>
+                <h4 className="text-capitalize breadcrumb-title">
+                  Địa chỉ nhận hàng
+                </h4>
               </div>
             </div>
           </div>
@@ -131,7 +143,7 @@ const Checkout2 = () => {
 
               {/* checkout */}
               <div className="row justify-content-center">
-                <div className="col-xl-6 col-lg-8 col-sm-10">
+                <div className="col-xl-9 col-lg-8 col-sm-10">
                   <div className="card checkout-shipping-form border-0">
                     <div className="card-header border-bottom-0 align-content-start pb-sm-0 pb-1">
                       <h4 className="fw-500">
@@ -139,8 +151,13 @@ const Checkout2 = () => {
                       </h4>
                     </div>
                     <div className="card-body">
-                      <form id="customer-info-form" className="row contact_form" noValidate="novalidate">
+                      <form
+                        id="customer-info-form"
+                        className="row contact_form"
+                        noValidate="novalidate"
+                      >
                         <div className="col-md-12 form-group">
+                          <label htmlFor="">Tên người nhận</label>
                           <input
                             type="text"
                             className="form-control"
@@ -148,10 +165,11 @@ const Checkout2 = () => {
                             name="customer_name"
                             placeholder="Tên khách hàng"
                             ref={refCustomerName}
-                            defaultValue={"Sửa ở defaultValue"}
+                            defaultValue={dataUser.name}
                           />
                         </div>
                         <div className="col-md-6 form-group">
+                          <label htmlFor="">Số điện thoại</label>
                           <input
                             type="text"
                             className="form-control"
@@ -159,10 +177,11 @@ const Checkout2 = () => {
                             name="customer_phone"
                             placeholder="Số điện thoại"
                             ref={refCustomerPhone}
-                            defaultValue={"Sửa ở defaultValue"}
+                            defaultValue={dataUser.phone}
                           />
                         </div>
                         <div className="col-md-6 form-group">
+                          <label htmlFor="">Email</label>
                           <input
                             type="email"
                             className="form-control"
@@ -170,10 +189,11 @@ const Checkout2 = () => {
                             name="customer_email"
                             placeholder="Email"
                             ref={refCustomerEmail}
-                            defaultValue={"Sửa ở defaultValue"}
+                            defaultValue={dataUser.email}
                           />
                         </div>
                         <div className="col-md-12 form-group">
+                          <label htmlFor="">Địa chỉ</label>
                           <input
                             type="text"
                             className="form-control"
@@ -220,6 +240,7 @@ const Checkout2 = () => {
                           />
                         </div>
                         <div className="col-md-12 form-group">
+                          <label htmlFor="">Ghi chú</label>
                           <textarea
                             className="form-control"
                             name="message"
@@ -232,8 +253,12 @@ const Checkout2 = () => {
                         </div>
                       </form>
                       <div className="col-md-12 form-group">
-                        <button className="btn btn-primary btn-default btn-squared " onClick={nextStepCheckout}>
+                        <button
+                          className="btn btn-primary btn-default btn-squared "
+                          onClick={nextStepCheckout}
+                        >
                           Tiếp tục
+                          <i className="ml-10 mr-0 las la-arrow-right" />
                         </button>
                       </div>
                     </div>
