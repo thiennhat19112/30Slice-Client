@@ -1,11 +1,42 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useRef, useEffect } from "react";
 
+import Select from "react-select";
+import useLocationSelect from "./useLocationSelect";
 import { Link } from "react-router-dom";
 import OrderSummary from "../../components/OrderSummary";
 const Checkout2 = () => {
   const dataCart = useSelector((state) => state.cart);
   console.log(dataCart);
 
+  const {
+    state,
+    onCitySelect,
+    onDistrictSelect,
+    onWardSelect,
+    onSubmit
+  } = useLocationSelect(false);
+
+  const {
+    cityOptions,
+    districtOptions,
+    wardOptions,
+    selectedCity,
+    selectedDistrict,
+    selectedWard
+  } = state;
+
+  const refCustomerStreet = useRef();
+  const nextStepCheckout = () => {
+    if (refCustomerStreet.current.value === "" || selectedCity === null || selectedDistrict === null || selectedWard === null) {
+      alert('Vui lòng nhập đầy đủ địa chỉ');
+    } else {
+      let data = {
+        address: refCustomerStreet.current.value + ", " + selectedWard.label + ", " + selectedDistrict.label + ", " + selectedCity.label,
+      }
+      console.log(data);
+    }
+  };
   return (
     <>
       <div className="container-fluid">
@@ -96,51 +127,57 @@ const Checkout2 = () => {
                   <div className="card checkout-shipping-form border-0">
                     <div className="card-header border-bottom-0 align-content-start pb-sm-0 pb-1">
                       <h4 className="fw-500">
-                        1. Đăng nhập vào tài khoản của bạn
+                        2. Xác nhận địa chỉ nhận hàng
                       </h4>
                     </div>
                     <div className="card-body">
-                      <div className="edit-profile__body">
-                        <form>
-                          <div className="form-group">
-                            <label htmlFor="name1">Tên đăng nhập</label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="name1"
-                              placeholder="Usename"
-                            />
-                          </div>
-                          <div className="form-group create-passord">
-                            <label htmlFor="phoneNumber">Mật khẩu</label>
-                            <input
-                              type="password"
-                              className="form-control"
-                              id="phoneNumber"
-                              placeholder="Password"
-                              defaultValue={121445}
-                            />
-                            <span className="create-passord-warn">
-                              Enter a valid password. Min 6 characters long
-                            </span>
-                          </div>
-                          <div className="button-group d-flex pt-20 mb-20 justify-content-md-end justify-content-center">
-                            <Link
-                              to="/register"
-                              className="btn btn-info btn-default btn-squared text-capitalize text-white mx-3"
-                            >
-                              Đăng ký
-                              <i className="ml-10 mr-0 las la-arrow-right" />
-                            </Link>
-                            <a
-                              href="checkout2.html"
-                              className="btn btn-primary btn-default btn-squared text-capitalize text-white"
-                            >
-                              Đăng nhập
-                              <i className="ml-10 mr-0 las la-arrow-right" />
-                            </a>
-                          </div>
-                        </form>
+                      <div className="col-md-12 form-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="detail_address"
+                          name="detail_address"
+                          placeholder="Địa chỉ"
+                          ref={refCustomerStreet}
+                        />
+                      </div>
+                      <div className="col-md-12 form-group">
+                        <Select
+                          name="cityId"
+                          key={`cityId_${selectedCity?.value}`}
+                          isDisabled={cityOptions.length === 0}
+                          options={cityOptions}
+                          onChange={(option) => onCitySelect(option)}
+                          placeholder="Tỉnh/Thành"
+                          defaultValue={selectedCity}
+                        />
+                      </div>
+                      <div className="col-md-12 form-group">
+                        <Select
+                          name="districtId"
+                          key={`districtId_${selectedDistrict?.value}`}
+                          isDisabled={districtOptions.length === 0}
+                          options={districtOptions}
+                          onChange={(option) => onDistrictSelect(option)}
+                          placeholder="Quận/Huyện"
+                          defaultValue={selectedDistrict}
+                        />
+                      </div>
+                      <div className="col-md-12 form-group">
+                        <Select
+                          name="wardId"
+                          key={`wardId_${selectedWard?.value}`}
+                          isDisabled={wardOptions.length === 0}
+                          options={wardOptions}
+                          placeholder="Phường/Xã"
+                          onChange={(option) => onWardSelect(option)}
+                          defaultValue={selectedWard}
+                        />
+                      </div>
+                      <div className="col-md-12 form-group">
+                        <button className="btn btn-primary btn-default btn-squared " onClick={nextStepCheckout}>
+                          Tiếp tục
+                        </button>
                       </div>
                     </div>
                   </div>
