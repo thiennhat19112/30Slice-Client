@@ -24,8 +24,8 @@ const Register = () => {
 
 
             confirmedPassword: Yup.string()
-                .required("Required")
-                .oneOf([Yup.ref("password"), null], "Password must match"),
+                .required("Bắt buộc")
+                .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp"),
 
             phone: Yup.string()
                 .required("Bắt buộc")
@@ -37,15 +37,15 @@ const Register = () => {
 
             username: Yup.string()
                 .required("Bắt buộc")
-                .min(4, "Ít nhất cần 4 ký tự"),
+                .min(4, "Ít nhất 4 ký tự"),
             email: Yup.string()
                 .required("Bắt buộc")
                 .matches(
                     /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    "Hãy nhập đúng email"
+                    "Email không hợp lệ"
                 ),
             password: Yup.string()
-                .required("bắt buộc")
+                .required("Bắt buộc")
                 .matches(
                     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
                     "Mật khẩu phải có 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt"
@@ -73,16 +73,14 @@ const Register = () => {
     });
 
     return (
-        <section className="form" style={{ backgroundColor: "#eee", height: "1000px" }} onSubmit={formik.handleSubmit}>
-            <div className="container h-100">
+        <section className="form py-4" onSubmit={formik.handleSubmit}>
+            <div className="container">
                 <div className="row d-flex justify-content-center align-items-center h-100">
-
-                    <div className=" col-xl-9"
-                    >
+                    <div className=" col-xl-10">
                         <div className="card text-black" style={{ borderRadius: 25 }}>
                             <div className="card-body p-md-5">
                                 <div className="row justify-content-center">
-                                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                                    <div className="col-md-10 col-lg-6 col-xl-6 order-2 order-lg-1">
                                         <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                                             Đăng ký thành viên
                                         </p>
@@ -195,7 +193,7 @@ const Register = () => {
                                             </div>
                                         </form>
                                     </div>
-                                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                                    <div className="col-md-10 col-lg-6 col-xl-6 d-flex align-items-center order-1 order-lg-2">
                                         <img
                                             src="https://static.vecteezy.com/system/resources/previews/000/103/328/original/barber-tools-pattern-vector.jpg"
                                             className="img-fluid"
