@@ -1,19 +1,46 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useRef, useEffect,useState } from "react";
-
-import { setPayment } from "../../app/redux/slices/user/CartSlice";
+import {  useState } from "react";
+import {
+  toastSuccess,
+  toastError,
+} from "../../components/sharedComponents/toast";
+import { useNavigate } from "react-router-dom";
+import { setPayment,clearCart } from "../../app/redux/slices/user/CartSlice";
 import { Link } from "react-router-dom";
 import OrderSummary from "../../components/OrderSummary";
 import { Truck } from "react-feather";
+import { CheckoutCod } from "../../app/services/user/cart.service";
 const Checkout3 = () => {
   const dispatch = useDispatch();
-  const cartItems  = useSelector((state) => state.cart);
+  const navigate = useNavigate();
+  const cartItems = useSelector((state) => state.cart);
   const [paymentMethod, setPaymentMethod] = useState("vnpay");
-  console.log(cartItems)
-  const handleCheckout = () => {
+  // console.log(cartItems)
+  const handleCheckout = async () => {
     dispatch(setPayment(paymentMethod));
-  };
+    if (paymentMethod === "cod") {
+      let data = {
+        Id_Customer: cartItems.id_Customer,
+        Products: cartItems.products,
+        Receiver: cartItems.name,
+        Address: cartItems.address,
+        Phone: cartItems.phone,
+        Email: cartItems.email,
+        Amount: cartItems.amount,
+        Payment_Method: cartItems.payment,
+        Customer_Note: cartItems.note,
+      };
+      // console.log(data);
 
+      const res = await CheckoutCod(data);
+      console.log(res);
+      if (res.status === 200) {
+        toastSuccess("Đặt hàng thành công");
+        navigate("/checkout4");
+        dispatch(clearCart());
+      }
+    }
+  };
 
   return (
     <>
