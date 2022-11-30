@@ -91,7 +91,7 @@ const Checkout = () => {
                         alt=""
                       />
                     </span>
-                    <span>Địa chỉ nhận hàng</span>
+                    <span>Thông tin người nhận</span>
                   </div>
                   <div className="current">
                     <img

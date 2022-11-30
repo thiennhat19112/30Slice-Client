@@ -26,13 +26,21 @@ const Checkout2 = () => {
     selectedWard
   } = state;
 
+  const refCustomerName = useRef();
+  const refCustomerPhone = useRef();
+  const refCustomerEmail = useRef();
   const refCustomerStreet = useRef();
+  const refCustomerNote = useRef();
   const nextStepCheckout = () => {
-    if (refCustomerStreet.current.value === "" || selectedCity === null || selectedDistrict === null || selectedWard === null) {
-      alert('Vui lòng nhập đầy đủ địa chỉ');
+    if (refCustomerName.current.value === "" || refCustomerPhone.current.value === "" || refCustomerEmail.current.value === "" || refCustomerStreet.current.value === "" || selectedCity === null || selectedDistrict === null || selectedWard === null) {
+      alert('Vui lòng nhập đầy đủ thông tin');
     } else {
       let data = {
+        name: refCustomerName.current.value,
+        phone: refCustomerPhone.current.value,
+        email: refCustomerEmail.current.value,
         address: refCustomerStreet.current.value + ", " + selectedWard.label + ", " + selectedDistrict.label + ", " + selectedCity.label,
+        note: refCustomerNote.current.value,
       }
       console.log(data);
     }
@@ -82,7 +90,7 @@ const Checkout2 = () => {
                         alt=""
                       />
                     </span>
-                    <span>Địa chỉ nhận hàng</span>
+                    <span>Thông tin người nhận</span>
                   </div>
                   <div className="current">
                     <img
@@ -127,53 +135,102 @@ const Checkout2 = () => {
                   <div className="card checkout-shipping-form border-0">
                     <div className="card-header border-bottom-0 align-content-start pb-sm-0 pb-1">
                       <h4 className="fw-500">
-                        2. Xác nhận địa chỉ nhận hàng
+                        2. Xác nhận thông tin khách hàng
                       </h4>
                     </div>
                     <div className="card-body">
-                      <div className="col-md-12 form-group">
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="detail_address"
-                          name="detail_address"
-                          placeholder="Địa chỉ"
-                          ref={refCustomerStreet}
-                        />
-                      </div>
-                      <div className="col-md-12 form-group">
-                        <Select
-                          name="cityId"
-                          key={`cityId_${selectedCity?.value}`}
-                          isDisabled={cityOptions.length === 0}
-                          options={cityOptions}
-                          onChange={(option) => onCitySelect(option)}
-                          placeholder="Tỉnh/Thành"
-                          defaultValue={selectedCity}
-                        />
-                      </div>
-                      <div className="col-md-12 form-group">
-                        <Select
-                          name="districtId"
-                          key={`districtId_${selectedDistrict?.value}`}
-                          isDisabled={districtOptions.length === 0}
-                          options={districtOptions}
-                          onChange={(option) => onDistrictSelect(option)}
-                          placeholder="Quận/Huyện"
-                          defaultValue={selectedDistrict}
-                        />
-                      </div>
-                      <div className="col-md-12 form-group">
-                        <Select
-                          name="wardId"
-                          key={`wardId_${selectedWard?.value}`}
-                          isDisabled={wardOptions.length === 0}
-                          options={wardOptions}
-                          placeholder="Phường/Xã"
-                          onChange={(option) => onWardSelect(option)}
-                          defaultValue={selectedWard}
-                        />
-                      </div>
+                      <form id="customer-info-form" className="row contact_form" noValidate="novalidate">
+                        <div className="col-md-12 form-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="customer_name"
+                            name="customer_name"
+                            placeholder="Tên khách hàng"
+                            ref={refCustomerName}
+                            defaultValue={"Sửa ở defaultValue"}
+                          />
+                        </div>
+                        <div className="col-md-6 form-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="customer_phone"
+                            name="customer_phone"
+                            placeholder="Số điện thoại"
+                            ref={refCustomerPhone}
+                            defaultValue={"Sửa ở defaultValue"}
+                          />
+                        </div>
+                        <div className="col-md-6 form-group">
+                          <input
+                            type="email"
+                            className="form-control"
+                            id="customer_email"
+                            name="customer_email"
+                            placeholder="Email"
+                            ref={refCustomerEmail}
+                            defaultValue={"Sửa ở defaultValue"}
+                          />
+                        </div>
+                        <div className="col-md-12 form-group">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="detail_address"
+                            name="detail_address"
+                            placeholder="Địa chỉ"
+                            ref={refCustomerStreet}
+                          />
+                        </div>
+
+                        {/* <LocationSelect /> */}
+                        <div className="col-md-12 form-group">
+                          <Select
+                            className="country_select mb-3"
+                            name="cityId"
+                            key={`cityId_${selectedCity?.value}`}
+                            isDisabled={cityOptions.length === 0}
+                            options={cityOptions}
+                            onChange={(option) => onCitySelect(option)}
+                            placeholder="Tỉnh/Thành"
+                            defaultValue={selectedCity}
+                          />
+
+                          <Select
+                            className="country_select mb-3"
+                            name="districtId"
+                            key={`districtId_${selectedDistrict?.value}`}
+                            isDisabled={districtOptions.length === 0}
+                            options={districtOptions}
+                            onChange={(option) => onDistrictSelect(option)}
+                            placeholder="Quận/Huyện"
+                            defaultValue={selectedDistrict}
+                          />
+
+                          <Select
+                            className="country_select"
+                            name="wardId"
+                            key={`wardId_${selectedWard?.value}`}
+                            isDisabled={wardOptions.length === 0}
+                            options={wardOptions}
+                            placeholder="Phường/Xã"
+                            onChange={(option) => onWardSelect(option)}
+                            defaultValue={selectedWard}
+                          />
+                        </div>
+                        <div className="col-md-12 form-group">
+                          <textarea
+                            className="form-control"
+                            name="message"
+                            id="message"
+                            rows={3}
+                            placeholder="Ghi chú"
+                            defaultValue={""}
+                            ref={refCustomerNote}
+                          />
+                        </div>
+                      </form>
                       <div className="col-md-12 form-group">
                         <button className="btn btn-primary btn-default btn-squared " onClick={nextStepCheckout}>
                           Tiếp tục
