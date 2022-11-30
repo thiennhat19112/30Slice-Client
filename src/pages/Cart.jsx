@@ -33,7 +33,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      {dataCart && dataCart.length > 0 ? (
+      {dataCart.products && dataCart.products.length > 0 ? (
         <div className="container-fluid">
           <div className="cartPage  global-shadow border pr-sm-30 pl-sm-30  p-15 py-sm-30 bg-white radius-xl w-100 mb-30">
             <div className="row justify-content-center">
@@ -56,7 +56,7 @@ const Cart = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {dataCart.map((item, index) => (
+                        {dataCart.products.map((item, index) => (
                           <tr key={index}>
                             <td className="Product-cart-title">
                               <div className="media  align-items-center">

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../app/redux/slices/auth/auth";
 import { LogOut } from "react-feather";
 const Header = () => {
-  const cartLength = useSelector((state) => state.cart.length);
+  const cartLength = useSelector((state) => state.cart.products.length);
   const UserInfo = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 console.log(UserInfo)

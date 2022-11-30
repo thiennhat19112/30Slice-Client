@@ -50,7 +50,6 @@ let search;
     if (data) {
       Notiflix.Loading.remove();
     }
-    console.log(dataProduct);
     _isMounted.current && setdataProduct(data);
     _isMounted.current && setListProduct(data.products);
   };
