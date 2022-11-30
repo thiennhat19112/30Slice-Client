@@ -56,9 +56,32 @@ const CartSlice = createSlice({
         0
       );
     },
+    setInfo(state, action) {
+      const info = action.payload;
+      state.address = info.address;
+      state.name = info.name;
+      state.phone = info.phone;
+      state.email = info.email;
+      state.note = info.note;
+      state.id_Customer = info.id_Customer;
+    },
+    setPayment(state, action) {
+      state.payment = action.payload;
+    },
+    clearCart(state) {
+      state.products = [];
+      state.address = "";
+      state.payment = "";
+      state.name = "";
+      state.phone = "";
+      state.email = "";
+      state.amount = 0;
+      state.note = "";
+      state.id_Customer = "";
+    }
   },
 });
 
 const { actions, reducer } = CartSlice;
-export const { addProduct, removeProduct, updateProduct } = actions;
+export const { addProduct, removeProduct, updateProduct, setInfo, setPayment, clearCart } = actions;
 export default reducer;

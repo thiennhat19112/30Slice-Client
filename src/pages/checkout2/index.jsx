@@ -3,11 +3,14 @@ import { useRef, useEffect } from "react";
 
 import Select from "react-select";
 import useLocationSelect from "./useLocationSelect";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OrderSummary from "../../components/OrderSummary";
+import { setInfo } from "../../app/redux/slices/user/CartSlice";
 const Checkout2 = () => {
   const dataUser = useSelector((state) => state.auth.user);
   console.log(dataUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { state, onCitySelect, onDistrictSelect, onWardSelect, onSubmit } =
     useLocationSelect(false);
@@ -39,6 +42,7 @@ const Checkout2 = () => {
       alert("Vui lòng nhập đầy đủ thông tin");
     } else {
       let data = {
+        id_Customer: dataUser.id,
         name: refCustomerName.current.value,
         phone: refCustomerPhone.current.value,
         email: refCustomerEmail.current.value,
@@ -53,6 +57,8 @@ const Checkout2 = () => {
         note: refCustomerNote.current.value,
       };
       console.log(data);
+      dispatch(setInfo(data));
+      navigate("/checkout3");
     }
   };
   return (

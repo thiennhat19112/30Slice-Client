@@ -1,11 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect,useState } from "react";
 
-import Select from "react-select";
+import { setPayment } from "../../app/redux/slices/user/CartSlice";
 import { Link } from "react-router-dom";
 import OrderSummary from "../../components/OrderSummary";
 import { Truck } from "react-feather";
 const Checkout3 = () => {
+  const dispatch = useDispatch();
+  const cartItems  = useSelector((state) => state.cart);
+  const [paymentMethod, setPaymentMethod] = useState("vnpay");
+  console.log(cartItems)
+  const handleCheckout = () => {
+    dispatch(setPayment(paymentMethod));
+  };
+
+
   return (
     <>
       <div className="container-fluid">
@@ -107,8 +116,10 @@ const Checkout3 = () => {
                               className="radio"
                               type="radio"
                               name="radio-vertical"
-                              defaultValue={0}
+                              value="vnpay"
                               id="vnpay"
+                              defaultChecked
+                              onChange={(e) => setPaymentMethod(e.target.value)}
                             />
                             <label htmlFor="vnpay">
                               <span className="radio-text" />
@@ -132,8 +143,9 @@ const Checkout3 = () => {
                               className="radio"
                               type="radio"
                               name="radio-vertical"
-                              defaultValue={0}
+                              value="cod"
                               id="cod"
+                              onChange={(e) => setPaymentMethod(e.target.value)}
                             />
                             <label htmlFor="cod">
                               <span className="radio-text" />
@@ -159,13 +171,13 @@ const Checkout3 = () => {
                             <i className="las la-arrow-left mr-10" />
                             Trở lại
                           </Link>
-                          <a
-                            href="checkout-review.html"
+                          <button
+                            onClick={handleCheckout}
                             className="btn text-white btn-primary btn-default btn-squared text-capitalize m-sm-0 m-1"
                           >
                             tiếp tục
                             <i className="ml-10 mr-0 las la-arrow-right" />
-                          </a>
+                          </button>
                         </div>
                       </div>
                     </div>
