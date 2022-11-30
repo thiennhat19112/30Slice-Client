@@ -16,6 +16,7 @@ import Cart from "../pages/Cart";
 import Category from "../pages/Category";
 import Checkout from "../pages/Checkout";
 import Checkout2 from "../pages/checkout2";
+import Checkout3 from "../pages/checkout3";
 import Login from "../pages/login";
 import Register from "../pages/Register";
 
@@ -79,6 +80,15 @@ const routes = createBrowserRouter([
             element: (
               <PrivateRoute>
                 <Checkout2 />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: "checkout3",
+            exact: true,
+            element: (
+              <PrivateRoute>
+                <Checkout3 />
               </PrivateRoute>
             ),
           },
