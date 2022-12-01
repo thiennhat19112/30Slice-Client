@@ -51,11 +51,6 @@ function Booking(props) {
   };
   const onBlurPhone = async () => {
     let phone = refPhone.current.value;
-    if (phone.charAt(0) == 0) {
-      phone = `+84${phone.slice(1)}`;
-    } else {
-      phone = `+84${phone}`;
-    }
     // /^\+84[3|5|7|8|9][0-9]{8}$/.test(phone);
     // console.log(phone);
     _isMounted.current && setLoading(true);
@@ -72,11 +67,6 @@ function Booking(props) {
   const onBlurName = async () => {
     let name = refCustomerName.current.value;
     let phone = refPhone.current.value;
-    if (phone.charAt(0) == 0) {
-      phone = `+84${phone.slice(1)}`;
-    } else {
-      phone = `+84${phone}`;
-    }
     _isMounted.current && setLoading(true);
     const res = await RegisterCustomer({ name, phone });
     console.log(res);
