@@ -7,3 +7,11 @@ export const CheckoutCod = async (data) => {
     throw new Error(err);
   }
 };
+export const GetOrdersByCustomer = async (data) => {
+  try {
+    const res = await api.get("order/getOneOrder/" + data);
+    return res;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
