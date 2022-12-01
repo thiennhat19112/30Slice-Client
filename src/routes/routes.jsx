@@ -22,6 +22,7 @@ import Login from "../pages/login";
 import Register from "../pages/Register";
 import Profile from "../pages/profile";
 import Order from "../pages/order";
+import BookedHistory from "../pages/booked-history";
 
 const routes = createBrowserRouter([
   {
@@ -135,7 +136,16 @@ const routes = createBrowserRouter([
                 <Order />
               </PrivateRoute>
             ),
-          }
+          },
+          {
+            path: "booked-history",
+            exact: true,
+            element: (
+              <PrivateRoute>
+                <BookedHistory />
+              </PrivateRoute>
+            ),
+          },
           // {
           //   path: 'news',
           //   exact: true,

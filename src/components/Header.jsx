@@ -146,10 +146,10 @@ const Header = () => {
                             </Link>
                           </li>
                           <li>
-                            <a href="">
+                            <Link to="/booked-history">
                               <Scissors />
                               Lịch sử đặt lịch
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                         <a onClick={logOut} className="nav-author__signout">

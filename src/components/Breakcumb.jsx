@@ -20,6 +20,10 @@ const defaultBreadcrumb = [
   {
     title : "Lịch sử đơn hàng",
     link: "order"
+  },
+  {
+    title : "Lịch sử đặt lịch",
+    link: "booked-history"
   }
 ]
 

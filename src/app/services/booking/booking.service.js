@@ -67,3 +67,15 @@ export const CreateBooking = async (Info) => {
     throw new Error(err);
   }
 };
+export const getBookedHistory = async () => {
+  try {
+    const response = await api.get("booking/getHistoryBooking");
+    if (response) {
+      return response;
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+
