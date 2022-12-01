@@ -4,16 +4,16 @@ import { Navigate, useNavigate, NavLink, Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 
-import Input from "../components/sharedComponents/input";
-import { usernameValidator } from "../components/sharedComponents/validatorPatterns";
-import { passwordValidator } from "../components/sharedComponents/validatorPatterns";
+import Input from "../../components/sharedComponents/input";
+import { usernameValidator } from "../../components/sharedComponents/validatorPatterns";
+import { passwordValidator } from "../../components/sharedComponents/validatorPatterns";
 
-import { selectMessage } from "../app/redux/slices/auth/message";
+import { selectMessage } from "../../app/redux/slices/auth/message";
 
-import { login } from "../app/redux/slices/auth/auth";
-import { clearMessage } from "../app/redux/slices/auth/message";
+import { login } from "../../app/redux/slices/auth/auth";
+import { clearMessage } from "../../app/redux/slices/auth/message";
 
-import OrderSummary from "../components/OrderSummary";
+import OrderSummary from "../../components/OrderSummary";
 const Checkout = () => {
   const dataCart = useSelector((state) => state.cart);
   let navigate = useNavigate();

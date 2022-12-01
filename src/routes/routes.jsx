@@ -14,10 +14,10 @@ import Home from "../pages/Home";
 import Error from "../pages/Error";
 import Cart from "../pages/Cart";
 import Category from "../pages/Category";
-import Checkout from "../pages/Checkout";
-import Checkout2 from "../pages/checkout2";
-import Checkout3 from "../pages/checkout3";
-import Checkout4 from "../pages/checkout4";
+import Checkout from "../pages/checkout";
+import Checkout2 from "../pages/checkout/checkout2";
+import Checkout3 from "../pages/checkout/checkout3";
+import Checkout4 from "../pages/checkout/checkout4";
 import Login from "../pages/login";
 import Register from "../pages/Register";
 
