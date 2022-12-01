@@ -15,6 +15,17 @@ export const ChangePassword = async (data) => {
       throw new Error(err);
     }
   };
+export const ChangeInfo = async (data) => {
+    try {
+      const response = await api.put('user/change-info', data);
+      if (response.status === 200 || response.status === 201) {
+        return response;
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+  
 // const API_URL = import.meta.env.REACT_APP_API_ENDPOINT;
 
 // const getAdminBoard = () => {

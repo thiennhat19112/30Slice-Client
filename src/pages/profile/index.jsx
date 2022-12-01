@@ -8,9 +8,11 @@ import {
   toastSuccess,
   toastError,
 } from "../../components/sharedComponents/toast";
-import { ChangePassword } from "../../app/services/user/user.service";
+import { ChangePassword,ChangeInfo } from "../../app/services/user/user.service";
 import { useNavigate } from "react-router-dom";
 import { Settings, Key, Camera } from "react-feather";
+import { logout } from '../../app/redux/slices/auth/auth';
+
 const Profile = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -21,27 +23,46 @@ const Profile = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+  } = useForm();
   const { user } = useSelector((state) => state.auth);
   // console.log(user);
   const onSubmit = async (user) => {
     setLoading(true);
-
     const { old_password, new_password } = user;
-
     try {
       const res = await ChangePassword(user);
       setLoading(false);
       if (res.status === 201) {
         toastSuccess(res.data.message);
-        navigate(-1);
+        dispatch(logout());
       } else {
         toastError(res.data.message);
       }
-
       // navigate('/');
     } catch (err) {
       throw new Error(err);
     }
+  };
+  const onSubmitProfile = async (user) => {
+    setLoading(true);
+    try {
+      const res = await ChangeInfo(user);
+      setLoading(false);
+      if (res.status === 201) {
+        toastSuccess(res.data.message);
+        dispatch(logout());
+      } else {
+        toastError(res.data.message);
+      }
+      // navigate('/');
+    } catch (err) {
+      throw new Error(err);
+    }
+    console.log(user);
   };
 
   return (
@@ -144,29 +165,46 @@ const Profile = () => {
                             </span>
                           </div>
                         </div>
-                        <div className="card-body">
-                          <div className="row justify-content-center">
-                            <div className="col-xxl-6 col-lg-8 col-sm-10">
-                              <div className="edit-profile__body mx-lg-20">
-                                <form>
+                        <form onSubmit={handleSubmit2(onSubmitProfile)}>
+                          <div className="card-body">
+                            <div className="row justify-content-center">
+                              <div className="col-xxl-6 col-lg-8 col-sm-10">
+                                <div className="edit-profile__body mx-lg-20">
                                   <div className="form-group mb-20">
-                                    <label htmlFor="name1">Username</label>
+                                    <label htmlFor="username">Username</label>
                                     <input
                                       type="text"
                                       className="form-control"
-                                      id="name1"
+                                      id="username"
                                       placeholder="Duran Clayton"
                                       defaultValue={user.username}
+                                      {...register2("username", {
+                                        required: true,
+                                      })}
+                                    />
+                                  </div>
+                                  <div className="form-group mb-20">
+                                    <label htmlFor="name">Họ Và Tên</label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      id="name"
+                                      placeholder="Duran Clayton"
+                                      defaultValue={user.name}
+                                      {...register2("name", { required: true })}
                                     />
                                   </div>
                                   <div className="form-group mb-1">
-                                    <label htmlFor="email45">Email</label>
+                                    <label htmlFor="email">Email</label>
                                     <input
                                       type="email"
                                       className="form-control"
-                                      id="email45"
+                                      id="email"
                                       placeholder="Contact@example.com"
                                       defaultValue={user.email}
+                                      {...register2("email", {
+                                        required: true,
+                                      })}
                                     />
                                   </div>
                                   <div className="form-group mb-1">
@@ -177,27 +215,36 @@ const Profile = () => {
                                       id="phone"
                                       placeholder="012345678"
                                       defaultValue={user.phone}
+                                      {...register2("phone", {
+                                        required: true,
+                                      })}
                                     />
                                   </div>
-                                </form>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="card-footer">
-                          <div className="row justify-content-center align-items-center">
-                            <div className="col-xxl-6 col-lg-8 col-sm-10">
-                              <div className="button-group d-flex flex-wrap pt-35 mb-35">
-                                <button className="btn btn-primary btn-default btn-squared mr-15 text-capitalize">
-                                  Lưu
-                                </button>
-                                <button className="btn btn-light btn-default btn-squared fw-400 text-capitalize">
-                                  Huỷ
-                                </button>
+                          <div className="card-footer">
+                            <div className="row justify-content-center align-items-center">
+                              <div className="col-xxl-6 col-lg-8 col-sm-10">
+                                <div className="button-group d-flex flex-wrap pt-35 mb-35">
+                                  <button
+                                    type="submit"
+                                    className="btn btn-primary btn-default btn-squared mr-15 text-capitalize"
+                                  >
+                                     {loading && (
+                                        <span className="spinner-border spinner-border-sm"></span>
+                                      )}
+                                    Lưu
+                                  </button>
+                                  <button className="btn btn-light btn-default btn-squared fw-400 text-capitalize">
+                                    Huỷ
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        </form>
                       </div>
                     </div>
                     {/* Edit Profile End */}
