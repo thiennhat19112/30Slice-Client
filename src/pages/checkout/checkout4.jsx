@@ -122,6 +122,9 @@ const Checkout4 = () => {
                 </div>
                 {/* ends: col */}
               </div>
+              <div className="row justify-content-center mt-3">
+                <h1>Thông tin đơn hàng</h1>
+              </div>
             </div>
             {/* ends: col */}
             {/* ends: col */}

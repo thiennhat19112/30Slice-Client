@@ -18,7 +18,7 @@ const Checkout3 = () => {
   // console.log(cartItems)
   const handleCheckout = async () => {
     dispatch(setPayment(paymentMethod));
-    if (paymentMethod === "cod") {
+    if (paymentMethod == "cod") {
       let data = {
         Id_Customer: cartItems.id_Customer,
         Products: cartItems.products,
@@ -31,12 +31,11 @@ const Checkout3 = () => {
         Customer_Note: cartItems.note,
       };
       // console.log(data);
-
       const res = await CheckoutCod(data);
       console.log(res);
       if (res.status === 200) {
         toastSuccess("Đặt hàng thành công");
-        navigate("/checkout4");
+        navigate("/order-success?order_id="+ res.data._id);
         dispatch(clearCart());
       }
     }

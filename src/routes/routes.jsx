@@ -94,7 +94,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: "checkout4",
+            path: "order-success",
             exact: true,
             element: (
               <PrivateRoute>
