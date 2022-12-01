@@ -16,6 +16,10 @@ const defaultBreadcrumb = [
   {
     title : "Giỏ hàng",
     link: "cart"
+  },
+  {
+    title : "Lịch sử đơn hàng",
+    link: "order"
   }
 ]
 

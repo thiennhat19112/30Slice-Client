@@ -21,6 +21,7 @@ import Checkout4 from "../pages/checkout/checkout4";
 import Login from "../pages/login";
 import Register from "../pages/Register";
 import Profile from "../pages/profile";
+import Order from "../pages/order";
 
 const routes = createBrowserRouter([
   {
@@ -126,6 +127,15 @@ const routes = createBrowserRouter([
               </PrivateRoute>
             ),
           },
+          {
+            path: "order",
+            exact: true,
+            element: (
+              <PrivateRoute>
+                <Order />
+              </PrivateRoute>
+            ),
+          }
           // {
           //   path: 'news',
           //   exact: true,
