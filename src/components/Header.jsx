@@ -3,12 +3,12 @@ import Categories from "./Categories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../app/redux/slices/auth/auth";
-import { LogOut } from "react-feather";
+import { LogOut, Truck, User,Scissors } from "react-feather";
 const Header = () => {
   const cartLength = useSelector((state) => state.cart.products.length);
   const UserInfo = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-console.log(UserInfo)
+  console.log(UserInfo);
 
   const logOut = () => {
     dispatch(logout());
@@ -136,27 +136,19 @@ console.log(UserInfo)
                         <ul>
                           <li>
                             <Link to="/profile">
-                              <span data-feather="user" /> Thông tin tài khoản
+                              <User /> Thông tin tài khoản
+                            </Link>
+                          </li>
+                          <li>
+                            <Link to="/order">
+                              <Truck />
+                              Lịch sử đơn hàng
                             </Link>
                           </li>
                           <li>
                             <a href="">
-                              <span data-feather="settings" /> Settings
-                            </a>
-                          </li>
-                          <li>
-                            <a href="">
-                              <span data-feather="key" /> Billing
-                            </a>
-                          </li>
-                          <li>
-                            <a href="">
-                              <span data-feather="users" /> Activity
-                            </a>
-                          </li>
-                          <li>
-                            <a href="">
-                              <span data-feather="bell" /> Help
+                              <Scissors />
+                              Lịch sử đặt lịch
                             </a>
                           </li>
                         </ul>

@@ -20,6 +20,7 @@ import Checkout3 from "../pages/checkout/checkout3";
 import Checkout4 from "../pages/checkout/checkout4";
 import Login from "../pages/login";
 import Register from "../pages/Register";
+import Profile from "../pages/profile";
 
 const routes = createBrowserRouter([
   {
@@ -114,6 +115,15 @@ const routes = createBrowserRouter([
               <ProtectedRoute>
                 <Login />
               </ProtectedRoute>
+            ),
+          },
+          {
+            path: "profile",
+            exact: true,
+            element: (
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
             ),
           },
           // {

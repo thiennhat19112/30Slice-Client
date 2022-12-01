@@ -5,9 +5,9 @@ import api from '../../axios/api';
 
 
 
-export const ChangePasswordAdmin = async (data) => {
+export const ChangePassword = async (data) => {
     try {
-      const response = await api.put('admin/change-password', data);
+      const response = await api.put('user/change-password', data);
       if (response.status === 200 || response.status === 201) {
         return response;
       }
