@@ -13,7 +13,11 @@ import {
   CreateBooking,
 } from "../../app/services/booking/booking.service";
 import { create7Date, allAvailableTime } from "./func";
+import { useSelector } from "react-redux";
+
 function Booking(props) {
+  const userInfo = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
   const [BookedTime, setBookedTime] = useState("");
   const [ServiceId, setServiceId] = useState(0);
@@ -124,6 +128,10 @@ function Booking(props) {
   });
   useEffect(() => {
     loadArrService();
+    if (userInfo.isLoggedIn) {
+      refPhone.current.value = userInfo.user.phone;
+      onBlurPhone();
+    }
   }, []);
   useEffect(() => {
     loadArrStyleList();
