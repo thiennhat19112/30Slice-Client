@@ -95,6 +95,16 @@ const Order = () => {
                             </th>
                             <th>
                               <span className="userDatatable-title">
+                                Trạng thái thanh toán
+                              </span>
+                            </th>
+                            <th>
+                              <span className="userDatatable-title">
+                                Phương thức thanh toán
+                              </span>
+                            </th>
+                            <th>
+                              <span className="userDatatable-title">
                                 Tổng cộng
                               </span>
                             </th>
@@ -115,8 +125,8 @@ const Order = () => {
                             <tr key={item._id}>
                               <td>
                                 <div className="orderDatatable-title">
-                                    <Link to={/order/+ item._id}>
-                                  <p className="d-block mb-0">#{item._id}</p>
+                                  <Link to={/order/ + item._id}>
+                                    <p className="d-block mb-0">#{item._id}</p>
                                   </Link>
                                 </div>
                               </td>
@@ -127,9 +137,34 @@ const Order = () => {
                               </td>
                               <td>
                                 <div className="orderDatatable-status d-inline-block">
-                                  <span className="order-bg-opacity-warning  text-warning rounded-pill active">
-                                    {item.Status}
-                                  </span>
+                                  {item.Status === "Pending" ? (
+                                    <span className="order-bg-opacity-warning  text-warning rounded-pill active">
+                                      Chờ xác nhận
+                                    </span>
+                                  ) : (
+                                    <span className="order-bg-opacity-success  text-success rounded-pill active">
+                                      Đang giao hàng
+                                    </span>
+                                  )}
+                                </div>
+                              </td>
+
+                              <td>
+                                <div className="orderDatatable-status d-inline-block">
+                                  {item.Payment_Status === "completed" ? (
+                                    <span className="order-bg-opacity-success  text-success rounded-pill active">
+                                      Đã thanh toán
+                                    </span>
+                                  ) : (
+                                    <span className="order-bg-opacity-danger  text-danger rounded-pill active">
+                                      Chưa thanh toán
+                                    </span>
+                                  )}
+                                </div>
+                              </td>
+                              <td>
+                                <div className="orderDatatable-title">
+                                  {item.Payment_Method.toUpperCase()}
                                 </div>
                               </td>
                               <td>
@@ -146,7 +181,9 @@ const Order = () => {
                               </td>
                               <td>
                                 <ul className="orderDatatable_actions mb-0 d-flex flex-wrap float-right">
-                                  <button className="btn btn-danger">Huỷ</button>
+                                  <button className="btn btn-danger">
+                                    Huỷ
+                                  </button>
                                 </ul>
                               </td>
                             </tr>
