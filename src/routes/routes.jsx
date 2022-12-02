@@ -23,6 +23,8 @@ import Register from "../pages/Register";
 import Profile from "../pages/profile";
 import Order from "../pages/order";
 import BookedHistory from "../pages/booked-history";
+import ForgetPassword from "../pages/forget-password";
+import ResetPassword from "../pages/reset-password";
 
 const routes = createBrowserRouter([
   {
@@ -120,6 +122,24 @@ const routes = createBrowserRouter([
             ),
           },
           {
+            path: 'forget-password',
+            exact: true,
+            element: (
+              <ProtectedRoute>
+                <ForgetPassword />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: 'reset-password',
+            exact: true,
+            element: (
+              <ProtectedRoute>
+                <ResetPassword />
+              </ProtectedRoute>
+            ),
+          },
+          {
             path: "profile",
             exact: true,
             element: (
@@ -153,25 +173,6 @@ const routes = createBrowserRouter([
           // },
         ],
       },
-
-      // {
-      //   path: 'forget-password',
-      //   exact: true,
-      //   element: (
-      //     <ProtectedRoute>
-      //       <ForgetPassword />
-      //     </ProtectedRoute>
-      //   ),
-      // },
-      // {
-      //   path: 'reset-password',
-      //   exact: true,
-      //   element: (
-      //     <ProtectedRoute>
-      //       <ResetPassword />
-      //     </ProtectedRoute>
-      //   ),
-      // },
     ],
     errorElement: <Error />,
   },
