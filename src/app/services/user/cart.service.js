@@ -15,3 +15,11 @@ export const GetOrdersByCustomer = async (data) => {
     throw new Error(err);
   }
 };
+export const CheckoutVnpay = async (data) => {
+  try {
+    const res = await api.post("order/orderVnpay", data);
+    return res;
+  } catch (err) {
+    throw new Error(err);
+  }
+}

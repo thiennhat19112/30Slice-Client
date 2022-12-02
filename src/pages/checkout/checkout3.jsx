@@ -1,15 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import {  useState } from "react";
+import { useState } from "react";
 import {
   toastSuccess,
   toastError,
 } from "../../components/sharedComponents/toast";
 import { useNavigate } from "react-router-dom";
-import { setPayment,clearCart } from "../../app/redux/slices/user/CartSlice";
+import { setPayment, clearCart } from "../../app/redux/slices/user/CartSlice";
 import { Link } from "react-router-dom";
 import OrderSummary from "../../components/OrderSummary";
 import { Truck } from "react-feather";
-import { CheckoutCod } from "../../app/services/user/cart.service";
+import {
+  CheckoutCod,
+  CheckoutVnpay,
+} from "../../app/services/user/cart.service";
 const Checkout3 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,26 +21,30 @@ const Checkout3 = () => {
   // console.log(cartItems)
   const handleCheckout = async () => {
     dispatch(setPayment(paymentMethod));
+    const data = {
+      Id_Customer: cartItems.id_Customer,
+      Products: cartItems.products,
+      Receiver: cartItems.name,
+      Address: cartItems.address,
+      Phone: cartItems.phone,
+      Email: cartItems.email,
+      Amount: cartItems.amount,
+      Payment_Method: paymentMethod,
+      Customer_Note: cartItems.note,
+    };
     if (paymentMethod == "cod") {
-      let data = {
-        Id_Customer: cartItems.id_Customer,
-        Products: cartItems.products,
-        Receiver: cartItems.name,
-        Address: cartItems.address,
-        Phone: cartItems.phone,
-        Email: cartItems.email,
-        Amount: cartItems.amount,
-        Payment_Method: cartItems.payment,
-        Customer_Note: cartItems.note,
-      };
       // console.log(data);
       const res = await CheckoutCod(data);
       console.log(res);
       if (res.status === 200) {
         toastSuccess("Đặt hàng thành công");
-        navigate("/order-success?order_id="+ res.data._id);
+        navigate("/order-success?order_id=" + res.data._id);
         dispatch(clearCart());
       }
+    } else {
+      const res = await CheckoutVnpay(data);
+      console.log(res.data);
+      window.location.replace(res.data);
     }
   };
 
