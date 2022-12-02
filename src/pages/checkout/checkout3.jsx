@@ -45,6 +45,8 @@ const Checkout3 = () => {
       const res = await CheckoutVnpay(data);
       console.log(res.data);
       window.location.replace(res.data);
+      dispatch(clearCart());
+
     }
   };
 
