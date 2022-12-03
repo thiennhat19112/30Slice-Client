@@ -77,5 +77,15 @@ export const getBookedHistory = async () => {
     throw new Error(err);
   }
 }
+export const getBookingById = async (id) => {
+  try {
+    const response = await api.get("booking/getBookingById/" + id);
+    if (response) {
+      return response;
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 
 
