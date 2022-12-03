@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addProduct } from "../app/redux/slices/user/CartSlice";
-import { toastSuccess } from "../components/sharedComponents/toast";
+import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../app/redux/slices/user/CartSlice';
+import { toastSuccess } from '../components/sharedComponents/toast';
+import { nonAccentConverter } from '../app/services/nonAccentConverter/nonAccentConverter';
+
 function Product(props) {
   const dispatch = useDispatch();
   const addToCart = (item) => {
@@ -12,7 +14,7 @@ function Product(props) {
       Images: item.Images,
       Quantity: 1,
     };
-    toastSuccess("Thêm vào giỏ hàng thành công!");
+    toastSuccess('Thêm vào giỏ hàng thành công!');
     dispatch(addProduct(product));
   };
   let Rating = [];
@@ -20,14 +22,14 @@ function Product(props) {
     if (i <= props.prod.Rating) {
       Rating.push(
         <span
-          key={props.prod._id + "Rating" + i}
+          key={props.prod._id + 'Rating' + i}
           className="star-icon las la-star active"
         />
       );
     } else {
       Rating.push(
         <span
-          key={props.prod._id + "Rating" + i}
+          key={props.prod._id + 'Rating' + i}
           className="star-icon las la-star"
         />
       );
@@ -45,21 +47,29 @@ function Product(props) {
                   <i className="lar la-heart icon" />
                 </button>
               </span>
-              <NavLink to={/products/ + props.prod._id}>
+              <NavLink
+                to={`/products/${props.prod._id}/${nonAccentConverter(
+                  props.prod.Name
+                )}`}
+              >
                 <img
                   className="card-img-top img-fluid"
                   src={props.prod.Images[0]}
                   alt="digital-chair"
                   style={{
-                    borderTopLeftRadius: "10px",
-                    borderTopRightRadius: "10px",
+                    borderTopLeftRadius: '10px',
+                    borderTopRightRadius: '10px',
                   }}
                 />
               </NavLink>
             </div>
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
-                <NavLink to={/products/ + props.prod._id}>
+                <NavLink
+                  to={`/products/${props.prod._id}/${nonAccentConverter(
+                    props.prod.Name
+                  )}`}
+                >
                   <h6 className="card-title">
                     {props.prod.Name.substring(0, 40)}...
                   </h6>
@@ -69,9 +79,9 @@ function Product(props) {
                     {(
                       props.prod.Price *
                       (1 - props.prod.Discount / 100)
-                    ).toLocaleString("vi-VN", {
-                      style: "currency",
-                      currency: "VND",
+                    ).toLocaleString('vi-VN', {
+                      style: 'currency',
+                      currency: 'VND',
                     })}
                   </span>
                   {props.prod.Discount > 0 && (
@@ -87,8 +97,8 @@ function Product(props) {
                 <div className="stars-rating d-flex align-items-center flex-wrap">
                   {Rating}
                   <span className="stars-rating__point">
-                    {" "}
-                    {props.prod.Rating}{" "}
+                    {' '}
+                    {props.prod.Rating}{' '}
                   </span>
                   <span className="stars-rating__review">
                     Đã bán <span>{props.prod.Saled}</span>

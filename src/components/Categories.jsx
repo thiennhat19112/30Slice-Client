@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategory } from '../app/redux/slices/user/CategoriesSlice';
+import { nonAccentConverter } from '../app/services/nonAccentConverter/nonAccentConverter';
+
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const _isMounted = useRef(false);
@@ -48,7 +50,11 @@ const Categories = () => {
                 {category?.Children.length > 0 &&
                   category?.Children.map((child) => (
                     <li key={child._id}>
-                      <NavLink to={/category/ + child._id}>
+                      <NavLink
+                        to={`/category/${child._id}/${nonAccentConverter(
+                          child?.Name
+                        )}`}
+                      >
                         {child?.Name}
                       </NavLink>
                     </li>
