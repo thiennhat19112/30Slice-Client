@@ -51,9 +51,7 @@ const Categories = () => {
                   category?.Children.map((child) => (
                     <li key={child._id}>
                       <NavLink
-                        to={`/category/${child._id}/${nonAccentConverter(
-                          child?.Name
-                        )}`}
+                        to={`/category/${child._id}`}
                       >
                         {child?.Name}
                       </NavLink>
