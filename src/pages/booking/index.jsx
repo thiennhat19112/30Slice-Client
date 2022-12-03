@@ -26,6 +26,7 @@ function Booking(props) {
   const [arrService, setArrService] = useState([]);
   const [listTime, setListTime] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingBtn, setLoadingBtn] = useState(false);
   const [arrDate, setArrDate] = useState(create7Date());
   const [idStylist, setIdStylist] = useState(0);
   const _isMounted = useRef(false);
@@ -80,7 +81,8 @@ function Booking(props) {
     }
   };
   const CreateBook = async () => {
-    if (!CustomerInfo.Customer_Id) {
+    if (!CustomerInfo.Id_User ) {
+      console.log("chưa có thông tin khách hàng");
       onBlurName();
     }
     let idStylelist;
@@ -99,16 +101,16 @@ function Booking(props) {
       Note: refNote.current.value,
     };
     console.log(data);
-    _isMounted.current && setLoading(true);
+    _isMounted.current && setLoadingBtn(true);
     const res = await CreateBooking(data);
     console.log(res);
     if (res.status === 200) {
       toastSuccess("Đặt lịch thành công");
-      _isMounted.current && setLoading(false);
+      _isMounted.current && setLoadingBtn(false);
       navigate("/");
     } else {
       toastError("Đặt lịch thất bại");
-      _isMounted.current && setLoading(false);
+      _isMounted.current && setLoadingBtn(false);
     }
   };
 
@@ -345,6 +347,9 @@ function Booking(props) {
         onClick={CreateBook}
         type="submit"
       >
+        {loadingBtn && (
+          <span className="spinner-border spinner-border-sm"></span>
+        )}
         Nút bự nha thầy
       </button>
     </div>
