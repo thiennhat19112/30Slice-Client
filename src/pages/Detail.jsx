@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams ,useLocation} from "react-router-dom";
 import Breadcrumb from "../components/Breakcumb";
 import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
@@ -10,11 +10,13 @@ function Detail(props) {
   const dispatch = useDispatch()
 
   const params = useParams();
+  const location = useLocation();
+  console.log(location.state.product);
   const [product, setProduct] = useState({});
   const fetchDetail = async () => {
     Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT + "product/getOneProduct/" + params.id
+      import.meta.env.REACT_APP_API_ENDPOINT + "product/getOneProduct/" + location.state.product
     );
     const data = await res.json();
     if (data) {

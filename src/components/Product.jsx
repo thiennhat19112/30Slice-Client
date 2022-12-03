@@ -48,7 +48,8 @@ function Product(props) {
                 </button>
               </span>
               <NavLink
-                to={`/products/${props.prod._id}`}
+                to={`/products/${props.prod.Name}`}
+                state={{ product: props.prod._id }}
               >
                 <img
                   className="card-img-top img-fluid"
@@ -64,7 +65,9 @@ function Product(props) {
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
                 <NavLink
-                  to={`/products/${props.prod._id}`}
+                  to={`/products/${props.prod.Name}`}
+                state={{ product: props.prod._id }}
+
                 >
                   <h6 className="card-title">
                     {props.prod.Name.substring(0, 40)}...
