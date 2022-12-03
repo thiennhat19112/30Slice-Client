@@ -53,7 +53,7 @@ const routes = createBrowserRouter([
             element: <Products />,
           },
           {
-            path: 'products/:id/:title',
+            path: 'products/:id',
             exact: true,
             element: <Detail />,
           },
@@ -63,7 +63,7 @@ const routes = createBrowserRouter([
             element: <Category />,
           },
           {
-            path: 'category/:id/:title',
+            path: 'category/:id',
             exact: true,
             element: <Category />,
           },

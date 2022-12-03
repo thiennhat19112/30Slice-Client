@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../app/redux/slices/user/CartSlice';
 import { toastSuccess } from '../components/sharedComponents/toast';
-import { nonAccentConverter } from '../app/services/nonAccentConverter/nonAccentConverter';
+// import { nonAccentConverter } from '../app/services/nonAccentConverter/nonAccentConverter';
 
 function Product(props) {
   const dispatch = useDispatch();
@@ -48,9 +48,7 @@ function Product(props) {
                 </button>
               </span>
               <NavLink
-                to={`/products/${props.prod._id}/${nonAccentConverter(
-                  props.prod.Name
-                )}`}
+                to={`/products/${props.prod._id}`}
               >
                 <img
                   className="card-img-top img-fluid"
@@ -66,9 +64,7 @@ function Product(props) {
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
                 <NavLink
-                  to={`/products/${props.prod._id}/${nonAccentConverter(
-                    props.prod.Name
-                  )}`}
+                  to={`/products/${props.prod._id}`}
                 >
                   <h6 className="card-title">
                     {props.prod.Name.substring(0, 40)}...

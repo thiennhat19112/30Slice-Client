@@ -57,7 +57,7 @@ function Detail(props) {
                   Chi tiết sản phẩm
                 </h4>
               </div>
-              <Breadcrumb />
+              <Breadcrumb BreadName={product.Name} />
             </div>
           </div>
         </div>
@@ -297,7 +297,7 @@ function Detail(props) {
                     </div>
                     <div className="title">
                       <p>Danh mục:</p>
-                      <span className="free"> <Link to={"/category/"+product.Id_Categories}>{product.Id_Categories}</Link> </span>
+                      <span className="free"> <Link to={"/category/"+ (product.Id_Categories && product.Id_Categories._id)}>{product.Id_Categories && product.Id_Categories.Name}</Link> </span>
                     </div>
                   </div>
                   {/* End: Product Availability */}

@@ -27,33 +27,25 @@ const defaultBreadcrumb = [
   },
 ];
 
-function Breadcrumb() {
+
+function Breadcrumb(props) {
   const location = useLocation();
-
-  let path = location.pathname.split('/').slice(1);
-  console.log(path);
+  let path = location.pathname.split("/").slice(1);
   let brc = path.map((item, index, row) => {
-    const link = path.slice(0, index + 1).join('/');
-    console.log('-----------------------');
-    console.log('item => ', item);
-    console.log('index => ', index);
-    console.log('row => ', row);
-    console.log('link => ', link);
-    console.log('\n');
-
+    let link = path.slice(0, index + 1).join("/");
     if (index + 1 === row.length) {
-      if (row.length !== 1) {
+      if(row.length !== 1) {
         return (
           <li className="atbd-breadcrumb__item" key={index}>
-            {' '}
-            {item}{' '}
+            {" "}
+            {/* {item}{" "} */}
+            {props.BreadName}
           </li>
         );
       } else {
         return (
           <li className="atbd-breadcrumb__item" key={index}>
-            {' '}
-            {defaultBreadcrumb.find((i) => i.link === link).title}{' '}
+            {" "}{defaultBreadcrumb.find((i) => i.link === link).title}{" "}
           </li>
         );
       }
@@ -61,7 +53,7 @@ function Breadcrumb() {
       return (
         <li className="atbd-breadcrumb__item" key={index}>
           <NavLink to={`/${link}`}>
-            {defaultBreadcrumb.find((i) => i.link === link)?.title}
+            {defaultBreadcrumb.find((i) => i.link === link).title}
           </NavLink>
           <span className="breadcrumb__seperator">
             <span className="la la-angle-right" />
@@ -70,7 +62,6 @@ function Breadcrumb() {
       );
     }
   });
-
   return (
     <div className="card card-default card-md mb-4">
       <div className="card-body">
