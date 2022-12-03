@@ -299,7 +299,7 @@ function Detail(props) {
                     </div>
                     <div className="title">
                       <p>Danh mục:</p>
-                      <span className="free"> <Link to={"/category/"+ (product.Id_Categories && product.Id_Categories._id)}>{product.Id_Categories && product.Id_Categories.Name}</Link> </span>
+                      <span className="free"> <Link to={"/category/"+ (product.Id_Categories && product.Id_Categories.Name.replace(/ /g, '-'))} state={{category: (product.Id_Categories && product.Id_Categories._id)}}>{product.Id_Categories && product.Id_Categories.Name}</Link> </span>
                     </div>
                   </div>
                   {/* End: Product Availability */}
