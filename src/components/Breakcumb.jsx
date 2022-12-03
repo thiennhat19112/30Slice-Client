@@ -29,18 +29,9 @@ const defaultBreadcrumb = [
 
 function Breadcrumb() {
   const location = useLocation();
-
-  let path = location.pathname.split('/').slice(1);
-  console.log(path);
-  let brc = path.map((item, index, row) => {
+  const path = location.pathname.split('/').slice(1);
+  const brc = path.map((item, index, row) => {
     const link = path.slice(0, index + 1).join('/');
-    console.log('-----------------------');
-    console.log('item => ', item);
-    console.log('index => ', index);
-    console.log('row => ', row);
-    console.log('link => ', link);
-    console.log('\n');
-
     if (index + 1 === row.length) {
       if (row.length !== 1) {
         return (
