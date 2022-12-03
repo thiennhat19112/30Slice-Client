@@ -170,11 +170,11 @@ const routes = createBrowserRouter([
               </PrivateRoute>
             ),
           },
-          // {
-          //   path: 'news',
-          //   exact: true,
-          //   element: <News />,
-          // },
+          {
+            path: 'news',
+            exact: true,
+            element: <h1>Trang tin tức</h1>,
+          },
         ],
       },
     ],
