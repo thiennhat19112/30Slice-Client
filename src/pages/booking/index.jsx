@@ -26,7 +26,7 @@ function Booking(props) {
   const [arrService, setArrService] = useState([]);
   const [listTime, setListTime] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [loadingBtn, setLoadingBtn] = useState(false);
+  // const [loadingBtn, setLoadingBtn] = useState(false);
   const [arrDate, setArrDate] = useState(create7Date());
   const [idStylist, setIdStylist] = useState(0);
   const _isMounted = useRef(false);
@@ -72,6 +72,9 @@ function Booking(props) {
   const onBlurName = async () => {
     let name = refCustomerName.current.value;
     let phone = refPhone.current.value;
+    if (!name && !phone) {
+      return
+    }
     _isMounted.current && setLoading(true);
     const res = await RegisterCustomer({ name, phone });
     console.log(res);
@@ -102,25 +105,25 @@ function Booking(props) {
       Note: refNote.current.value,
     };
     console.log(data);
-    _isMounted.current && setLoadingBtn(true);
+    _isMounted.current && setLoading(true);
     const res = await CreateBooking(data);
     console.log(res);
     if (res.status === 200) {
       toastSuccess("Đặt lịch thành công");
-      _isMounted.current && setLoadingBtn(false);
+      _isMounted.current && setLoading(false);
       navigate("/booking-success/" + res.data._id);
     } else {
       toastError("Đặt lịch thất bại");
-      _isMounted.current && setLoadingBtn(false);
+      _isMounted.current && setLoading(false);
     }
   };
 
   // loading bingchilling...
-  if (loading) {
-    Notiflix.Loading.standard("Loading...");
-  } else {
-    Notiflix.Loading.remove();
-  }
+  // if (loading) {
+  //   Notiflix.Loading.standard("Loading...");
+  // } else {
+  //   Notiflix.Loading.remove();
+  // }
 
   useEffect(() => {
     _isMounted.current = true;
@@ -348,8 +351,9 @@ function Booking(props) {
         className="btn btn-primary btn-lg btn-squared btn-block "
         onClick={CreateBook}
         type="submit"
+        disabled={loading}
       >
-        {loadingBtn && (
+        {loading && (
           <span className="spinner-border spinner-border-sm"></span>
         )}
         Nút bự nha thầy
