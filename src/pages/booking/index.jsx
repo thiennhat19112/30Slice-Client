@@ -81,17 +81,18 @@ function Booking(props) {
     }
   };
   const CreateBook = async () => {
-    if (!CustomerInfo.Id_User ) {
-      console.log("chưa có thông tin khách hàng");
-      onBlurName();
-    }
     let idStylelist;
     if (refStyleList.current.value === "0") {
       idStylelist = idStylist;
     } else {
       idStylelist = refStyleList.current.value;
     }
-    const data = {
+    // if (!CustomerInfo.Id_User) {
+    //   console.log("chưa có thông tin khách hàng");
+    //   onBlurName();
+    // }
+
+    let data = {
       Id_Customer: CustomerInfo.Id_User,
       Id_Service: ServiceId,
       Id_Style_List: idStylelist,
@@ -243,6 +244,7 @@ function Booking(props) {
           ref={refCustomerName}
           disabled={CustomerInfo && CustomerInfo.Full_Name}
           required
+          onBlur={onBlurName}
         />
       </div>
       <div className="form-floating m-3">
