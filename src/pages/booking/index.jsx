@@ -107,7 +107,7 @@ function Booking(props) {
     if (res.status === 200) {
       toastSuccess("Đặt lịch thành công");
       _isMounted.current && setLoadingBtn(false);
-      navigate("/");
+      navigate("/booking-success/" + res.data._id);
     } else {
       toastError("Đặt lịch thất bại");
       _isMounted.current && setLoadingBtn(false);

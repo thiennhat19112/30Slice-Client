@@ -25,6 +25,7 @@ import Order from "../pages/order";
 import BookedHistory from "../pages/booked-history";
 import ForgetPassword from "../pages/forget-password";
 import ResetPassword from "../pages/reset-password";
+import BookingSuccess from "../pages/booking-success";
 
 const routes = createBrowserRouter([
   {
@@ -169,6 +170,11 @@ const routes = createBrowserRouter([
                 <BookedHistory />
               </PrivateRoute>
             ),
+          },
+          {
+            path: "booking-success/:id",
+            exact: true,
+            element: <BookingSuccess />,
           },
           {
             path: 'news',
