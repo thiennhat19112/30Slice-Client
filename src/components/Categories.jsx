@@ -38,9 +38,9 @@ const Categories = () => {
 
   return (
     <li className="mega-item has-subMenu">
-      <NavLink to="/category" className="">
+      <a href='#' className="">
         Danh mục
-      </NavLink>
+      </a>
       <ul className="megaMenu-wrapper megaMenu-wide">
         {categories.length > 0 &&
           categories.map((category) => (
@@ -51,7 +51,8 @@ const Categories = () => {
                   category?.Children.map((child) => (
                     <li key={child._id}>
                       <NavLink
-                        to={`/category/${child._id}`}
+                        to={`/category/${child.Name.replace(/ /g, '-')}`}
+                        state={{ category: child._id }}
                       >
                         {child?.Name}
                       </NavLink>

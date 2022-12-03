@@ -11,7 +11,7 @@ function Detail(props) {
 
   const params = useParams();
   const location = useLocation();
-  console.log(location.state.product);
+  console.log(location);
   const [product, setProduct] = useState({});
   const fetchDetail = async () => {
     Notiflix.Loading.standard("Đang tải...");

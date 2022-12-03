@@ -39,7 +39,7 @@ const Filters = () => {
               <ul>
                 {listCate.map((item, index) => (
                   <li key={item._id}>
-                    <Link to={/category/ + item._id}>
+                    <Link to={/category/ + item.Name.replace(/ /g, '-')} state={{category: item._id}}>
                       <div className="checkbox-theme-default custom-checkbox ">
                         <input
                           className="checkbox"

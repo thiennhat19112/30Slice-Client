@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
@@ -39,14 +39,14 @@ function Category(props) {
   ]);
   const [loading, setLoading] = useState(false);
   const _isMounted = useRef(false);
-  const params = useParams();
+  const location = useLocation();
 
   const fetchProduct = async () => {
     setLoading(true);
     const res = await fetch(
       import.meta.env.REACT_APP_API_ENDPOINT +
         "product/getProductsByCategory/" +
-        params.id
+        location.state.category
     );
     const data = await res.json();
     console.log(data);
@@ -64,7 +64,7 @@ function Category(props) {
 
   useEffect(() => {
     fetchProduct();
-  }, [params.id]);
+  }, [location.state.category]);
 
   return (
     <>

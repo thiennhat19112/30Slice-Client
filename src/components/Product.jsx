@@ -48,7 +48,7 @@ function Product(props) {
                 </button>
               </span>
               <NavLink
-                to={`/products/${props.prod.Name}`}
+                to={`/products/${props.prod.Name.replace(/ /g, '-')}`}
                 state={{ product: props.prod._id }}
               >
                 <img
@@ -65,7 +65,7 @@ function Product(props) {
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
                 <NavLink
-                  to={`/products/${props.prod.Name}`}
+                  to={`/products/${props.prod.Name.replace(/ /g, '-')}`}
                 state={{ product: props.prod._id }}
 
                 >
