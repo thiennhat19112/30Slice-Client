@@ -12,6 +12,7 @@ function Detail(props) {
 
   const params = useParams();
   const [product, setProduct] = useState({});
+
   const fetchDetail = async () => {
     Notiflix.Loading.standard('Đang tải...');
     const res = await fetch(
@@ -23,6 +24,7 @@ function Detail(props) {
     if (data) {
       Notiflix.Loading.remove();
     }
+    data.categoryNameURL = nonAccentConverter(data.Id_Categories.Name);
     setProduct(data);
   };
   const addToCart = (item) => {
@@ -328,7 +330,7 @@ function Detail(props) {
                       <span className="free">
                         {' '}
                         <Link
-                          to={`/category/${product.Id_Categories?._id}/${product.Id_Categories?.Name}`}
+                          to={`/category/${product.Id_Categories?._id}/${product.categoryNameURL}`}
                         >
                           {product.Id_Categories?.Name}
                         </Link>{' '}
