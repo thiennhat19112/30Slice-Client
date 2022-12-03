@@ -1,18 +1,14 @@
-import Notiflix from "notiflix";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const Filters = () => {
   const [listCate, setCate] = useState([]);
 
   const fetchCate = async () => {
-    Notiflix.Loading.standard("Đang tải...");
     const res = await fetch(
       import.meta.env.REACT_APP_API_ENDPOINT + "category/getAllCategories"
     );
     const data = await res.json();
-    if (data) {
-      Notiflix.Loading.remove();
-    }
+
     setCate(data);
   };
 
@@ -43,7 +39,7 @@ const Filters = () => {
               <ul>
                 {listCate.map((item, index) => (
                   <li key={item._id}>
-                    <Link to={/category/ + item._id} >
+                    <Link to={/category/ + item._id}>
                       <div className="checkbox-theme-default custom-checkbox ">
                         <input
                           className="checkbox"
