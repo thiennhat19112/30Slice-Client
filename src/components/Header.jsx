@@ -3,7 +3,7 @@ import Categories from "./Categories";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../app/redux/slices/auth/auth";
-import { LogOut, Truck, User,Scissors } from "react-feather";
+import { LogOut, Truck, User, Scissors, LogIn } from "react-feather";
 const Header = () => {
   const cartLength = useSelector((state) => state.cart.products.length);
   const UserInfo = useSelector((state) => state.auth);
@@ -69,11 +69,6 @@ const Header = () => {
                   <li>
                     <NavLink exact="true" to="/news">
                       Tin tức
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink exact="true" to="/register">
-                      Đăng Ký
                     </NavLink>
                   </li>
                 </ul>
@@ -161,11 +156,18 @@ const Header = () => {
                   </div>
                 </li>
               ) : (
-                <li>
-                  <NavLink exact="true" to="/login">
-                    <i className="fa-solid fa-right-to-bracket"></i> Đăng nhập
-                  </NavLink>
-                </li>
+                <>
+                  <li>
+                    <NavLink exact="true" to="/login">
+                      Đăng nhập
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink exact="true" to="/register">
+                      Đăng Ký
+                    </NavLink>
+                  </li>
+                </>
               )}
 
               {/* ends: .nav-author */}
