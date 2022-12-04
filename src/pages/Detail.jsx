@@ -64,16 +64,16 @@ function Detail(props) {
         </div>
       </div>
       {loading ? (
-         <div className="card-body">
-         <div className="spin-container text-center">
-           <div className="atbd-spin-dots spin-lg">
-             <span className="spin-dot badge-dot dot-primary"></span>
-             <span className="spin-dot badge-dot dot-primary"></span>
-             <span className="spin-dot badge-dot dot-primary"></span>
-             <span className="spin-dot badge-dot dot-primary"></span>
-           </div>
-         </div>
-       </div>
+        <div className="card-body">
+          <div className="spin-container text-center">
+            <div className="atbd-spin-dots spin-lg">
+              <span className="spin-dot badge-dot dot-primary"></span>
+              <span className="spin-dot badge-dot dot-primary"></span>
+              <span className="spin-dot badge-dot dot-primary"></span>
+              <span className="spin-dot badge-dot dot-primary"></span>
+            </div>
+          </div>
+        </div>
       ) : (
         <div className="products mb-30">
           <div className="container-fluid">
@@ -342,17 +342,13 @@ function Detail(props) {
                           <Link
                             to={
                               "/category/" +
-                              (product.Id_Categories &&
-                                product.Id_Categories.Name.replace(/ /g, "-"))
+                              product?.Id_Categories?.Name.replace(/ /g, "-")
                             }
                             state={{
-                              category:
-                                product.Id_Categories &&
-                                product.Id_Categories._id,
+                              category: product?.Id_Categories?._id,
                             }}
                           >
-                            {product.Id_Categories &&
-                              product.Id_Categories.Name}
+                            {product?.Id_Categories?.Name}
                           </Link>{" "}
                         </span>
                       </div>

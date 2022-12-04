@@ -7,36 +7,7 @@ import Filters from "../components/Filters";
 import { useRef } from "react";
 
 function Category(props) {
-  const [listProduct, setListProduct] = useState([
-    {
-      _id: "635811eb8bf9b1ab50c4ca44",
-      Name: "Nước cân bằng da Nước hoa hồng Lô Hội & Nhân Sâm Domashnij Doctor 300ml",
-      Price: 120000,
-      Saled: 189,
-      Id_Categories: {
-        _id: "634ec494fa4ebad7d3d74ac6",
-        Name: "Tonner",
-      },
-      Describe:
-        "Tăng cường oxi giúp cho mạch máu lưu thông tốt làm da căng hồng và tươi sáng. Khôi phục độ ẩm cho da rất hiệu quả, giúp da trắng sáng và mịn màng hơn. Phục hồi làn da bị hư tổn, làm mờ vết thâm. Làm chậm quá trình lão hóa, ngăn ngừa hình thành nếp nhăn. Cân bằng lượng tiết tố của da từ đó giảm sự xuất hiện dầu thừa và mụn trứng cá",
-      Images: [
-        "https://storage.30shine.com/30shine-store/product-images/d02d18c7-95b7-4f96-a483-9551e3a98609",
-        "https://storage.30shine.com/30shine-store/product-images/6249a660-c74f-4821-aaf1-71eac7154416",
-        "https://storage.30shine.com/30shine-store/product-images/ea9785d6-5e58-4653-b900-91bdb6e5cf58",
-      ],
-      InStock: 25,
-      Is_Show: true,
-      Views: 347,
-      Rating: 0,
-      Details:
-        "Độ bóng mờ tạo sự tự nhiên cho mái tóc. Không gây nặng tóc, khó chịu, bết dính.",
-      createdAt: "2022-10-25T16:42:19.430Z",
-      updatedAt: "2022-12-03T14:26:54.164Z",
-      __v: 0,
-      Discount: 13,
-      Is_Hot: false,
-    },
-  ]);
+  const [listProduct, setListProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const _isMounted = useRef(false);
   const location = useLocation();
@@ -77,7 +48,7 @@ function Category(props) {
                   Sản phẩm theo loại
                 </h4>
               </div>
-              <Breadcrumb BreadName={  listProduct[0].Id_Categories.Name} />
+              <Breadcrumb BreadName={listProduct[0]?.Id_Categories?.Name} />
             </div>
           </div>
         </div>
