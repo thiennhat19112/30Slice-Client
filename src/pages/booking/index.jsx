@@ -14,7 +14,7 @@ import {
 } from "../../app/services/booking/booking.service";
 import { create7Date, allAvailableTime } from "./func";
 import { useSelector } from "react-redux";
-
+import "../../App.css";
 function Booking(props) {
   const userInfo = useSelector((state) => state.auth);
 
@@ -73,7 +73,7 @@ function Booking(props) {
     let name = refCustomerName.current.value;
     let phone = refPhone.current.value;
     if (!name && !phone) {
-      return
+      return;
     }
     _isMounted.current && setLoading(true);
     const res = await RegisterCustomer({ name, phone });
@@ -220,6 +220,7 @@ function Booking(props) {
         Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt
         lịch 30Slice
       </h1>
+
       <div className="form-floating m-3">
         <label htmlFor="phone">
           Nhập số điện thoại<sup className="text-danger">*</sup>
@@ -277,34 +278,73 @@ function Booking(props) {
           {arrService &&
             arrService.map((item) => {
               return (
-                <div key={item._id} className="card">
-                  <div className="card-body text-center pt-30 px-25 pb-0">
-                    <div className="account-profile-cards  ">
-                      <div className="ap-nameAddress">
-                        <h6 className="ap-nameAddress__title">{item.Name}</h6>
-                        <p className="ap-nameAddress__subTitle  fs-14 pt-1 m-0 ">
-                          {item.Price.toLocaleString("vi-VN")} vnđ
-                        </p>
+                <div className="col-4">
+                  <div className="card card-default card-md mb-4">
+                    <div className="card-header py-20">
+                      <h6>{item.Name}</h6>
+                    </div>
+                    <div className="card-body">
+                      <p>
+                        Giá : <b>{item.Price.toLocaleString("vi-VN")}</b> vnđ
+                      </p>
+                      <a
+                        data-toggle="collapse"
+                        data-target={"#collapse" + item._id}
+                        aria-expanded="true"
+                        aria-controls={"collapse" + item._id}
+                      >
+                        Xem thêm
+                      </a>
+
+                      <div
+                        id={"collapse" + item._id}
+                        className="collapse atbd-collapse-item__body"
+                      >
+                        <div className="collapse-body-text">
+                          <p>{item.Describe}</p>
+                        </div>
                       </div>
-                      <div className="ap-button account-profile-cards__button button-group d-flex justify-content-center flex-wrap pt-20 mb-2">
-                        <input
-                          type="radio"
-                          className="btn-check"
-                          name="option-outlined"
-                          id={item._id}
-                          onChange={() => setServiceId(item._id)}
-                          style={{ display: "none" }}
-                        />
-                        <label
-                          className="btn btn-default btn-squared btn-outline-primary  "
-                          htmlFor={item._id}
-                        >
-                          Chọn Dịch Vụ
-                        </label>
-                      </div>
+                      <input type="radio" name="service" className="radio-custom btn btn-outline-info" />
+                      {/* <button
+                        className="btn btn-info"
+                        data-toggle="collapse"
+                        data-target="#collapse-body-1"
+                        aria-expanded="true"
+                        aria-controls="collapse-body-1"
+                      >
+                        Chọn dịch vụ
+                      </button> */}
                     </div>
                   </div>
                 </div>
+                // <div key={item._id} className="card">
+                //   <div className="card-body text-center pt-30 px-25 pb-0">
+                //     <div className="account-profile-cards  ">
+                //       <div className="ap-nameAddress">
+                //         <h6 className="ap-nameAddress__title">{item.Name}</h6>
+                //         <p className="ap-nameAddress__subTitle  fs-14 pt-1 m-0 ">
+                //           {item.Price.toLocaleString("vi-VN")} vnđ
+                //         </p>
+                //       </div>
+                //       <div className="ap-button account-profile-cards__button button-group d-flex justify-content-center flex-wrap pt-20 mb-2">
+                //         <input
+                //           type="radio"
+                //           className="btn-check"
+                //           name="option-outlined"
+                //           id={item._id}
+                //           onChange={() => setServiceId(item._id)}
+                //           style={{ display: "none" }}
+                //         />
+                //         <label
+                //           className="btn btn-default btn-squared btn-outline-primary  "
+                //           htmlFor={item._id}
+                //         >
+                //           Chọn Dịch Vụ
+                //         </label>
+                //       </div>
+                //     </div>
+                //   </div>
+                // </div>
               );
             })}
         </div>
@@ -353,9 +393,7 @@ function Booking(props) {
         type="submit"
         disabled={loading}
       >
-        {loading && (
-          <span className="spinner-border spinner-border-sm"></span>
-        )}
+        {loading && <span className="spinner-border spinner-border-sm"></span>}
         Nút bự nha thầy
       </button>
     </div>
