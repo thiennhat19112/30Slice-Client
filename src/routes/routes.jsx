@@ -27,6 +27,8 @@ import BookedHistory from '../pages/booked-history';
 import ForgetPassword from '../pages/forget-password';
 import ResetPassword from '../pages/reset-password';
 import BookingSuccess from '../pages/booking-success';
+import About from '../pages/About';
+import Contact from '../pages/Contact';
 
 const routes = createBrowserRouter([
   {
@@ -191,6 +193,16 @@ const routes = createBrowserRouter([
             exact: true,
             element: <h1>Trang tin tức</h1>,
           },
+          {
+            path: 'about',
+            exact: true,
+            element: <About />,
+          },
+          {
+            path: 'contact',
+            exact: true,
+            element: <Contact />,
+          }
         ],
       },
     ],

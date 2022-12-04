@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 function Footer() {
-   return (
-      <>
+  return (
+    <>
       <footer className="footer-wrapper">
         <div className="container-fluid">
           <div className="row">
@@ -15,13 +16,13 @@ function Footer() {
               <div className="footer-menu text-right">
                 <ul>
                   <li>
-                    <a href="#">Về chúng tôi</a>
+                    <Link to="/about">Về chúng tôi</Link>
                   </li>
                   <li>
                     <a href="#">Đội ngũ coder</a>
                   </li>
                   <li>
-                    <a href="#">Liên hệ</a>
+                    <Link to="/contact">Liên hệ</Link>
                   </li>
                 </ul>
               </div>
@@ -31,21 +32,21 @@ function Footer() {
         </div>
       </footer>
 
-  <div id="overlayer">
-    <span className="loader-overlay">
-      <div className="atbd-spin-dots spin-lg">
-        <span className="spin-dot badge-dot dot-primary" />
-        <span className="spin-dot badge-dot dot-primary" />
-        <span className="spin-dot badge-dot dot-primary" />
-        <span className="spin-dot badge-dot dot-primary" />
+      <div id="overlayer">
+        <span className="loader-overlay">
+          <div className="atbd-spin-dots spin-lg">
+            <span className="spin-dot badge-dot dot-primary" />
+            <span className="spin-dot badge-dot dot-primary" />
+            <span className="spin-dot badge-dot dot-primary" />
+            <span className="spin-dot badge-dot dot-primary" />
+          </div>
+        </span>
       </div>
-    </span>
-  </div>
-  <div className="overlay-dark-sidebar" />
-</>
+      <div className="overlay-dark-sidebar" />
+    </>
 
 
-    
-   )
+
+  )
 }
 export default Footer;
