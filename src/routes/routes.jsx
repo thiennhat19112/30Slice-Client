@@ -22,6 +22,7 @@ import Login from '../pages/login';
 import Register from '../pages/Register';
 import Profile from '../pages/profile';
 import Order from '../pages/order';
+import OrderInfo from '../pages/order/Info';
 import BookedHistory from '../pages/booked-history';
 import ForgetPassword from '../pages/forget-password';
 import ResetPassword from '../pages/reset-password';
@@ -159,6 +160,15 @@ const routes = createBrowserRouter([
             element: (
               <PrivateRoute>
                 <Order />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: 'order/:id',
+            exact: true,
+            element: (
+              <PrivateRoute>
+                <OrderInfo />
               </PrivateRoute>
             ),
           },
