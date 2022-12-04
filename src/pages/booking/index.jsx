@@ -278,7 +278,7 @@ function Booking(props) {
           {arrService &&
             arrService.map((item) => {
               return (
-                <div className="col-4">
+                <div key={item._id} className="col-4">
                   <div className="card card-default card-md mb-4">
                     <div className="card-header py-20">
                       <h6>{item.Name}</h6>
@@ -304,47 +304,10 @@ function Booking(props) {
                           <p>{item.Describe}</p>
                         </div>
                       </div>
-                      <input type="radio" name="service" className="radio-custom btn btn-outline-info" />
-                      {/* <button
-                        className="btn btn-info"
-                        data-toggle="collapse"
-                        data-target="#collapse-body-1"
-                        aria-expanded="true"
-                        aria-controls="collapse-body-1"
-                      >
-                        Chọn dịch vụ
-                      </button> */}
+                      <input type="radio" name="service" className="radio-custom btn btn-outline-info"  onChange={() => setServiceId(item._id)} />
                     </div>
                   </div>
                 </div>
-                // <div key={item._id} className="card">
-                //   <div className="card-body text-center pt-30 px-25 pb-0">
-                //     <div className="account-profile-cards  ">
-                //       <div className="ap-nameAddress">
-                //         <h6 className="ap-nameAddress__title">{item.Name}</h6>
-                //         <p className="ap-nameAddress__subTitle  fs-14 pt-1 m-0 ">
-                //           {item.Price.toLocaleString("vi-VN")} vnđ
-                //         </p>
-                //       </div>
-                //       <div className="ap-button account-profile-cards__button button-group d-flex justify-content-center flex-wrap pt-20 mb-2">
-                //         <input
-                //           type="radio"
-                //           className="btn-check"
-                //           name="option-outlined"
-                //           id={item._id}
-                //           onChange={() => setServiceId(item._id)}
-                //           style={{ display: "none" }}
-                //         />
-                //         <label
-                //           className="btn btn-default btn-squared btn-outline-primary  "
-                //           htmlFor={item._id}
-                //         >
-                //           Chọn Dịch Vụ
-                //         </label>
-                //       </div>
-                //     </div>
-                //   </div>
-                // </div>
               );
             })}
         </div>
