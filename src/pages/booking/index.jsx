@@ -284,6 +284,7 @@ function Booking(props) {
                       <h6>{item.Name}</h6>
                     </div>
                     <div className="card-body">
+                      <img className="img-fluid" src={item.Images} alt="" />
                       <p>
                         Giá : <b>{item.Price.toLocaleString("vi-VN")}</b> vnđ
                       </p>
