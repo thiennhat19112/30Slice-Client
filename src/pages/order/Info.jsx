@@ -81,7 +81,7 @@ export default function OrderInfo() {
               )}
             </p>
             <p>
-              Phương thức thanh toán: <b>{orders && orders?.Payment_Method.toUpperCase()}</b>
+              Phương thức thanh toán: <b>{orders?.Payment_Method?.toUpperCase()}</b>
             </p>
             <p>
               Tình trạng thanh toán: 
