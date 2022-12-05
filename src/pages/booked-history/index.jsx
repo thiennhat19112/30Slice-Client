@@ -132,9 +132,15 @@ const BookedHistory = () => {
                               </td>
                               <td>
                                 <div className="orderDatatable-status d-inline-block">
-                                  <span className="order-bg-opacity-warning  text-warning rounded-pill active">
-                                    {item.Status}
+                                {item?.Status === "pending" ? (
+                                  <span className="bg-opacity-danger  color-danger rounded-pill userDatatable-content-status active">
+                                    Chưa hoàn thành
                                   </span>
+                                ) : (
+                                  <span className="bg-opacity-success  color-success rounded-pill userDatatable-content-status active">
+                                    Đã hoàn thành
+                                  </span>
+                                )}
                                 </div>
                               </td>
                               <td>
