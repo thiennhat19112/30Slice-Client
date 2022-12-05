@@ -9,6 +9,7 @@ import { Search } from "react-feather";
 function Products(props) {
   const [dataProduct, setdataProduct] = useState({});
   const [listProduct, setListProduct] = useState([]);
+  const [loading, setLoading] = useState(false);
   const _isMounted = useRef(false);
   const refSearch = useRef("");
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ let search;
     );
   }
   const fetchProduct = async () => {
-    Notiflix.Loading.standard("Đang tải...");
+    setLoading(true);
     const res = await fetch(
       import.meta.env.REACT_APP_API_ENDPOINT +
         `product/getProducts?page=${pageNumber}&limit=12&search=${search}`
@@ -48,7 +49,7 @@ let search;
     const data = await res.json();
     console.log(data);
     if (data) {
-      Notiflix.Loading.remove();
+      setLoading(false);
     }
     _isMounted.current && setdataProduct(data);
     _isMounted.current && setListProduct(data.products);
@@ -216,6 +217,19 @@ let search;
               </div>
               {/* End: Top Bar */}
               {/* Start: .product-list */}
+              
+              { loading ?(
+               <div className="card-body">
+               <div className="spin-container text-center">
+                 <div className="atbd-spin-dots spin-lg">
+                   <span className="spin-dot badge-dot dot-primary"></span>
+                   <span className="spin-dot badge-dot dot-primary"></span>
+                   <span className="spin-dot badge-dot dot-primary"></span>
+                   <span className="spin-dot badge-dot dot-primary"></span>
+                 </div>
+               </div>
+             </div>
+              ):(
               <div className="tab-content mt-25" id="ap-tabContent">
                 <div
                   className="tab-pane fade show active"
@@ -282,6 +296,8 @@ let search;
                   </div>
                 </div>
               </div>
+              )
+}
               <nav className="atbd-page ">
                 <ul className="atbd-pagination d-flex">
                   <li className="atbd-pagination__item">
