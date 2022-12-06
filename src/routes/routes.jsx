@@ -29,6 +29,7 @@ import ResetPassword from '../pages/reset-password';
 import BookingSuccess from '../pages/booking-success';
 import About from '../pages/About';
 import Contact from '../pages/Contact';
+import Combo from '../pages/combo';
 
 const routes = createBrowserRouter([
   {
@@ -202,6 +203,11 @@ const routes = createBrowserRouter([
             path: 'contact',
             exact: true,
             element: <Contact />,
+          },
+          {
+            path: 'combo',
+            exact: true,
+            element: <Combo />,
           }
         ],
       },
