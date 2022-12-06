@@ -446,7 +446,7 @@ function Detail(props) {
                             </div>
                             <div class="atbd-comment-box__content media-body">
                               <div class="comment-content-inner cci">
-                                <span class="cci__author-info">David</span>
+                                <span class="cci__author-info">{item?.Id_Customter?.Full_Name}</span>
                                 <p class="cci__comment-text">{item.Content}</p>
 
                                 {isLoggedIn && (
@@ -463,7 +463,7 @@ function Detail(props) {
                                       </span>
                                     </a>
 
-                                    {user?.id === item?.Id_Customter && (
+                                    {user?.id === item?.Id_Customter?._id && (
                                       <>
                                         <a
                                           href="javascript:void(0)"
@@ -573,14 +573,14 @@ function Detail(props) {
                                     <div class="atbd-comment-box__content media-body">
                                       <div class="comment-content-inner cci">
                                         <span class="cci__author-info">
-                                          David
+                                          {childItem?.Id_Customter?.Full_Name}
                                         </span>
                                         <p class="cci__comment-text">
                                           {childItem.Content}
                                         </p>
                                         <div class="cci__comment-actions">
                                           {user?.id ===
-                                            childItem?.Id_Customter && (
+                                            childItem?.Id_Customter?._id && (
                                             <>
                                               <a
                                                 href="javascript:void(0)"
