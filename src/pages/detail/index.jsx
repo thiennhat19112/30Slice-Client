@@ -532,13 +532,6 @@ function Detail(props) {
                                 {idCommentUpdate.toString() ===
                                   item._id.toString() && (
                                   <div className="reply-editor media mt-3">
-                                    <div className="reply-editor__author">
-                                      <img
-                                        src="/assets/img/author/1.jpg"
-                                        className="bg-opacity-primary d-flex"
-                                        alt="Reply Editor Author"
-                                      />
-                                    </div>
                                     {/* ends: .reply-editor__author */}
                                     <div className="reply-editor__form media-body">
                                       <div className="form-group row">
@@ -621,17 +614,12 @@ function Detail(props) {
                                               </a>
                                             </>
                                           )}
-                                          {/* sưa */}
-                                          {idCommentUpdate.toString() ===
+                                          
+                                        </div>
+                                        {/* sưa */}
+                                        {idCommentUpdate.toString() ===
                                             childItem._id.toString() && (
                                             <div className="reply-editor media mt-3">
-                                              <div className="reply-editor__author">
-                                                <img
-                                                  src="/assets/img/author/1.jpg"
-                                                  className="bg-opacity-primary d-flex"
-                                                  alt="Reply Editor Author"
-                                                />
-                                              </div>
                                               {/* ends: .reply-editor__author */}
                                               <div className="reply-editor__form media-body">
                                                 <div className="form-group row">
@@ -655,7 +643,6 @@ function Detail(props) {
                                               </div>
                                             </div>
                                           )}
-                                        </div>
                                       </div>
                                       <div></div>
                                     </div>
