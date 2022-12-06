@@ -15,7 +15,7 @@ const ForgetPassword = () => {
     const response = await axios.post(API_URL + "admin/forgot-password", {
       email,
     });
-    console.log(response);
+    // console.log(response);
     if (response.status === 200) {
       setLoading(false);
       toastSuccess("Thành Công! Vui lòng kiểm tra email hoặc email spam");

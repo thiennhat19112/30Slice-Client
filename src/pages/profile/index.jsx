@@ -62,7 +62,7 @@ const Profile = () => {
     } catch (err) {
       throw new Error(err);
     }
-    console.log(user);
+    // console.log(user);
   };
 
   return (

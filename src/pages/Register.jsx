@@ -37,7 +37,7 @@ const Register = () => {
         ),
     }),
     onSubmit: (values) => {
-      console.log(formik.values);
+      // console.log(formik.values);
 
       fetch("https://30slice.online/api/user/signup", {
         method: "POST",
