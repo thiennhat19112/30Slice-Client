@@ -186,7 +186,7 @@ function Booking(props) {
         // console.log(idStylist[0]);
 
         return (
-          <div key={index} className="form-check col-1 mb-2">
+          <div key={index} className="form-check col-3 col-sm-2 col-md-2 col-lg-1 mb-2">
             <input
               className="btn-check "
               type="radio"
