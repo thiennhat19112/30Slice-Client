@@ -3,13 +3,12 @@ import { useRef } from 'react';
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory } from '../app/redux/slices/user/CategoriesSlice';
 import { nonAccentConverter } from '../app/services/nonAccentConverter/nonAccentConverter';
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const _isMounted = useRef(false);
-  const dispatch = useDispatch();
+
 
   const loadDataCategories = async () => {
     const res = await fetch(
@@ -21,7 +20,7 @@ const Categories = () => {
       ...item,
       Children: data.filter((x) => x['Parent_Id'] === item._id),
     }));
-    dispatch(addCategory(treeData));
+
     _isMounted.current && setCategories(treeData);
   };
 
@@ -34,7 +33,7 @@ const Categories = () => {
 
   useEffect(() => {
     loadDataCategories();
-  }, [dispatch]);
+  }, []);
 
   return (
     <li className="mega-item has-subMenu">

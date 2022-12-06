@@ -14,7 +14,7 @@ import userReducer from './slices/auth/auth';
 import messageReducer from './slices/auth/message';
 
 import cartReducer from './slices/user/CartSlice';
-import categoryReducer from './slices/user/CategoriesSlice';
+
 
 const persistConfig = {
   key: 'root',
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   auth: userReducer,
   message: messageReducer,
   cart: cartReducer,
-  categories: categoryReducer,
+
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
