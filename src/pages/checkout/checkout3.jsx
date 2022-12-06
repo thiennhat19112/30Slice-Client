@@ -12,12 +12,13 @@ import { Truck } from "react-feather";
 import {
   CheckoutCod,
   CheckoutVnpay,
+  CheckoutMomo,
 } from "../../app/services/user/cart.service";
 const Checkout3 = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart);
-  const [paymentMethod, setPaymentMethod] = useState("vnpay");
+  const [paymentMethod, setPaymentMethod] = useState("momo");
   // console.log(cartItems)
   const handleCheckout = async () => {
     dispatch(setPayment(paymentMethod));
@@ -41,13 +42,18 @@ const Checkout3 = () => {
         navigate("/order-success?order_id=" + res.data._id);
         dispatch(clearCart());
       }
-    } else {
+    } else if (paymentMethod == "vnpay") {
       const res = await CheckoutVnpay(data);
       console.log(res.data);
       window.location.replace(res.data);
       dispatch(clearCart());
-
+    } else if (paymentMethod == "momo") {
+      const res = await CheckoutMomo(data);
+      console.log(res.data);
+      window.location.replace(res.data);
+      dispatch(clearCart());
     }
+
   };
 
   return (
@@ -151,9 +157,36 @@ const Checkout3 = () => {
                               className="radio"
                               type="radio"
                               name="radio-vertical"
+                              value="momo"
+                              id="momo"
+                              defaultChecked
+                              onChange={(e) => setPaymentMethod(e.target.value)}
+                            />
+                            <label htmlFor="momo">
+                              <span className="radio-text" />
+                            </label>
+                          </div>
+                          <label
+                            htmlFor="momo"
+                            className=" form-control d-flex align-items-center justify-content-between"
+                          >
+                            Thanh toán bằng Momo
+                            <img
+                              src="/assets/images/momo.svg"
+                              alt="paypal"
+                              className="d-lg-block mx-3"
+                              style={{ width: "50px" }}
+                            />
+                          </label>
+                        </div>
+                        <div className="d-flex align-items-center mb-20">
+                          <div className="radio-theme-default custom-radio  d-flex mr-2">
+                            <input
+                              className="radio"
+                              type="radio"
+                              name="radio-vertical"
                               value="vnpay"
                               id="vnpay"
-                              defaultChecked
                               onChange={(e) => setPaymentMethod(e.target.value)}
                             />
                             <label htmlFor="vnpay">

@@ -22,4 +22,14 @@ export const CheckoutVnpay = async (data) => {
   } catch (err) {
     throw new Error(err);
   }
-}
+};
+export const CheckoutMomo = async (data) => {
+  try {
+    const res = await api.post("order/momoPay", data);
+    if (res.status === 200) {
+      return res;
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+};
