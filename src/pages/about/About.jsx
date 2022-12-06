@@ -242,7 +242,7 @@ function About() {
                      style={{ paddingLeft: 20, paddingRight: 20 }}
                   >
                      <div className="content-image">
-                        <img src="/static/media/logo_about.c89e8bed.png" alt="" />
+                        <img style={{maxWidth: "100%"}} src="/assets/images/logo30slice.png" alt="" />
                      </div>
                   </div>
                </div>
