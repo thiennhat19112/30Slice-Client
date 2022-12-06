@@ -3,7 +3,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import "./Regis.css";
-import { toastSuccess } from "../components/sharedComponents/toast";
+import { toastSuccess } from "../../components/sharedComponents/toast";
 
 const Register = () => {
     const navigate = useNavigate();

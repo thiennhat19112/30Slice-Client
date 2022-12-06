@@ -8,18 +8,18 @@ import App from '../App';
 
 // import page
 import Booking from '../pages/booking';
-import Products from '../pages/Products';
+import Products from '../pages/products';
 import Detail from '../pages/Detail';
-import Home from '../pages/Home';
+import Home from '../pages/home';
 import Error from '../pages/Error';
-import Cart from '../pages/Cart';
+import Cart from '../pages/cart';
 import Category from '../pages/Category';
 import Checkout from '../pages/checkout';
 import Checkout2 from '../pages/checkout/checkout2';
 import Checkout3 from '../pages/checkout/checkout3';
 import Checkout4 from '../pages/checkout/checkout4';
 import Login from '../pages/login';
-import Register from '../pages/Register';
+import Register from '../pages/signup';
 import Profile from '../pages/profile';
 import Order from '../pages/order';
 import OrderInfo from '../pages/order/Info';
@@ -27,8 +27,8 @@ import BookedHistory from '../pages/booked-history';
 import ForgetPassword from '../pages/forget-password';
 import ResetPassword from '../pages/reset-password';
 import BookingSuccess from '../pages/booking-success';
-import About from '../pages/About';
-import Contact from '../pages/Contact';
+import About from '../pages/about/About';
+import Contact from '../pages/contact';
 import Combo from '../pages/combo';
 
 const routes = createBrowserRouter([
