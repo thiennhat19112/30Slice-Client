@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
-// import { getCombo } from "../../app/services/user/combo.service";
+import { getAllNews } from "../../app/services/user/news.service";
 export default function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const fetchComo = async () => {
-  //   setLoading(true);
-  //   const res = await getCombo();
-  //   console.log(res)
-  //   if (res.status === 200) {
-  //     setCombo(res);
-  //   }
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   fetchComo();
-  // }, []);
+  const fetchNews = async () => {
+    setLoading(true);
+    const res = await getAllNews();
+    console.log(res.data)
+    if (res.status === 200) {
+      setNews(res.data);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchNews();
+  }, []);
   return (
+    <>
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg-12">
@@ -27,5 +28,21 @@ export default function News() {
         </div>
       </div>
     </div>
+    {loading ? (
+      <div className="card-body">
+        <div className="spin-container text-center">
+          <div className="atbd-spin-dots spin-lg">
+            <span className="spin-dot badge-dot dot-primary"></span>
+            <span className="spin-dot badge-dot dot-primary"></span>
+            <span className="spin-dot badge-dot dot-primary"></span>
+            <span className="spin-dot badge-dot dot-primary"></span>
+          </div>
+        </div>
+      </div>
+    ) : (
+      // layout ở đây
+      <h1>nội dung here</h1>
+    )}
+    </>
   );
 }
