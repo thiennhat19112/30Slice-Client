@@ -278,13 +278,13 @@ function Booking(props) {
           {arrService &&
             arrService.map((item) => {
               return (
-                <div key={item._id} className="col-4">
+                <div key={item._id} className="col-12 col-sm-6 col-md-4 col-lg-4">
                   <div className="card card-default card-md mb-4">
                     <div className="card-header py-20">
                       <h6>{item.Name}</h6>
                     </div>
                     <div className="card-body">
-                      <img className="img-fluid" src={item.Images} alt="" />
+                      <img className="w-100" src={item.Images} alt="" />
                       <p>
                         Giá : <b>{item.Price.toLocaleString("vi-VN")}</b> vnđ
                       </p>
