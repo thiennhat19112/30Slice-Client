@@ -2,25 +2,36 @@ import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import Breadcrumb from "../components/Breakcumb";
 
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../app/redux/slices/user/CartSlice";
 import { toastSuccess } from "../components/sharedComponents/toast";
 import { ShoppingBag, ShoppingCart } from "react-feather";
+import {
+  addComment,
+  getCommentByProduct,
+  updateComment,
+} from "../app/services/user/comment.service";
 
 function Detail(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
-  console.log(location);
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
+  const [comment, setComment] = useState([]);
+  const [contentComment, setContentComment] = useState("");
+  const [contentReply, setContentReply] = useState("");
+  const [idCommentReply, setIdCommentReply] = useState("");
+  const [idCommentUpdate, setIdCommentUpdate] = useState("");
+  const [contentUpdate, setContentUpdate] = useState("");
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const fetchDetail = async () => {
     setLoading(true);
     const res = await fetch(
       import.meta.env.REACT_APP_API_ENDPOINT +
         "product/getOneProduct/" +
-        location.state.product
+        location.state?.product
     );
     const data = await res.json();
     setProduct(data);
@@ -56,8 +67,78 @@ function Detail(props) {
       Rating.push(<span key={i} className="star-icon las la-star" />);
     }
   }
+
+  const dataTree = (data, _id = null, link = "Parent_Id") => {
+    return data
+      .filter((item) => item[link] === _id)
+      .map((item) => ({ ...item, Children: dataTree(data, item._id) }));
+  };
+
+  const fetchComment = async () => {
+    const res = await getCommentByProduct(location.state?.product);
+
+    const treeData = dataTree(res.filter((item) => !item.Is_User_Delete));
+    return setComment(treeData);
+  };
+
+  const handleAddComment = async () => {
+    const data = {
+      Id_Customter: user.id,
+      Id_Product: product._id,
+      Content: contentComment,
+    };
+    const res = await addComment(data);
+    if (res.status === 200) {
+      setContentComment("");
+      fetchComment();
+    }
+  };
+
+  const handleReplyComment = async () => {
+    const data = {
+      Id_Customter: user?.id,
+      Id_Product: product._id,
+      Content: contentReply,
+      Parent_Id: idCommentReply,
+    };
+    const res = await addComment(data);
+    if (res.status === 200) {
+      setIdCommentReply("");
+      setContentReply("");
+      fetchComment();
+    }
+  };
+
+  const handleDeleteComment = async (id) => {
+    const data = {
+      Is_User_Delete: true,
+      _id: id,
+    };
+    const res = await updateComment(data);
+    if (res.status === 200) {
+      fetchComment();
+    }
+  };
+
+  const handleUpdateComment = async () => {
+    const data = {
+      Content : contentUpdate,
+      _id : idCommentUpdate 
+    }
+    const res = await updateComment(data);
+    if (res.status === 200) {
+      setIdCommentUpdate("");
+      setContentUpdate("")
+      fetchComment();
+    }
+  }
+
   useEffect(() => {
-    fetchDetail();
+    const load = async () => {
+      await fetchDetail();
+      await fetchComment();
+    };
+    load();
   }, []);
   return (
     <>
@@ -236,7 +317,7 @@ function Detail(props) {
                               Mô tả : <b> {product.Details}</b>
                             </p>
                             <p className=" product-deatils-pera">
-                            Chi tiết : <b> {product?.Describe}</b>
+                              Chi tiết : <b> {product?.Describe}</b>
                             </p>
                             {/* End: Product Description */}
                             {/* Start: Product Stock */}
@@ -349,94 +430,283 @@ function Detail(props) {
                 <h3 className="p-3">Bình luận</h3>
                 <hr className="m-0" />
                 <div className="card-body">
-                  <div className="atbd-comment-box media">
-                    <div className="atbd-comment-box__author">
-                      <figure>
-                        <img
-                          src="/assets/img/author/1.jpg"
-                          className="bg-opacity-primary d-flex"
-                          alt="Admin Autor"
-                        />
-                      </figure>
-                    </div>
-                    {/* ends: .atbd-comment-box__author */}
-                    <div className="atbd-comment-box__content media-body">
-                      <div className="comment-content-inner cci">
-                        <span className="cci__author-info">David</span>
-                        <p className="cci__comment-text">
-                          We supply a series of design principles, practical
-                          patterns and high quality design resources (Sketch and
-                          Axure), to help people create their product prototypes
-                          beautifully and efficiently.
-                        </p>
-                        <div className="cci__comment-actions">
-                          <a href="#" className="btn-reply">
-                            <span>Reply</span>
-                          </a>
-                        </div>
-                        {/* ends: .cci__comment-actions */}
-                      </div>
-                    </div>
-                    {/* ends: .atbd-comment-box__content */}
-                  </div>
-                  <div className="atbd-comment-box media">
-                    <div className="atbd-comment-box__author">
-                      <figure>
-                        <img
-                          src="/assets/img/author/1.jpg"
-                          className="bg-opacity-primary d-flex"
-                          alt="Admin Autor"
-                        />
-                      </figure>
-                    </div>
-                    {/* ends: .atbd-comment-box__author */}
-                    <div className="atbd-comment-box__content media-body">
-                      <div className="comment-content-inner cci">
-                        <span className="cci__author-info">David</span>
-                        <p className="cci__comment-text">
-                          We supply a series of design principles, practical
-                          patterns and high quality design resources (Sketch and
-                          Axure), to help people create their product prototypes
-                          beautifully and efficiently.
-                        </p>
-                        <div className="cci__comment-actions">
-                          <a href="#" className="btn-reply">
-                            <span>Reply</span>
-                          </a>
-                        </div>
-                        {/* ends: .cci__comment-actions */}
-                      </div>
-                    </div>
-                    {/* ends: .atbd-comment-box__content */}
-                  </div>
+                  {comment.length > 0 &&
+                    comment.map((item) => (
+                      <ul class="comment-list__ul">
+                        <li class="mt-4">
+                          <div class="atbd-comment-box media">
+                            <div class="atbd-comment-box__author">
+                              <figure>
+                                <img
+                                  src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/avatar-dep-cute.jpg"
+                                  class="bg-opacity-primary d-flex"
+                                  alt="Admin Autor"
+                                />
+                              </figure>
+                            </div>
+                            <div class="atbd-comment-box__content media-body">
+                              <div class="comment-content-inner cci">
+                                <span class="cci__author-info">David</span>
+                                <p class="cci__comment-text">{item.Content}</p>
+
+                                {isLoggedIn && (
+                                  <div class="cci__comment-actions">
+                                    <a
+                                      href="javascript:void(0)"
+                                      onClick={() =>
+                                        setIdCommentReply(item._id)
+                                      }
+                                      class="btn-reply"
+                                    >
+                                      <span className="text-primary">
+                                        Trả lời
+                                      </span>
+                                    </a>
+
+                                    {user?.id === item?.Id_Customter && (
+                                      <>
+                                        <a
+                                          href="javascript:void(0)"
+                                          class="btn-reply"
+                                          onClick={() => {
+                                            setIdCommentUpdate(
+                                              item?._id
+                                            );
+                                            setContentUpdate(
+                                              item?.Content
+                                            );
+                                          }}
+                                        >
+                                          <span className="mx-2 text-primary">
+                                            Sửa
+                                          </span>
+                                        </a>
+                                        <a
+                                          href="javascript:void(0)"
+                                          class="btn-reply"
+                                          onClick={() =>
+                                            handleDeleteComment(item?._id)
+                                          }
+                                        >
+                                          <span className="mx-2 text-danger">
+                                            Xoá
+                                          </span>
+                                        </a>
+                                      </>
+                                    )}
+                                  </div>
+                                )}
+
+                                {idCommentReply.toString() ===
+                                  item._id.toString() && (
+                                  <div className="reply-editor media mt-3">
+                                    <div className="reply-editor__author">
+                                      <img
+                                        src="/assets/img/author/1.jpg"
+                                        className="bg-opacity-primary d-flex"
+                                        alt="Reply Editor Author"
+                                      />
+                                    </div>
+                                    {/* ends: .reply-editor__author */}
+                                    <div className="reply-editor__form media-body">
+                                      <div className="form-group row">
+                                        <input
+                                          class="form-control w-50 mx-20"
+                                          type="text"
+                                          value={contentReply}
+                                          onChange={(e) =>
+                                            setContentReply(e.target.value)
+                                          }
+                                        />
+                                        <input
+                                          type="button"
+                                          class="btn btn-primary"
+                                          value="Trả lời"
+                                          onClick={handleReplyComment}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                                {/* sưa */}
+                                {idCommentUpdate.toString() ===
+                                  item._id.toString() && (
+                                  <div className="reply-editor media mt-3">
+                                    <div className="reply-editor__author">
+                                      <img
+                                        src="/assets/img/author/1.jpg"
+                                        className="bg-opacity-primary d-flex"
+                                        alt="Reply Editor Author"
+                                      />
+                                    </div>
+                                    {/* ends: .reply-editor__author */}
+                                    <div className="reply-editor__form media-body">
+                                      <div className="form-group row">
+                                        <input
+                                          class="form-control w-50 mx-20"
+                                          type="text"
+                                          value={contentUpdate}
+                                          onChange={(e) =>
+                                            setContentUpdate(e.target.value)
+                                          }
+                                        />
+                                        <input
+                                          type="button"
+                                          class="btn btn-primary"
+                                          value="Sửa"
+                                          onClick={handleUpdateComment}
+                                        />
+                                      </div>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          {item.Children.length > 0 &&
+                            item.Children.map((childItem) => (
+                              <ul class="comment-list__ul">
+                                <li class="mb-20 mt-4">
+                                  <div class="atbd-comment-box media">
+                                    <div class="atbd-comment-box__author">
+                                      <figure>
+                                        <img
+                                          src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/avatar-dep-cute.jpg"
+                                          class="bg-opacity-primary d-flex"
+                                          alt="Admin Autor"
+                                        />
+                                      </figure>
+                                    </div>
+                                    <div class="atbd-comment-box__content media-body">
+                                      <div class="comment-content-inner cci">
+                                        <span class="cci__author-info">
+                                          David
+                                        </span>
+                                        <p class="cci__comment-text">
+                                          {childItem.Content}
+                                        </p>
+                                        <div class="cci__comment-actions">
+                                          {user?.id ===
+                                            childItem?.Id_Customter && (
+                                            <>
+                                              <a
+                                                href="javascript:void(0)"
+                                                class="btn-reply"
+                                                onClick={() =>
+                                                  handleDeleteComment(
+                                                    childItem?._id
+                                                  )
+                                                }
+                                              >
+                                                <span className="mx-2 text-danger">
+                                                  Xoá
+                                                </span>
+                                              </a>
+
+                                              <a
+                                                href="javascript:void(0)"
+                                                class="btn-reply"
+                                                onClick={() => {
+                                                  setIdCommentUpdate(
+                                                    childItem?._id
+                                                  );
+                                                  setContentUpdate(
+                                                    childItem?.Content
+                                                  );
+                                                }}
+                                              >
+                                                <span className="mx-2 text-primary">
+                                                  Sửa
+                                                </span>
+                                              </a>
+                                            </>
+                                          )}
+                                          {/* sưa */}
+                                          {idCommentUpdate.toString() ===
+                                            childItem._id.toString() && (
+                                            <div className="reply-editor media mt-3">
+                                              <div className="reply-editor__author">
+                                                <img
+                                                  src="/assets/img/author/1.jpg"
+                                                  className="bg-opacity-primary d-flex"
+                                                  alt="Reply Editor Author"
+                                                />
+                                              </div>
+                                              {/* ends: .reply-editor__author */}
+                                              <div className="reply-editor__form media-body">
+                                                <div className="form-group row">
+                                                  <input
+                                                    class="form-control w-50 mx-20"
+                                                    type="text"
+                                                    value={contentUpdate}
+                                                    onChange={(e) =>
+                                                      setContentUpdate(
+                                                        e.target.value
+                                                      )
+                                                    }
+                                                  />
+                                                  <input
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                    value="Sửa"
+                                                    onClick={handleUpdateComment}
+                                                  />
+                                                </div>
+                                              </div>
+                                            </div>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <div></div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            ))}
+                        </li>
+                      </ul>
+                    ))}
                   <hr className="m-3" />
-                  <h5>Viết bình luận</h5>
-                  <div className="reply-editor media mt-3">
-                    <div className="reply-editor__author">
-                      <img
-                        src="/assets/img/author/1.jpg"
-                        className="bg-opacity-primary d-flex"
-                        alt="Reply Editor Author"
-                      />
-                    </div>
-                    {/* ends: .reply-editor__author */}
-                    <div className="reply-editor__form media-body">
-                      <form action="$">
-                        <div className="form-row">
-                          <div className="form-group col-12">
-                            <textarea
-                              name="reply-text"
-                              className="form-control mb-4"
-                              defaultValue={""}
-                            />
-                            <button className="btn btn-primary btn-lg btn-squared btn-shadow-primary fw-400">
-                              Bình luận
-                            </button>
+                  {isLoggedIn ? (
+                    <>
+                      {" "}
+                      <h5>Viết bình luận</h5>
+                      <div className="reply-editor media mt-3">
+                        <div className="reply-editor__author">
+                          <img
+                            src="/assets/img/author/1.jpg"
+                            className="bg-opacity-primary d-flex"
+                            alt="Reply Editor Author"
+                          />
+                        </div>
+                        {/* ends: .reply-editor__author */}
+                        <div className="reply-editor__form media-body">
+                          <div className="form-row">
+                            <div className="form-group col-12">
+                              <textarea
+                                name="reply-text"
+                                className="form-control mb-4"
+                                value={contentComment}
+                                onChange={(e) =>
+                                  setContentComment(e.target.value)
+                                }
+                              />
+                              <button
+                                onClick={handleAddComment}
+                                className="btn btn-primary btn-lg btn-squared btn-shadow-primary fw-400"
+                              >
+                                Bình luận
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </form>
-                    </div>
-                  </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <h5>Đăng nhập để bình luận</h5>
+                    </>
+                  )}
 
                   {/* ends: .reply-editor__form */}
                 </div>
