@@ -19,7 +19,7 @@ const Checkout4 = () => {
     _isMounted.current && setLoading(true);
     try {
       const res = await GetOrdersByCustomer(searchParams.get("order_id"));
-      console.log(res.data);
+      // console.log(res.data);
       _isMounted.current && setOrders(res.data);
       _isMounted.current && setLoading(false);
     } catch (error) {

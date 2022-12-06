@@ -11,7 +11,7 @@ export default function OrderInfo() {
   const fetchOrderInfo = async () => {
     setLoading(true);
     const res = await GetOrdersByCustomer(id);
-    console.log(res.data);
+    // console.log(res.data);
     if (res.status === 200) {
       setOrder(res.data);
     }

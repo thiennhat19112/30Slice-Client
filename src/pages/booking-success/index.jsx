@@ -3,7 +3,7 @@ import { getBookingById } from "../../app/services/booking/booking.service";
 import { useEffect, useState } from "react";
 export default function BookingSuccess() {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
   const [loading, setLoading] = useState(false);
   const [booking, setBooking] = useState({});
   const fetchBookingById = async () => {

@@ -8,7 +8,7 @@ import OrderSummary from "../../components/OrderSummary";
 import { setInfo } from "../../app/redux/slices/user/CartSlice";
 const Checkout2 = () => {
   const dataUser = useSelector((state) => state.auth.user);
-  console.log(dataUser);
+  // console.log(dataUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const Checkout2 = () => {
           selectedCity.label,
         note: refCustomerNote.current.value,
       };
-      console.log(data);
+      // console.log(data);
       dispatch(setInfo(data));
       navigate("/checkout3");
     }

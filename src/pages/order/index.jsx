@@ -8,7 +8,7 @@ const Order = () => {
   const fetchOrderHistory = async () => {
     setLoading(true);
     const res = await GetOrderHistory();
-    console.log(res.data);
+    // console.log(res.data);
     setLoading(false);
     setOrderHistory(res.data);
   };

@@ -36,7 +36,7 @@ const Checkout3 = () => {
     if (paymentMethod == "cod") {
       // console.log(data);
       const res = await CheckoutCod(data);
-      console.log(res);
+      // console.log(res);
       if (res.status === 200) {
         toastSuccess("Đặt hàng thành công");
         navigate("/order-success?order_id=" + res.data._id);
@@ -44,12 +44,12 @@ const Checkout3 = () => {
       }
     } else if (paymentMethod == "vnpay") {
       const res = await CheckoutVnpay(data);
-      console.log(res.data);
+      // console.log(res.data);
       window.location.replace(res.data);
       dispatch(clearCart());
     } else if (paymentMethod == "momo") {
       const res = await CheckoutMomo(data);
-      console.log(res.data);
+      // console.log(res.data);
       window.location.replace(res.data);
       dispatch(clearCart());
     }

@@ -47,7 +47,7 @@ let search;
         `product/getProducts?page=${pageNumber}&limit=12&search=${search}`
     );
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     if (data) {
       setLoading(false);
     }

@@ -10,7 +10,7 @@ import { useRef } from "react";
 import { ShoppingBag } from "react-feather";
 const Cart = () => {
   const dataCart = useSelector((state) => state.cart);
-  console.log(dataCart);
+  // console.log(dataCart);
   const dispatch = useDispatch();
   const handleUpdate = (_id, Quantity) => {
     if (Quantity <= 0 || Quantity === "") {
