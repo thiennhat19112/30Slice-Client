@@ -1,16 +1,16 @@
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
-import Breadcrumb from "../components/Breakcumb";
+import Breadcrumb from "../../components/Breakcumb";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../app/redux/slices/user/CartSlice";
-import { toastSuccess } from "../components/sharedComponents/toast";
+import { addProduct } from "../../app/redux/slices/user/CartSlice";
+import { toastSuccess } from "../../components/sharedComponents/toast";
 import { ShoppingBag, ShoppingCart } from "react-feather";
 import {
   addComment,
   getCommentByProduct,
   updateComment,
-} from "../app/services/user/comment.service";
+} from "../../app/services/user/comment.service";
 
 function Detail(props) {
   const dispatch = useDispatch();

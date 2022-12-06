@@ -1,83 +1,84 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from "react-router-dom";
 
-import ProtectedRoute from './protectedRoute';
-import PrivateRoute from './privateRoute';
-import ProtectedCheckoutRoute from './protectedCheckoutRoute';
+import ProtectedRoute from "./protectedRoute";
+import PrivateRoute from "./privateRoute";
+import ProtectedCheckoutRoute from "./protectedCheckoutRoute";
 
-import App from '../App';
+import App from "../App";
 
 // import page
-import Booking from '../pages/booking';
-import Products from '../pages/products';
-import Detail from '../pages/Detail';
-import Home from '../pages/home';
-import Error from '../pages/Error';
-import Cart from '../pages/cart';
-import Category from '../pages/Category';
-import Checkout from '../pages/checkout';
-import Checkout2 from '../pages/checkout/checkout2';
-import Checkout3 from '../pages/checkout/checkout3';
-import Checkout4 from '../pages/checkout/checkout4';
-import Login from '../pages/login';
-import Register from '../pages/signup';
-import Profile from '../pages/profile';
-import Order from '../pages/order';
-import OrderInfo from '../pages/order/Info';
-import BookedHistory from '../pages/booked-history';
-import ForgetPassword from '../pages/forget-password';
-import ResetPassword from '../pages/reset-password';
-import BookingSuccess from '../pages/booking-success';
-import About from '../pages/about/About';
-import Contact from '../pages/contact';
-import Combo from '../pages/combo';
+import Booking from "../pages/booking";
+import Products from "../pages/products";
+import Detail from "../pages/detail";
+import Home from "../pages/home";
+import Error from "../pages/Error";
+import Cart from "../pages/cart";
+import Category from "../pages/Category";
+import Checkout from "../pages/checkout";
+import Checkout2 from "../pages/checkout/checkout2";
+import Checkout3 from "../pages/checkout/checkout3";
+import Checkout4 from "../pages/checkout/checkout4";
+import Login from "../pages/login";
+import Register from "../pages/signup";
+import Profile from "../pages/profile";
+import Order from "../pages/order";
+import OrderInfo from "../pages/order/Info";
+import BookedHistory from "../pages/booked-history";
+import ForgetPassword from "../pages/forget-password";
+import ResetPassword from "../pages/reset-password";
+import BookingSuccess from "../pages/booking-success";
+import About from "../pages/about/About";
+import Contact from "../pages/contact";
+import Combo from "../pages/combo";
+import News from "../pages/news";
 
 const routes = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     exact: true,
     children: [
       {
-        path: '',
+        path: "",
         exact: true,
         element: <App />,
         children: [
           {
-            path: '',
+            path: "",
             exact: true,
             element: <Home />,
           },
           {
-            path: 'booking',
+            path: "booking",
             exact: true,
             element: <Booking />,
           },
           {
-            path: 'products',
+            path: "products",
             exact: true,
             element: <Products />,
           },
           {
-            path: 'products/:id',
+            path: "products/:id",
             exact: true,
             element: <Detail />,
           },
           {
-            path: 'category',
+            path: "category",
             exact: true,
             element: <Category />,
           },
           {
-            path: 'category/:id',
+            path: "category/:id",
             exact: true,
             element: <Category />,
           },
           {
-            path: 'cart',
+            path: "cart",
             exact: true,
             element: <Cart />,
           },
           {
-            path: 'checkout',
+            path: "checkout",
             exact: true,
             element: (
               <ProtectedCheckoutRoute>
@@ -86,7 +87,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'checkout2',
+            path: "checkout2",
             exact: true,
             element: (
               <PrivateRoute>
@@ -95,7 +96,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'checkout3',
+            path: "checkout3",
             exact: true,
             element: (
               <PrivateRoute>
@@ -104,7 +105,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'order-success',
+            path: "order-success",
             exact: true,
             element: (
               <PrivateRoute>
@@ -113,7 +114,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'register',
+            path: "register",
             exact: true,
             element: (
               <ProtectedRoute>
@@ -122,7 +123,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'login',
+            path: "login",
             exact: true,
             element: (
               <ProtectedRoute>
@@ -131,7 +132,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'forget-password',
+            path: "forget-password",
             exact: true,
             element: (
               <ProtectedRoute>
@@ -140,7 +141,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'reset-password',
+            path: "reset-password",
             exact: true,
             element: (
               <ProtectedRoute>
@@ -149,7 +150,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'profile',
+            path: "profile",
             exact: true,
             element: (
               <PrivateRoute>
@@ -158,7 +159,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'order',
+            path: "order",
             exact: true,
             element: (
               <PrivateRoute>
@@ -167,7 +168,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'order/:id',
+            path: "order/:id",
             exact: true,
             element: (
               <PrivateRoute>
@@ -176,7 +177,7 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'booked-history',
+            path: "booked-history",
             exact: true,
             element: (
               <PrivateRoute>
@@ -185,30 +186,30 @@ const routes = createBrowserRouter([
             ),
           },
           {
-            path: 'booking-success/:id',
+            path: "booking-success/:id",
             exact: true,
             element: <BookingSuccess />,
           },
           {
-            path: 'news',
+            path: "news",
             exact: true,
-            element: <h1>Trang tin tức</h1>,
+            element: <News />,
           },
           {
-            path: 'about',
+            path: "about",
             exact: true,
             element: <About />,
           },
           {
-            path: 'contact',
+            path: "contact",
             exact: true,
             element: <Contact />,
           },
           {
-            path: 'combo',
+            path: "combo",
             exact: true,
             element: <Combo />,
-          }
+          },
         ],
       },
     ],
