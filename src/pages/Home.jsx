@@ -7,8 +7,6 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const fetchProducts = async () => {
     const res = await getProductsHome();
-    console.log(res);
-
     setProducts(res);
     setLoading(false);
   };
@@ -46,13 +44,13 @@ function Home() {
             <h1>Sản phẩm mới nhất</h1>
             <div className="row product-page-list justify-content-center">
               {products?.productsNew?.map((product) => (
-                <Product prod={product} />
+                <Product prod={product} key={product._id} />
               ))}
             </div>
             <h1>Sản phẩm nổi bật</h1>
             <div className="row product-page-list justify-content-center">
             {products?.productHot?.map((product) => (
-                <Product prod={product} />
+                <Product prod={product} key={product._id} />
               ))}
             </div>
             <h1>Tin tức</h1>

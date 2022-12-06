@@ -60,7 +60,6 @@ function Booking(props) {
     // console.log(phone);
     _isMounted.current && setLoading(true);
     const res = await LoginCustomer(phone);
-    console.log(res);
     if (res.status === 200) {
       setCustomerInfo(res.data);
       refCustomerName.current.value = res.data.Full_Name;
@@ -77,7 +76,7 @@ function Booking(props) {
     }
     _isMounted.current && setLoading(true);
     const res = await RegisterCustomer({ name, phone });
-    console.log(res);
+
     if (res.status === 200) {
       setCustomerInfo(res.data);
       _isMounted.current && setLoading(false);
@@ -104,10 +103,10 @@ function Booking(props) {
       Phone: CustomerInfo.Phone,
       Note: refNote.current.value,
     };
-    console.log(data);
+
     _isMounted.current && setLoading(true);
     const res = await CreateBooking(data);
-    console.log(res);
+
     if (res.status === 200) {
       toastSuccess("Đặt lịch thành công");
       _isMounted.current && setLoading(false);
@@ -164,7 +163,7 @@ function Booking(props) {
         }
       });
     });
-    console.log(arrAvailableTime);
+    // console.log(arrAvailableTime);
     return arrAvailableTime;
   }
   // hàm load lại danh sách thời gian

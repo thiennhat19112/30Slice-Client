@@ -20,7 +20,7 @@ function Category(props) {
         location.state.category
     );
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     if (data) {
       _isMounted.current && setListProduct(data);
       setLoading(false);

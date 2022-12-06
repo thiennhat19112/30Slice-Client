@@ -8,7 +8,7 @@ const Header = () => {
   const cartLength = useSelector((state) => state.cart.products.length);
   const UserInfo = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  console.log(UserInfo);
+  // console.log(UserInfo);
 
   const logOut = () => {
     dispatch(logout());
@@ -61,10 +61,16 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li>
+                    <NavLink exact="true" to="/combo">
+                      Combo
+                    </NavLink>
+                  </li>
+                  <li>
                     <NavLink exact="true" to="/products">
                       Sản Phẩm
                     </NavLink>
                   </li>
+
                   <Categories />
                   <li>
                     <NavLink exact="true" to="/news">

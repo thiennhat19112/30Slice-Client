@@ -12,7 +12,7 @@ function Detail(props) {
   const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const fetchDetail = async () => {
