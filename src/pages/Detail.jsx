@@ -1,14 +1,15 @@
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import Breadcrumb from "../components/Breakcumb";
 
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../app/redux/slices/user/CartSlice";
 import { toastSuccess } from "../components/sharedComponents/toast";
+import { ShoppingBag, ShoppingCart } from "react-feather";
 
 function Detail(props) {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const params = useParams();
   const location = useLocation();
   console.log(location);
@@ -35,6 +36,17 @@ function Detail(props) {
     };
     toastSuccess("Thêm vào giỏ hàng thành công!");
     dispatch(addProduct(product));
+  };
+  const buyNow = (item) => {
+    const product = {
+      _id: item._id,
+      Name: item.Name,
+      Price: (item.Price * (100 - item.Discount)) / 100,
+      Images: item.Images,
+      Quantity: 1,
+    };
+    dispatch(addProduct(product));
+    navigate("/cart");
   };
   let Rating = [];
   for (let i = 1; i <= 5; i++) {
@@ -194,9 +206,7 @@ function Detail(props) {
                             </div>
                             {/* End: Product Ratings */}
                             {/* Start: Product Brand */}
-                            <span className="product-details-brandName">
-                              Brand:<span>Louis Poulsen</span>
-                            </span>
+
                             <span className="product-desc-price">
                               {product &&
                                 (
@@ -223,7 +233,10 @@ function Detail(props) {
                             {/* End: Product Brand */}
                             {/* Start: Product Description */}
                             <p className=" product-deatils-pera">
-                              {product.Details}
+                              Mô tả : <b> {product.Details}</b>
+                            </p>
+                            <p className=" product-deatils-pera">
+                            Chi tiết : <b> {product?.Describe}</b>
                             </p>
                             {/* End: Product Description */}
                             {/* Start: Product Stock */}
@@ -270,16 +283,17 @@ function Detail(props) {
                             <div className="product-item__button mt-lg-30 mt-sm-25 mt-20 d-flex flex-wrap">
                               <div className=" d-flex flex-wrap product-item__action align-items-center">
                                 <button
-                                  onClick={() => addToCart(product)}
+                                  onClick={() => buyNow(product)}
                                   className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2"
                                 >
+                                  <ShoppingBag />
                                   Mua ngay
                                 </button>
                                 <button
                                   onClick={() => addToCart(product)}
                                   className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2"
                                 >
-                                  <span data-feather="shopping-bag" />
+                                  <ShoppingCart />
                                   Thêm vào giỏ
                                 </button>
                                 <div className="like-icon">
@@ -287,40 +301,6 @@ function Detail(props) {
                                     <i className="lar la-heart icon" />
                                   </button>
                                 </div>
-                                <div className="like-icon mr-10 my-sm-0 my-3 ">
-                                  <button type="button">
-                                    <span data-feather="share-2" />
-                                  </button>
-                                </div>
-                              </div>
-                              <div className="product-deatils__social my-xl-0 my-10 d-flex align-items-center">
-                                <ul className="d-flex">
-                                  <li>
-                                    <a href="#">
-                                      <i className="lab la-facebook-f" />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <i className="lab la-twitter" />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <i className="lab la-pinterest" />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <i className="lab la-linkedin-in" />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <i className="lab la-telegram" />
-                                    </a>
-                                  </li>
-                                </ul>
                               </div>
                             </div>
                             {/* End: Product Selections */}
@@ -429,7 +409,7 @@ function Detail(props) {
                     </div>
                     {/* ends: .atbd-comment-box__content */}
                   </div>
-                  <hr className="m-3"/>
+                  <hr className="m-3" />
                   <h5>Viết bình luận</h5>
                   <div className="reply-editor media mt-3">
                     <div className="reply-editor__author">

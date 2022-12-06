@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink,useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../app/redux/slices/user/CartSlice';
 import { toastSuccess } from '../components/sharedComponents/toast';
@@ -6,6 +6,7 @@ import { toastSuccess } from '../components/sharedComponents/toast';
 import { ShoppingBag, ShoppingCart} from "react-feather"
 function Product(props) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const addToCart = (item) => {
     const product = {
       _id: item._id,
@@ -16,6 +17,19 @@ function Product(props) {
     };
     toastSuccess('Thêm vào giỏ hàng thành công!');
     dispatch(addProduct(product));
+  };
+  const buyNow = (item) => {
+    const product = {
+      _id: item._id,
+      Name: item.Name,
+      Price: (item.Price * (100 - item.Discount)) / 100,
+      Images: item.Images,
+      Quantity: 1,
+    };
+    navigate('/cart');
+    // toastSuccess('Thêm vào giỏ hàng thành công!');
+    dispatch(addProduct(product));
+    
   };
   let Rating = [];
   for (let i = 1; i <= 5; i++) {
@@ -112,7 +126,7 @@ function Product(props) {
                   <ShoppingCart />Thêm vào giỏ
                 </button>
                 <button
-                  onClick={() => addToCart(props.prod)}
+                  onClick={() => buyNow(props.prod)}
                   className="btn btn-primary btn-default btn-squared border-0 "
                 >
                   <ShoppingBag />
