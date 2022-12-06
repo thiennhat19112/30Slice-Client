@@ -1,6 +1,6 @@
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
-import { toastSuccess } from "../components/sharedComponents/toast";
+import { toastSuccess } from "../../components/sharedComponents/toast";
 
 function Contact() {
   const form = useRef();

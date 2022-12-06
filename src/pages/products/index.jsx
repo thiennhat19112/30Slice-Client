@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import Notiflix from "notiflix";
 
-import Breadcrumb from "../components/Breakcumb";
-import Product from "../components/Product";
-import Filters from "../components/Filters";
+import Breadcrumb from "../../components/Breakcumb";
+import Product from "../../components/Product";
+import Filters from "../../components/Filters";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { Search } from "react-feather";
 function Products(props) {

@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Breakcumb from "../components/Breakcumb";
-import OrderSummary from "../components/OrderSummary";
+import Breakcumb from "../../components/Breakcumb";
+import OrderSummary from "../../components/OrderSummary";
 import {
   removeProduct,
   updateProduct,
-} from "../app/redux/slices/user/CartSlice";
+} from "../../app/redux/slices/user/CartSlice";
 import { useRef } from "react";
 import { ShoppingBag } from "react-feather";
 const Cart = () => {
