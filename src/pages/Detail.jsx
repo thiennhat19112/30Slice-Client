@@ -621,8 +621,10 @@ function Detail(props) {
                                               </a>
                                             </>
                                           )}
-                                          {/* sưa */}
-                                          {idCommentUpdate.toString() ===
+                                          
+                                        </div>
+                                        {/* sưa */}
+                                        {idCommentUpdate.toString() ===
                                             childItem._id.toString() && (
                                             <div className="reply-editor media mt-3">
                                               <div className="reply-editor__author">
@@ -655,7 +657,6 @@ function Detail(props) {
                                               </div>
                                             </div>
                                           )}
-                                        </div>
                                       </div>
                                       <div></div>
                                     </div>
