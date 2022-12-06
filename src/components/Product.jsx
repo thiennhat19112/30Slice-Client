@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addProduct } from '../app/redux/slices/user/CartSlice';
 import { toastSuccess } from '../components/sharedComponents/toast';
 // import { nonAccentConverter } from '../app/services/nonAccentConverter/nonAccentConverter';
-
+import { ShoppingBag, ShoppingCart} from "react-feather"
 function Product(props) {
   const dispatch = useDispatch();
   const addToCart = (item) => {
@@ -107,16 +107,16 @@ function Product(props) {
               <div className="product-item__button d-flex mt-20 flex-wrap">
                 <button
                   onClick={() => addToCart(props.prod)}
-                  className="btn btn-default btn-squared btn-outline-light px-15 "
+                  className="btn btn-default btn-squared btn-outline-light "
                 >
-                  <span data-feather="shopping-bag" />
-                  Thêm vào giỏ hàng
+                  <ShoppingCart />Thêm vào giỏ
                 </button>
                 <button
                   onClick={() => addToCart(props.prod)}
                   className="btn btn-primary btn-default btn-squared border-0 "
                 >
-                  Mua đê
+                  <ShoppingBag />
+                  Mua
                 </button>
               </div>
             </div>

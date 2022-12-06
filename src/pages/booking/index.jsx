@@ -358,7 +358,7 @@ function Booking(props) {
         disabled={loading}
       >
         {loading && <span className="spinner-border spinner-border-sm"></span>}
-        Nút bự nha thầy
+        Đặt lịch ngay
       </button>
     </div>
   );

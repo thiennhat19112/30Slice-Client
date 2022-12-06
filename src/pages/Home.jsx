@@ -42,7 +42,7 @@ function Home() {
             </div>
           </div>
         ) : (
-          <div className="container pt-3">
+          <div className="container-fluid w-80 pt-3">
             <h1>Sản phẩm mới nhất</h1>
             <div className="row product-page-list justify-content-center">
               {products?.productsNew?.map((product) => (
