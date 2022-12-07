@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCombo } from "../../app/services/user/combo.service";
-
+import './combo.css';
 
 export default function Combo() {
   const [combo, setCombo] = useState([]);
@@ -43,22 +43,24 @@ export default function Combo() {
       </div>
     ) : (
       // layout ở đây
-      <div className="combo-content">
-        <div className="table-responsive">     
-          {combo &&
+      <div className="container-fluid w-80 pt-3">
+        <div className="row product-page-list justify-content-center">     
+        {combo && 
             combo.map((item) => (
-              <div className="">
-                <div className="userDatatable-image">
-                  <img src={item?.Image} width={200} alt="" />
-                </div>
-                <div className="userDatatable-inline-title">
-                  <span className="text-dark fw-500 text-wrap text-start mw-300">
-                    <h6>{item?.Name}</h6>
-                  </span>
-                </div>
+              <div className="combo">
+                <img src={item?.Image} class="card-img-top" alt="" />
+                  <div class="card-body">
+                    <h5 class="card-title">{item?.Name}</h5>
+                    <p class="card-text">{item?.Details}</p>
+                    <button href="#" class="btn btn-primary">
+                      Chi tiết
+                    </button>
+                  </div>
+             
               </div>
+              
             ))
-          }   
+          } 
               </div>
               {/* phan trang */}
               <div className="d-flex justify-content-end pt-30">
