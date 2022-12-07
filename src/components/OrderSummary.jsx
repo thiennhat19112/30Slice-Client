@@ -6,7 +6,7 @@ const OrderSummary = () => {
   // const subTotal = dataCart.reduce((total, item) => {
   //   return total + item.Price * item.Quantity;
   // }, 0);
-  const shippingFree = 30000;
+  const shippingFree = 0;
   return (
     <>
       <div className="total">
@@ -16,7 +16,7 @@ const OrderSummary = () => {
         </div>
         <div className="shipping">
           Phí vận chuyển:
-          <span>{shippingFree.toLocaleString("vi-VN")}</span>
+          <span>Miễn phí</span>
         </div>
       </div>
       <div className="total-money d-flex justify-content-between">
