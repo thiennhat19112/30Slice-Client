@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useState} from "react";
 import { getAllNews } from "../../app/services/user/news.service";
+import './news.css';
+
 export default function News() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,6 +18,7 @@ export default function News() {
   useEffect(() => {
     fetchNews();
   }, []);
+  
   return (
     <>
     <div className="container-fluid">
@@ -41,7 +45,77 @@ export default function News() {
       </div>
     ) : (
       // layout ở đây
-      <h1>nội dung here</h1>
+      <div className="container-fluid w-80 pt-3">
+        <div className="row product-page-list justify-content-center">     
+          {news && 
+            news.map((item) => (
+              <div className="news">
+                <img src={item?.image} class="card-img-top" alt="" />
+                  <div class="card-body">
+                    <h5 class="card-title">{item?.Title}</h5>
+                    <p class="card-text">{item?.Desc}</p>
+                    <button href="#" class="btn btn-primary">
+                    <Link to="/news-detail/?_id" className="offset">
+                      Chi tiết
+                    </Link>
+                    </button>
+                  </div>
+             
+              </div>
+              
+            ))
+          }   
+        </div>
+              {/* phan trang */}
+              <div className="d-flex justify-content-end pt-30">
+                <nav className="atbd-page ">
+                  <ul className="atbd-pagination d-flex">
+                    <li className="atbd-pagination__item">
+                      <a
+                        href="#"
+                        className="atbd-pagination__link pagination-control"
+                      >
+                        <span className="la la-angle-left" />
+                      </a>
+                      <a href="#" className="atbd-pagination__link">
+                        <span className="page-number">1</span>
+                      </a>
+                      <a href="#" className="atbd-pagination__link active">
+                        <span className="page-number">2</span>
+                      </a>
+                      <a href="#" className="atbd-pagination__link">
+                        <span className="page-number">3</span>
+                      </a>
+                      <a
+                        href="#"
+                        className="atbd-pagination__link pagination-control"
+                      >
+                        <span className="page-number">...</span>
+                      </a>
+                      <a href="#" className="atbd-pagination__link">
+                        <span className="page-number">12</span>
+                      </a>
+                      <a
+                        href="#"
+                        className="atbd-pagination__link pagination-control"
+                      >
+                        <span className="la la-angle-right" />
+                      </a>
+                      <a href="#" className="atbd-pagination__option"></a>
+                    </li>
+                    <li className="atbd-pagination__item">
+                      <div className="paging-option">
+                        <select name="page-number" className="page-selection">
+                          <option value={20}>20/page</option>
+                          <option value={40}>40/page</option>
+                          <option value={60}>60/page</option>
+                        </select>
+                      </div>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+      </div>
     )}
     </>
   );
