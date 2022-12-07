@@ -26,6 +26,17 @@ export const ChangeInfo = async (data) => {
     }
   };
   
+export const ChangeAvatar = async (data) => {
+    try {
+      const response = await api.put('user/change-avatar', data);
+      if (response.status === 200 || response.status === 201) {
+        return response;
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+  
 // const API_URL = import.meta.env.REACT_APP_API_ENDPOINT;
 
 // const getAdminBoard = () => {

@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^1.9.0",
     "axios": "^0.21.1",
     "feather-icons": "^4.29.0",
+    "firebase": "^9.14.0",
     "formik": "^2.2.9",
     "i": "^0.3.7",
     "notiflix": "^3.2.5",

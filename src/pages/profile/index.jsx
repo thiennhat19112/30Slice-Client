@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import Input from "../../components/sharedComponents/input";
@@ -8,16 +8,22 @@ import {
   toastSuccess,
   toastError,
 } from "../../components/sharedComponents/toast";
-import { ChangePassword,ChangeInfo } from "../../app/services/user/user.service";
+import {
+  ChangePassword,
+  ChangeInfo,
+  ChangeAvatar,
+} from "../../app/services/user/user.service";
 import { useNavigate } from "react-router-dom";
 import { Settings, Key, Camera } from "react-feather";
-import { logout } from '../../app/redux/slices/auth/auth';
+import { logout } from "../../app/redux/slices/auth/auth";
+import { uploadLoadFIle } from "../../app/services/upload";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const message = useSelector(selectMessage);
   const navigate = useNavigate();
+  const file = useRef();
   const {
     register,
     handleSubmit,
@@ -64,6 +70,20 @@ const Profile = () => {
     }
     // console.log(user);
   };
+  const handleChangeAvatar = async () => {
+    try {
+      const urlImg = await uploadLoadFIle(file.current.files[0]);
+      const { Images } = urlImg;
+      const res = await ChangeAvatar({ Images });
+      console.log(res);
+      if (res.status === 201) {
+        toastSuccess(res.data.message);
+        dispatch(logout());
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
 
   return (
     <>
@@ -88,6 +108,8 @@ const Profile = () => {
                         type="file"
                         name="fileUpload"
                         className="d-none"
+                        ref={file}
+                        onChange={handleChangeAvatar}
                       />
                       <label htmlFor="file-upload">
                         {/* Profile picture image*/}
@@ -232,9 +254,9 @@ const Profile = () => {
                                     type="submit"
                                     className="btn btn-primary btn-default btn-squared mr-15 text-capitalize"
                                   >
-                                     {loading && (
-                                        <span className="spinner-border spinner-border-sm"></span>
-                                      )}
+                                    {loading && (
+                                      <span className="spinner-border spinner-border-sm"></span>
+                                    )}
                                     Lưu
                                   </button>
                                   <button className="btn btn-light btn-default btn-squared fw-400 text-capitalize">

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from "react-toastify";
-
+import app from "./app/firebase/firebaseConfig";
 import { store, persistor } from './app/redux/store';
 import setupInterceptors from './app/axios/setupInterceptors';
 
