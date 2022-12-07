@@ -8,7 +8,7 @@ const Header = () => {
   const cartLength = useSelector((state) => state.cart.products.length);
   const UserInfo = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  // console.log(UserInfo);
+  console.log(UserInfo);
 
   const logOut = () => {
     dispatch(logout());
@@ -114,7 +114,7 @@ const Header = () => {
                   <div className="dropdown-custom">
                     <a href="#" className="nav-item-toggle">
                       <img
-                        src="/assets/img/author-nav.jpg"
+                        src={UserInfo?.user?.image}
                         alt=""
                         className="rounded-circle"
                       />
@@ -123,7 +123,7 @@ const Header = () => {
                       <div className="nav-author__info">
                         <div className="author-img">
                           <img
-                            src="/assets/img/author-nav.jpg"
+                            src={UserInfo?.user?.image}
                             alt=""
                             className="rounded-circle"
                           />

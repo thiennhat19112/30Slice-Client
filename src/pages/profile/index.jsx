@@ -93,7 +93,7 @@ const Profile = () => {
                         {/* Profile picture image*/}
                         <img
                           className="ap-img__main rounded-circle wh-120"
-                          src="assets/images/user.png"
+                          src={user?.image}
                           alt="profile"
                         />
                         <span className="cross" id="remove_pro_pic">
