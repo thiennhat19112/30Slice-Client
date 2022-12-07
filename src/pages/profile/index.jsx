@@ -72,8 +72,7 @@ const Profile = () => {
   };
   const handleChangeAvatar = async () => {
     try {
-      const urlImg = await uploadLoadFIle(file.current.files[0]);
-      const { Images } = urlImg;
+      const Images = await uploadLoadFIle(file.current.files[0]);
       const res = await ChangeAvatar({ Images });
       console.log(res);
       if (res.status === 201) {
