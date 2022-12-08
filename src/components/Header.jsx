@@ -95,7 +95,7 @@ const Header = () => {
                 </div>
               </NavLink>
 
-              <li className="nav-search d-none">
+              {/* <li className="nav-search d-none">
                 <a href="#" className="search-toggle">
                   <i className="la la-search" />
                   <i className="la la-times" />
@@ -108,7 +108,7 @@ const Header = () => {
                     placeholder="Search..."
                   />
                 </form>
-              </li>
+              </li> */}
               {UserInfo.isLoggedIn ? (
                 <li className="nav-author">
                   <div className="dropdown-custom">

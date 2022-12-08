@@ -8,6 +8,7 @@ import { toastSuccess } from "../../components/sharedComponents/toast";
 import { ShoppingBag, ShoppingCart } from "react-feather";
 import {
   addComment,
+  deleteCommentByAdmin,
   getCommentByProduct,
   updateComment,
 } from "../../app/services/user/comment.service";
@@ -37,6 +38,7 @@ function Detail(props) {
     setProduct(data);
     setLoading(false);
   };
+
   const addToCart = (item) => {
     const product = {
       _id: item._id,
@@ -94,6 +96,14 @@ function Detail(props) {
     }
   };
 
+  const handleDeleteByAdmin = async (id) => {
+    const data = { _id: id };
+    const res = await deleteCommentByAdmin(data);
+    if (res.status === 200) {
+      fetchComment();
+    }
+  };
+
   const handleReplyComment = async () => {
     const data = {
       Id_Customter: user?.id,
@@ -122,16 +132,16 @@ function Detail(props) {
 
   const handleUpdateComment = async () => {
     const data = {
-      Content : contentUpdate,
-      _id : idCommentUpdate 
-    }
+      Content: contentUpdate,
+      _id: idCommentUpdate,
+    };
     const res = await updateComment(data);
     if (res.status === 200) {
       setIdCommentUpdate("");
-      setContentUpdate("")
+      setContentUpdate("");
       fetchComment();
     }
-  }
+  };
 
   useEffect(() => {
     const load = async () => {
@@ -438,7 +448,7 @@ function Detail(props) {
                             <div class="atbd-comment-box__author">
                               <figure>
                                 <img
-                                  src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/avatar-dep-cute.jpg"
+                                  src={item?.Id_Customter?.Images}
                                   class="bg-opacity-primary d-flex"
                                   alt="Admin Autor"
                                 />
@@ -446,35 +456,55 @@ function Detail(props) {
                             </div>
                             <div class="atbd-comment-box__content media-body">
                               <div class="comment-content-inner cci">
-                                <span class="cci__author-info">{item?.Id_Customter?.Full_Name}</span>
+                                <span class="cci__author-info font-weight-bold">
+                                  {item?.Id_Customter?.Full_Name}
+                                  {item?.Id_Customter?.Role === "admin" && (
+                                    <img
+                                      src="/assets/images/tich-xanh.png"
+                                      alt=""
+                                      width={18}
+                                      className="mx-1"
+                                    />
+                                  )}
+                                </span>
                                 <p class="cci__comment-text">{item.Content}</p>
 
                                 {isLoggedIn && (
                                   <div class="cci__comment-actions">
                                     <a
                                       href="javascript:void(0)"
-                                      onClick={() =>
-                                        setIdCommentReply(item._id)
-                                      }
+                                      onClick={() => {
+                                        setIdCommentReply(item._id);
+                                        setIdCommentUpdate("");
+                                      }}
                                       class="btn-reply"
                                     >
                                       <span className="text-primary">
                                         Trả lời
                                       </span>
                                     </a>
-
+                                    {user?.role === "admin" && (
+                                      <a
+                                        href="javascript:void(0)"
+                                        class="btn-reply"
+                                        onClick={() =>
+                                          handleDeleteByAdmin(item?._id)
+                                        }
+                                      >
+                                        <span className="mx-2 text-danger">
+                                          Gỡ
+                                        </span>
+                                      </a>
+                                    )}
                                     {user?.id === item?.Id_Customter?._id && (
                                       <>
                                         <a
                                           href="javascript:void(0)"
                                           class="btn-reply"
                                           onClick={() => {
-                                            setIdCommentUpdate(
-                                              item?._id
-                                            );
-                                            setContentUpdate(
-                                              item?.Content
-                                            );
+                                            setIdCommentUpdate(item?._id);
+                                            setContentUpdate(item?.Content);
+                                            setIdCommentReply("");
                                           }}
                                         >
                                           <span className="mx-2 text-primary">
@@ -485,12 +515,14 @@ function Detail(props) {
                                           href="javascript:void(0)"
                                           class="btn-reply"
                                           onClick={() =>
-                                            handleDeleteComment(item?._id)
+                                            handleDeleteByAdmin(item?._id)
                                           }
                                         >
-                                          <span className="mx-2 text-danger">
-                                            Xoá
-                                          </span>
+                                          {user?.role === "customer" && (
+                                                  <span className="mx-2 text-danger">
+                                                    Xoá
+                                                  </span>
+                                                )}
                                         </a>
                                       </>
                                     )}
@@ -502,7 +534,7 @@ function Detail(props) {
                                   <div className="reply-editor media mt-3">
                                     <div className="reply-editor__author">
                                       <img
-                                        src="/assets/img/author/1.jpg"
+                                        src={item?.Id_Customter?.Images}
                                         className="bg-opacity-primary d-flex"
                                         alt="Reply Editor Author"
                                       />
@@ -564,7 +596,7 @@ function Detail(props) {
                                     <div class="atbd-comment-box__author">
                                       <figure>
                                         <img
-                                          src="https://toigingiuvedep.vn/wp-content/uploads/2021/01/avatar-dep-cute.jpg"
+                                          src={childItem?.Id_Customter?.Images}
                                           class="bg-opacity-primary d-flex"
                                           alt="Admin Autor"
                                         />
@@ -572,9 +604,19 @@ function Detail(props) {
                                     </div>
                                     <div class="atbd-comment-box__content media-body">
                                       <div class="comment-content-inner cci">
-                                        <span class="cci__author-info">
+                                        <span class="cci__author-info font-weight-bold">
                                           {childItem?.Id_Customter?.Full_Name}
+                                          {childItem?.Id_Customter?.Role ===
+                                            "admin" && (
+                                            <img
+                                              src="/assets/images/tich-xanh.png"
+                                              alt=""
+                                              width={18}
+                                              className="mx-1"
+                                            />
+                                          )}
                                         </span>
+
                                         <p class="cci__comment-text">
                                           {childItem.Content}
                                         </p>
@@ -586,14 +628,16 @@ function Detail(props) {
                                                 href="javascript:void(0)"
                                                 class="btn-reply"
                                                 onClick={() =>
-                                                  handleDeleteComment(
+                                                  handleDeleteByAdmin(
                                                     childItem?._id
                                                   )
                                                 }
                                               >
-                                                <span className="mx-2 text-danger">
-                                                  Xoá
-                                                </span>
+                                                {user?.role === "customer" && (
+                                                  <span className="mx-2 text-danger">
+                                                    Xoá
+                                                  </span>
+                                                )}
                                               </a>
 
                                               <a
@@ -606,6 +650,7 @@ function Detail(props) {
                                                   setContentUpdate(
                                                     childItem?.Content
                                                   );
+                                                  setIdCommentReply("");
                                                 }}
                                               >
                                                 <span className="mx-2 text-primary">
@@ -614,35 +659,49 @@ function Detail(props) {
                                               </a>
                                             </>
                                           )}
-                                          
+                                          {user?.role === "admin" && (
+                                            <a
+                                              href="javascript:void(0)"
+                                              class="btn-reply"
+                                              onClick={() =>
+                                                handleDeleteByAdmin(
+                                                  childItem?._id
+                                                )
+                                              }
+                                            >
+                                              <span className="mx-2 text-danger">
+                                                Gỡ
+                                              </span>
+                                            </a>
+                                          )}
                                         </div>
                                         {/* sưa */}
                                         {idCommentUpdate.toString() ===
-                                            childItem._id.toString() && (
-                                            <div className="reply-editor media mt-3">
-                                              {/* ends: .reply-editor__author */}
-                                              <div className="reply-editor__form media-body">
-                                                <div className="form-group row">
-                                                  <input
-                                                    class="form-control w-50 mx-20"
-                                                    type="text"
-                                                    value={contentUpdate}
-                                                    onChange={(e) =>
-                                                      setContentUpdate(
-                                                        e.target.value
-                                                      )
-                                                    }
-                                                  />
-                                                  <input
-                                                    type="button"
-                                                    class="btn btn-primary"
-                                                    value="Sửa"
-                                                    onClick={handleUpdateComment}
-                                                  />
-                                                </div>
+                                          childItem._id.toString() && (
+                                          <div className="reply-editor media mt-3">
+                                            {/* ends: .reply-editor__author */}
+                                            <div className="reply-editor__form media-body">
+                                              <div className="form-group row">
+                                                <input
+                                                  class="form-control w-50 mx-20"
+                                                  type="text"
+                                                  value={contentUpdate}
+                                                  onChange={(e) =>
+                                                    setContentUpdate(
+                                                      e.target.value
+                                                    )
+                                                  }
+                                                />
+                                                <input
+                                                  type="button"
+                                                  class="btn btn-primary"
+                                                  value="Sửa"
+                                                  onClick={handleUpdateComment}
+                                                />
                                               </div>
                                             </div>
-                                          )}
+                                          </div>
+                                        )}
                                       </div>
                                       <div></div>
                                     </div>
@@ -661,7 +720,7 @@ function Detail(props) {
                       <div className="reply-editor media mt-3">
                         <div className="reply-editor__author">
                           <img
-                            src="/assets/img/author/1.jpg"
+                            src={user?.image}
                             className="bg-opacity-primary d-flex"
                             alt="Reply Editor Author"
                           />

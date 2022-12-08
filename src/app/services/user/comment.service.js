@@ -28,3 +28,12 @@ export const updateComment = async (data) => {
         throw new Error(err);
     }
 }
+
+export const deleteCommentByAdmin = async (data) =>{
+    try{
+        const response = await api.delete('comment/',{data});
+        return response;
+    }catch(err){
+        throw new Error(err);
+    }
+}
