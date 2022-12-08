@@ -1,36 +1,39 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
-import ProtectedRoute from "./protectedRoute";
-import PrivateRoute from "./privateRoute";
-import ProtectedCheckoutRoute from "./protectedCheckoutRoute";
+// import ProtectedRoute from "./protectedRoute";
+// import PrivateRoute from "./privateRoute";
+// import ProtectedCheckoutRoute from "./protectedCheckoutRoute";
+const PrivateRoute = lazy(() => import("./privateRoute"));
+const ProtectedRoute = lazy(() => import("./protectedRoute"));
+const ProtectedCheckoutRoute = lazy(() => import("./protectedCheckoutRoute"));
 
-import App from "../App";
-
-// import page
-import Booking from "../pages/booking";
-import Products from "../pages/products";
-import Detail from "../pages/detail";
-import Home from "../pages/home";
-import Error from "../pages/Error";
-import Cart from "../pages/cart";
-import Category from "../pages/Category";
-import Checkout from "../pages/checkout";
-import Checkout2 from "../pages/checkout/checkout2";
-import Checkout3 from "../pages/checkout/checkout3";
-import Checkout4 from "../pages/checkout/checkout4";
-import Login from "../pages/login";
-import Register from "../pages/signup";
-import Profile from "../pages/profile";
-import Order from "../pages/order";
-import OrderInfo from "../pages/order/Info";
-import BookedHistory from "../pages/booked-history";
-import ForgetPassword from "../pages/forget-password";
-import ResetPassword from "../pages/reset-password";
-import BookingSuccess from "../pages/booking-success";
-import About from "../pages/about/About";
-import Contact from "../pages/contact";
-import Combo from "../pages/combo";
-import News from "../pages/news";
+// import App from "../App";
+const App = lazy(() => import("../App"));
+const Booking = lazy(() => import("../pages/booking"));
+const Products = lazy(() => import("../pages/products"));
+const Detail = lazy(() => import("../pages/detail"));
+const Home = lazy(() => import("../pages/home"));
+const Error = lazy(() => import("../pages/Error"));
+const Cart = lazy(() => import("../pages/cart"));
+const Category = lazy(() => import("../pages/Category"));
+const Checkout = lazy(() => import("../pages/checkout"));
+const Checkout2 = lazy(() => import("../pages/checkout/checkout2"));
+const Checkout3 = lazy(() => import("../pages/checkout/checkout3"));
+const Checkout4 = lazy(() => import("../pages/checkout/checkout4"));
+const Login = lazy(() => import("../pages/login"));
+const Register = lazy(() => import("../pages/signup"));
+const Profile = lazy(() => import("../pages/profile"));
+const Order = lazy(() => import("../pages/order"));
+const OrderInfo = lazy(() => import("../pages/order/Info"));
+const BookedHistory = lazy(() => import("../pages/booked-history"));
+const ForgetPassword = lazy(() => import("../pages/forget-password"));
+const ResetPassword = lazy(() => import("../pages/reset-password"));
+const BookingSuccess = lazy(() => import("../pages/booking-success"));
+const About = lazy(() => import("../pages/about/About"));
+const Contact = lazy(() => import("../pages/contact"));
+const Combo = lazy(() => import("../pages/combo"));
+const News = lazy(() => import("../pages/news"));
 
 const routes = createBrowserRouter([
   {
@@ -40,7 +43,11 @@ const routes = createBrowserRouter([
       {
         path: "",
         exact: true,
-        element: <App />,
+        element: (
+          <Suspense fallback={<p>Loading...</p>}>
+            <App />,
+          </Suspense>
+        ),
         children: [
           {
             path: "",
@@ -213,7 +220,11 @@ const routes = createBrowserRouter([
         ],
       },
     ],
-    errorElement: <Error />,
+    errorElement: (
+      <Suspense fallback={<p>Loading...</p>}>
+        <Error />
+      </Suspense>
+    ),
   },
 ]);
 
