@@ -12,7 +12,7 @@ import {
   getCommentByProduct,
   updateComment,
 } from "../../app/services/user/comment.service";
-const socket = io('172.104.186.85:3200');
+const socket = io("172.104.186.85:3200");
 function Detail(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,22 +29,21 @@ function Detail(props) {
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   const [isConnected, setIsConnected] = useState(socket.connected);
   useEffect(() => {
-    socket.on('connect', () => {
+    socket.on("connect", () => {
       setIsConnected(true);
     });
-    socket.on('disconnect', () => {
+    socket.on("disconnect", () => {
       setIsConnected(false);
     });
 
-    socket.on('comment', (data) => {
+    socket.on("comment", (data) => {
       fetchComment();
-
     });
 
     return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('pong');
+      socket.off("connect");
+      socket.off("disconnect");
+      socket.off("comment");
     };
   }, []);
 
@@ -114,7 +113,7 @@ function Detail(props) {
     if (res.status === 200) {
       setContentComment("");
       // fetchComment();
-      socket.emit('comment',res.data);
+      socket.emit("comment", "ok");
     }
   };
 
@@ -123,8 +122,7 @@ function Detail(props) {
     const res = await deleteCommentByAdmin(data);
     if (res.status === 200) {
       // fetchComment();
-      socket.emit('comment',res);
-
+      socket.emit("comment", res);
     }
   };
 
@@ -140,8 +138,7 @@ function Detail(props) {
       setIdCommentReply("");
       setContentReply("");
       // fetchComment();
-      socket.emit('comment',res);
-
+      socket.emit("comment", "ok");
     }
   };
 
@@ -153,8 +150,7 @@ function Detail(props) {
     const res = await updateComment(data);
     if (res.status === 200) {
       // fetchComment();
-      socket.emit('comment',res);
-
+      socket.emit("comment", "ok");
     }
   };
 
@@ -168,13 +164,11 @@ function Detail(props) {
       setIdCommentUpdate("");
       setContentUpdate("");
       // fetchComment();
-      socket.emit('comment',res);
-
+      socket.emit("comment", "ok");
     }
   };
 
   useEffect(() => {
-
     const load = async () => {
       await fetchDetail();
       await fetchComment();
@@ -498,7 +492,9 @@ function Detail(props) {
                                     />
                                   )}
                                 </span>
-                                <p className="cci__comment-text">{item.Content}</p>
+                                <p className="cci__comment-text">
+                                  {item.Content}
+                                </p>
 
                                 {isLoggedIn && (
                                   <div className="cci__comment-actions">
@@ -621,7 +617,10 @@ function Detail(props) {
                           </div>
                           {item.Children.length > 0 &&
                             item.Children.map((childItem) => (
-                              <ul key={childItem?._id} className="comment-list__ul">
+                              <ul
+                                key={childItem?._id}
+                                className="comment-list__ul"
+                              >
                                 <li className="mb-20 mt-4">
                                   <div className="atbd-comment-box media">
                                     <div className="atbd-comment-box__author">
