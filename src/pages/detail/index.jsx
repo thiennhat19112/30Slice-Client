@@ -1,6 +1,6 @@
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import Breadcrumb from "../../components/Breakcumb";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../app/redux/slices/user/CartSlice";
@@ -12,7 +12,7 @@ import {
   getCommentByProduct,
   updateComment,
 } from "../../app/services/user/comment.service";
-
+const socket = io('https://locahost:3200');
 function Detail(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,11 +27,25 @@ function Detail(props) {
   const [idCommentUpdate, setIdCommentUpdate] = useState("");
   const [contentUpdate, setContentUpdate] = useState("");
   const { isLoggedIn, user } = useSelector((state) => state.auth);
-  const host = "http://localhost:3200/";
-  const socket = socketIOClient(host);
-  socket.on("comment", (data) => {
-    console.log(data);
-  });
+  const [isConnected, setIsConnected] = useState(socket.connected);
+  useEffect(() => {
+    socket.on('connect', () => {
+      setIsConnected(true);
+    });
+    socket.on('disconnect', () => {
+      setIsConnected(false);
+    });
+
+    socket.on('pong', () => {
+      setLastPong(new Date().toISOString());
+    });
+
+    return () => {
+      socket.off('connect');
+      socket.off('disconnect');
+      socket.off('pong');
+    };
+  }, []);
 
   const fetchDetail = async () => {
     setLoading(true);
@@ -99,7 +113,6 @@ function Detail(props) {
     if (res.status === 200) {
       setContentComment("");
       // fetchComment();
-      socket.emit("comment", res.data);
     }
   };
 
