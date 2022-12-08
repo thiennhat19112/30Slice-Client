@@ -1,6 +1,6 @@
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import Breadcrumb from "../../components/Breakcumb";
-
+import socketIOClient from "socket.io-client";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../app/redux/slices/user/CartSlice";
@@ -27,6 +27,12 @@ function Detail(props) {
   const [idCommentUpdate, setIdCommentUpdate] = useState("");
   const [contentUpdate, setContentUpdate] = useState("");
   const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const host = "http://localhost:3200/";
+  const socket = socketIOClient(host);
+  socket.on("comment", (data) => {
+    console.log(data);
+  });
+
   const fetchDetail = async () => {
     setLoading(true);
     const res = await fetch(
@@ -92,7 +98,8 @@ function Detail(props) {
     const res = await addComment(data);
     if (res.status === 200) {
       setContentComment("");
-      fetchComment();
+      // fetchComment();
+      socket.emit("comment", res.data);
     }
   };
 
@@ -144,6 +151,7 @@ function Detail(props) {
   };
 
   useEffect(() => {
+
     const load = async () => {
       await fetchDetail();
       await fetchComment();
@@ -442,21 +450,21 @@ function Detail(props) {
                 <div className="card-body">
                   {comment.length > 0 &&
                     comment.map((item) => (
-                      <ul class="comment-list__ul">
-                        <li class="mt-4">
-                          <div class="atbd-comment-box media">
-                            <div class="atbd-comment-box__author">
+                      <ul key={item?._id} className="comment-list__ul">
+                        <li className="mt-4">
+                          <div className="atbd-comment-box media">
+                            <div className="atbd-comment-box__author">
                               <figure>
                                 <img
                                   src={item?.Id_Customter?.Images}
-                                  class="bg-opacity-primary d-flex"
+                                  className="bg-opacity-primary d-flex"
                                   alt="Admin Autor"
                                 />
                               </figure>
                             </div>
-                            <div class="atbd-comment-box__content media-body">
-                              <div class="comment-content-inner cci">
-                                <span class="cci__author-info font-weight-bold">
+                            <div className="atbd-comment-box__content media-body">
+                              <div className="comment-content-inner cci">
+                                <span className="cci__author-info font-weight-bold">
                                   {item?.Id_Customter?.Full_Name}
                                   {item?.Id_Customter?.Role === "admin" && (
                                     <img
@@ -467,17 +475,17 @@ function Detail(props) {
                                     />
                                   )}
                                 </span>
-                                <p class="cci__comment-text">{item.Content}</p>
+                                <p className="cci__comment-text">{item.Content}</p>
 
                                 {isLoggedIn && (
-                                  <div class="cci__comment-actions">
+                                  <div className="cci__comment-actions">
                                     <a
                                       href="javascript:void(0)"
                                       onClick={() => {
                                         setIdCommentReply(item._id);
                                         setIdCommentUpdate("");
                                       }}
-                                      class="btn-reply"
+                                      className="btn-reply"
                                     >
                                       <span className="text-primary">
                                         Trả lời
@@ -486,7 +494,7 @@ function Detail(props) {
                                     {user?.role === "admin" && (
                                       <a
                                         href="javascript:void(0)"
-                                        class="btn-reply"
+                                        className="btn-reply"
                                         onClick={() =>
                                           handleDeleteByAdmin(item?._id)
                                         }
@@ -500,7 +508,7 @@ function Detail(props) {
                                       <>
                                         <a
                                           href="javascript:void(0)"
-                                          class="btn-reply"
+                                          className="btn-reply"
                                           onClick={() => {
                                             setIdCommentUpdate(item?._id);
                                             setContentUpdate(item?.Content);
@@ -513,16 +521,16 @@ function Detail(props) {
                                         </a>
                                         <a
                                           href="javascript:void(0)"
-                                          class="btn-reply"
+                                          className="btn-reply"
                                           onClick={() =>
                                             handleDeleteByAdmin(item?._id)
                                           }
                                         >
                                           {user?.role === "customer" && (
-                                                  <span className="mx-2 text-danger">
-                                                    Xoá
-                                                  </span>
-                                                )}
+                                            <span className="mx-2 text-danger">
+                                              Xoá
+                                            </span>
+                                          )}
                                         </a>
                                       </>
                                     )}
@@ -543,7 +551,7 @@ function Detail(props) {
                                     <div className="reply-editor__form media-body">
                                       <div className="form-group row">
                                         <input
-                                          class="form-control w-50 mx-20"
+                                          className="form-control w-50 mx-20"
                                           type="text"
                                           value={contentReply}
                                           onChange={(e) =>
@@ -552,7 +560,7 @@ function Detail(props) {
                                         />
                                         <input
                                           type="button"
-                                          class="btn btn-primary"
+                                          className="btn btn-primary"
                                           value="Trả lời"
                                           onClick={handleReplyComment}
                                         />
@@ -568,7 +576,7 @@ function Detail(props) {
                                     <div className="reply-editor__form media-body">
                                       <div className="form-group row">
                                         <input
-                                          class="form-control w-50 mx-20"
+                                          className="form-control w-50 mx-20"
                                           type="text"
                                           value={contentUpdate}
                                           onChange={(e) =>
@@ -577,7 +585,7 @@ function Detail(props) {
                                         />
                                         <input
                                           type="button"
-                                          class="btn btn-primary"
+                                          className="btn btn-primary"
                                           value="Sửa"
                                           onClick={handleUpdateComment}
                                         />
@@ -590,21 +598,21 @@ function Detail(props) {
                           </div>
                           {item.Children.length > 0 &&
                             item.Children.map((childItem) => (
-                              <ul class="comment-list__ul">
-                                <li class="mb-20 mt-4">
-                                  <div class="atbd-comment-box media">
-                                    <div class="atbd-comment-box__author">
+                              <ul key={childItem?._id} className="comment-list__ul">
+                                <li className="mb-20 mt-4">
+                                  <div className="atbd-comment-box media">
+                                    <div className="atbd-comment-box__author">
                                       <figure>
                                         <img
                                           src={childItem?.Id_Customter?.Images}
-                                          class="bg-opacity-primary d-flex"
+                                          className="bg-opacity-primary d-flex"
                                           alt="Admin Autor"
                                         />
                                       </figure>
                                     </div>
-                                    <div class="atbd-comment-box__content media-body">
-                                      <div class="comment-content-inner cci">
-                                        <span class="cci__author-info font-weight-bold">
+                                    <div className="atbd-comment-box__content media-body">
+                                      <div className="comment-content-inner cci">
+                                        <span className="cci__author-info font-weight-bold">
                                           {childItem?.Id_Customter?.Full_Name}
                                           {childItem?.Id_Customter?.Role ===
                                             "admin" && (
@@ -617,16 +625,16 @@ function Detail(props) {
                                           )}
                                         </span>
 
-                                        <p class="cci__comment-text">
+                                        <p className="cci__comment-text">
                                           {childItem.Content}
                                         </p>
-                                        <div class="cci__comment-actions">
+                                        <div className="cci__comment-actions">
                                           {user?.id ===
                                             childItem?.Id_Customter?._id && (
                                             <>
                                               <a
                                                 href="javascript:void(0)"
-                                                class="btn-reply"
+                                                className="btn-reply"
                                                 onClick={() =>
                                                   handleDeleteByAdmin(
                                                     childItem?._id
@@ -642,7 +650,7 @@ function Detail(props) {
 
                                               <a
                                                 href="javascript:void(0)"
-                                                class="btn-reply"
+                                                className="btn-reply"
                                                 onClick={() => {
                                                   setIdCommentUpdate(
                                                     childItem?._id
@@ -662,7 +670,7 @@ function Detail(props) {
                                           {user?.role === "admin" && (
                                             <a
                                               href="javascript:void(0)"
-                                              class="btn-reply"
+                                              className="btn-reply"
                                               onClick={() =>
                                                 handleDeleteByAdmin(
                                                   childItem?._id
@@ -683,7 +691,7 @@ function Detail(props) {
                                             <div className="reply-editor__form media-body">
                                               <div className="form-group row">
                                                 <input
-                                                  class="form-control w-50 mx-20"
+                                                  className="form-control w-50 mx-20"
                                                   type="text"
                                                   value={contentUpdate}
                                                   onChange={(e) =>
@@ -694,7 +702,7 @@ function Detail(props) {
                                                 />
                                                 <input
                                                   type="button"
-                                                  class="btn btn-primary"
+                                                  className="btn btn-primary"
                                                   value="Sửa"
                                                   onClick={handleUpdateComment}
                                                 />
