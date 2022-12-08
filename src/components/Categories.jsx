@@ -44,7 +44,7 @@ const Categories = () => {
         {categories.length > 0 &&
           categories.map((category) => (
             <li key={category._id}>
-              <Link className="mega-title">{category?.Name}</Link>
+              <a className="mega-title">{category?.Name}</a>
               <ul>
                 {category?.Children.length > 0 &&
                   category?.Children.map((child) => (

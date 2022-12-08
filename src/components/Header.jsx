@@ -30,7 +30,7 @@ const Header = () => {
         <nav className="navbar navbar-light">
           <div className="navbar-left">
             <a className="sidebar-toggle">
-              <img className="svg" src="assets/img/svg/bars.svg" alt="img" />
+              <img className="svg" src="/assets/img/svg/bars.svg" alt="img" />
             </a>
             <Link className="navbar-brand" to="/">
               <img
