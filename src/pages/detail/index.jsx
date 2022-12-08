@@ -12,7 +12,7 @@ import {
   getCommentByProduct,
   updateComment,
 } from "../../app/services/user/comment.service";
-const socket = io('https://locahost:3200');
+const socket = io('172.104.186.85:3200');
 function Detail(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,8 +36,9 @@ function Detail(props) {
       setIsConnected(false);
     });
 
-    socket.on('pong', () => {
-      setLastPong(new Date().toISOString());
+    socket.on('comment', (data) => {
+      fetchComment();
+
     });
 
     return () => {
@@ -113,6 +114,7 @@ function Detail(props) {
     if (res.status === 200) {
       setContentComment("");
       // fetchComment();
+      socket.emit('comment',res.data);
     }
   };
 
@@ -120,7 +122,9 @@ function Detail(props) {
     const data = { _id: id };
     const res = await deleteCommentByAdmin(data);
     if (res.status === 200) {
-      fetchComment();
+      // fetchComment();
+      socket.emit('comment',res);
+
     }
   };
 
@@ -135,7 +139,9 @@ function Detail(props) {
     if (res.status === 200) {
       setIdCommentReply("");
       setContentReply("");
-      fetchComment();
+      // fetchComment();
+      socket.emit('comment',res);
+
     }
   };
 
@@ -146,7 +152,9 @@ function Detail(props) {
     };
     const res = await updateComment(data);
     if (res.status === 200) {
-      fetchComment();
+      // fetchComment();
+      socket.emit('comment',res);
+
     }
   };
 
@@ -159,7 +167,9 @@ function Detail(props) {
     if (res.status === 200) {
       setIdCommentUpdate("");
       setContentUpdate("");
-      fetchComment();
+      // fetchComment();
+      socket.emit('comment',res);
+
     }
   };
 
