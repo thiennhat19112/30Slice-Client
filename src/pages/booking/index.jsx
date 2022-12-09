@@ -22,7 +22,6 @@ import {
 } from "../../components/sharedComponents/validatorPatterns";
 import { useForm } from "react-hook-form";
 
-
 function Booking(props) {
   const userInfo = useSelector((state) => state.auth);
   const navigate = useNavigate();
@@ -35,7 +34,8 @@ function Booking(props) {
   const [loading, setLoading] = useState(false);
   const [idStylist, setIdStylist] = useState(0);
   const _isMounted = useRef(false);
-  const arrDate = create7Date()
+  const arrDate = create7Date();
+  const [error, setError] = useState([]);
 
   const refDate = useRef(arrDate[0].dateEn);
   const refStyleList = useRef(0);
@@ -46,7 +46,6 @@ function Booking(props) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  
 
   // hàm get stylist theo ngày
   const loadArrStyleList = async () => {
@@ -66,26 +65,38 @@ function Booking(props) {
       _isMounted.current && setLoading(false);
     }
   };
+  const isValidPhone = (value) => {
+    if (value && /^0[3|5|7|8|9][0-9]{8}$/.test(value)) {
+      return true;
+    }
+    return false;
+  };
   const onBlurPhone = async () => {
     let phone = refPhone.current.value;
-    // /^\+84[3|5|7|8|9][0-9]{8}$/.test(phone);
-    // console.log(phone);
+    if (!isValidPhone(phone)) {
+      setError({ phone: "Số điện thoại không hợp lệ" });
+      return;
+    }
+    setError();
     _isMounted.current && setLoading(true);
     const res = await LoginCustomer(phone);
     if (res.status === 200) {
       setCustomerInfo(res.data);
       refCustomerName.current.value = res.data.Full_Name;
-      _isMounted.current && setLoading(false);
-    } else {
-      _isMounted.current && setLoading(false);
     }
+    _isMounted.current && setLoading(false);
   };
+  console.log(error);
   const onBlurName = async () => {
     let name = refCustomerName.current.value;
     let phone = refPhone.current.value;
-    if (!name && !phone) {
+    if (!isValidPhone(phone) || !name) {
+      setError({ name: "Tên không được để trống" });
+
+      // toastError("Số điện thoại không hợp lệ");
       return;
     }
+    setError();
     _isMounted.current && setLoading(true);
     const res = await RegisterCustomer({ name, phone });
 
@@ -146,7 +157,10 @@ function Booking(props) {
   }, [BookedTime, arrEmployee]);
   // hàm load lại danh sách thời gian
   const reloadListTime = () => {
-    const arrAvailableTime = getAvailableTime(refDate.current.value,arrEmployee);
+    const arrAvailableTime = getAvailableTime(
+      refDate.current.value,
+      arrEmployee
+    );
     setListTime(
       Object.entries(arrAvailableTime).map((ele, index) => {
         const isAvailable =
@@ -176,7 +190,6 @@ function Booking(props) {
               id={ele[0]}
               style={{ display: "none" }}
               onClick={() => setIdStylist(idStylist[0])}
-
             />
             <label
               className={`form-check-label btn px-4 border ${
@@ -207,8 +220,12 @@ function Booking(props) {
             Nhập số điện thoại<sup className="text-danger">*</sup>
           </label>
           <input
-            type="number"
-            className="form-control form-control-lg"
+            type="text"
+            className={
+              !!error?.phone
+                ? "is-invalid form-control form-control-lg"
+                : "form-control form-control-lg"
+            }
             placeholder="Số điện thoại..."
             id="phone"
             ref={refPhone}
@@ -216,6 +233,7 @@ function Booking(props) {
             disabled={CustomerInfo && CustomerInfo.Phone}
             required
           />
+          {error && <span className="invalid-validate">{error?.phone}</span>}
         </div>
         <div className="form-floating m-3">
           <label htmlFor="name">
@@ -223,7 +241,11 @@ function Booking(props) {
           </label>
           <input
             type="text"
-            className="form-control form-control-lg"
+            className={
+              !!error?.name
+                ? "is-invalid form-control form-control-lg"
+                : "form-control form-control-lg"
+            }
             placeholder="Họ và tên."
             id="name"
             ref={refCustomerName}
@@ -231,6 +253,8 @@ function Booking(props) {
             required
             onBlur={onBlurName}
           />
+          {error && <span className="invalid-validate">{error?.name}</span>}
+
         </div>
         <div className="form-floating m-3">
           <label htmlFor="date">Chọn ngày</label>
@@ -346,7 +370,7 @@ function Booking(props) {
         <button
           className="btn btn-primary btn-lg btn-squared btn-block "
           type="submit"
-          disabled={loading}
+          disabled={loading || error}
         >
           {loading && (
             <span className="spinner-border spinner-border-sm"></span>
