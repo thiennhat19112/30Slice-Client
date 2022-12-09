@@ -15,6 +15,13 @@ import {
 import { create7Date, allAvailableTime } from "./func";
 import { useSelector } from "react-redux";
 import "../../App.css";
+import {
+  usernameValidator,
+  phoneValidator,
+  passwordValidator,
+} from "../../components/sharedComponents/validatorPatterns";
+import { useForm } from "react-hook-form";
+
 
 function Booking(props) {
   const userInfo = useSelector((state) => state.auth);
@@ -26,15 +33,21 @@ function Booking(props) {
   const [arrService, setArrService] = useState([]);
   const [listTime, setListTime] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [loadingBtn, setLoadingBtn] = useState(false);
-  const [arrDate, setArrDate] = useState(create7Date());
   const [idStylist, setIdStylist] = useState(0);
   const _isMounted = useRef(false);
+  const arrDate = create7Date()
+
   const refDate = useRef(arrDate[0].dateEn);
   const refStyleList = useRef(0);
   const refPhone = useRef("");
   const refCustomerName = useRef("");
   const refNote = useRef("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  
 
   // hàm get stylist theo ngày
   const loadArrStyleList = async () => {
@@ -83,7 +96,7 @@ function Booking(props) {
     }
   };
   const CreateBook = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     let idStylelist;
     if (refStyleList.current.value === "0") {
       idStylelist = idStylist;
@@ -102,7 +115,7 @@ function Booking(props) {
       BookedTime: BookedTime,
       BookedDate: refDate.current.value,
       Phone: CustomerInfo.Phone,
-      Note: refNote.current.value,
+      Note: e.note,
     };
 
     _isMounted.current && setLoading(true);
@@ -224,7 +237,7 @@ function Booking(props) {
         Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt
         lịch 30Slice
       </h1>
-      <form onSubmit={CreateBook}>
+      <form onSubmit={handleSubmit(CreateBook)}>
         <div className="form-floating m-3">
           <label htmlFor="phone">
             Nhập số điện thoại<sup className="text-danger">*</sup>
@@ -360,7 +373,9 @@ function Booking(props) {
             rows={3}
             defaultValue={""}
             placeholder="Tôi muốn ghi chú..."
-            ref={refNote}
+            {...register("note", {
+              required: false,
+            })}
           />
         </div>
 
