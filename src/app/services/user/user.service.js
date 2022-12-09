@@ -3,7 +3,16 @@
 // import api from './auth/api';
 import api from '../../axios/api';
 
-
+export const RegisterUser = async (data) => {
+  try {
+    const response = await api.post('user/signup', data);
+    if (response.status === 200 || response.status === 201) {
+      return response;
+    }
+  } catch (err) {
+    return err;
+  }
+};
 
 export const ChangePassword = async (data) => {
     try {
