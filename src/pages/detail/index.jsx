@@ -12,7 +12,7 @@ import {
   getCommentByProduct,
   updateComment,
 } from "../../app/services/user/comment.service";
-const socket = io("172.104.186.85:3200");
+const socket = io("v2.30slice.online");
 function Detail(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
