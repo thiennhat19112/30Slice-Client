@@ -15,9 +15,9 @@ import {
 import { create7Date, allAvailableTime } from "./func";
 import { useSelector } from "react-redux";
 import "../../App.css";
+
 function Booking(props) {
   const userInfo = useSelector((state) => state.auth);
-
   const navigate = useNavigate();
   const [BookedTime, setBookedTime] = useState("");
   const [ServiceId, setServiceId] = useState(0);
@@ -82,7 +82,8 @@ function Booking(props) {
       _isMounted.current && setLoading(false);
     }
   };
-  const CreateBook = async () => {
+  const CreateBook = async (e) => {
+    e.preventDefault();
     let idStylelist;
     if (refStyleList.current.value === "0") {
       idStylelist = idStylist;
@@ -185,7 +186,10 @@ function Booking(props) {
         // console.log(idStylist[0]);
 
         return (
-          <div key={index} className="form-check col-3 col-sm-2 col-md-2 col-lg-1 mb-2">
+          <div
+            key={index}
+            className="form-check col-3 col-sm-2 col-md-2 col-lg-1 mb-2"
+          >
             <input
               className="btn-check "
               type="radio"
@@ -195,6 +199,7 @@ function Booking(props) {
               id={ele[0]}
               style={{ display: "none" }}
               onClick={() => setIdStylist(idStylist[0])}
+
             />
             <label
               className={`form-check-label btn px-4 border ${
@@ -219,146 +224,157 @@ function Booking(props) {
         Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt
         lịch 30Slice
       </h1>
-
-      <div className="form-floating m-3">
-        <label htmlFor="phone">
-          Nhập số điện thoại<sup className="text-danger">*</sup>
-        </label>
-        <input
-          type="number"
-          className="form-control form-control-lg"
-          placeholder="Số điện thoại..."
-          id="phone"
-          ref={refPhone}
-          onBlur={onBlurPhone}
-          disabled={CustomerInfo && CustomerInfo.Phone}
-          required
-        />
-      </div>
-      <div className="form-floating m-3">
-        <label htmlFor="name">
-          Nhập họ và tên<sup className="text-danger">*</sup>
-        </label>
-        <input
-          type="text"
-          className="form-control form-control-lg"
-          placeholder="Họ và tên."
-          id="name"
-          ref={refCustomerName}
-          disabled={CustomerInfo && CustomerInfo.Full_Name}
-          required
-          onBlur={onBlurName}
-        />
-      </div>
-      <div className="form-floating m-3">
-        <label htmlFor="date">Chọn ngày</label>
-        <select
-          className="form-control  form-control-lg"
-          id="date"
-          aria-label="Chọn ngày"
-          ref={refDate}
-          onChange={() => {
-            reloadListTime();
-          }}
-        >
-          {arrDate &&
-            arrDate.map((item, index) => (
-              <option key={index} value={item.dateEn}>
-                {item.dateVn}
-              </option>
-            ))}
-        </select>
-      </div>
-      <div className="form-floating m-3">
-        <label htmlFor="">
-          Chọn Dịch vụ<sup className="text-danger">*</sup>
-        </label>
-        <div className="row m-3">
-          {arrService &&
-            arrService.map((item) => {
-              return (
-                <div key={item._id} className="col-12 col-sm-6 col-md-4 col-lg-4">
-                  <div className="card card-default card-md mb-4">
-                    <div className="card-header py-20">
-                      <h6>{item.Name}</h6>
-                    </div>
-                    <div className="card-body">
-                      <img className="w-100" src={item.Images} alt="" />
-                      <p>
-                        Giá : <b>{item.Price.toLocaleString("vi-VN")}</b> vnđ
-                      </p>
-                      <a
-                        data-toggle="collapse"
-                        data-target={"#collapse" + item._id}
-                        aria-expanded="true"
-                        aria-controls={"collapse" + item._id}
-                      >
-                        Xem thêm
-                      </a>
-
-                      <div
-                        id={"collapse" + item._id}
-                        className="collapse atbd-collapse-item__body"
-                      >
-                        <div className="collapse-body-text">
-                          <p>{item.Describe}</p>
-                        </div>
+      <form onSubmit={CreateBook}>
+        <div className="form-floating m-3">
+          <label htmlFor="phone">
+            Nhập số điện thoại<sup className="text-danger">*</sup>
+          </label>
+          <input
+            type="number"
+            className="form-control form-control-lg"
+            placeholder="Số điện thoại..."
+            id="phone"
+            ref={refPhone}
+            onBlur={onBlurPhone}
+            disabled={CustomerInfo && CustomerInfo.Phone}
+            required
+          />
+        </div>
+        <div className="form-floating m-3">
+          <label htmlFor="name">
+            Nhập họ và tên<sup className="text-danger">*</sup>
+          </label>
+          <input
+            type="text"
+            className="form-control form-control-lg"
+            placeholder="Họ và tên."
+            id="name"
+            ref={refCustomerName}
+            disabled={CustomerInfo && CustomerInfo.Full_Name}
+            required
+            onBlur={onBlurName}
+          />
+        </div>
+        <div className="form-floating m-3">
+          <label htmlFor="date">Chọn ngày</label>
+          <select
+            className="form-control  form-control-lg"
+            id="date"
+            aria-label="Chọn ngày"
+            ref={refDate}
+            onChange={() => {
+              reloadListTime();
+            }}
+          >
+            {arrDate &&
+              arrDate.map((item, index) => (
+                <option key={index} value={item.dateEn}>
+                  {item.dateVn}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div className="form-floating m-3">
+          <label htmlFor="">
+            Chọn Dịch vụ<sup className="text-danger">*</sup>
+          </label>
+          <div className="row m-3">
+            {arrService &&
+              arrService.map((item) => {
+                return (
+                  <div
+                    key={item._id}
+                    className="col-12 col-sm-6 col-md-4 col-lg-4"
+                  >
+                    <div className="card card-default card-md mb-4">
+                      <div className="card-header py-20">
+                        <h6>{item.Name}</h6>
                       </div>
-                      <input type="radio" name="service" className="radio-custom btn btn-outline-info"  onChange={() => setServiceId(item._id)} />
+                      <div className="card-body">
+                        <img className="w-100" src={item.Images} alt="" />
+                        <p>
+                          Giá : <b>{item.Price.toLocaleString("vi-VN")}</b> vnđ
+                        </p>
+                        <a
+                          data-toggle="collapse"
+                          data-target={"#collapse" + item._id}
+                          aria-expanded="true"
+                          aria-controls={"collapse" + item._id}
+                        >
+                          Xem thêm
+                        </a>
+
+                        <div
+                          id={"collapse" + item._id}
+                          className="collapse atbd-collapse-item__body"
+                        >
+                          <div className="collapse-body-text">
+                            <p>{item.Describe}</p>
+                          </div>
+                        </div>
+                        <input
+                          type="radio"
+                          name="service"
+                          className="radio-custom btn btn-outline-info"
+                          onChange={() => setServiceId(item._id)}
+                          required
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+          </div>
         </div>
-      </div>
-      <div className="form-floating m-3">
-        <label htmlFor="stylelist">Chọn nhân viên</label>
-        <select
-          className="form-control  form-control-lg"
-          id="stylelist"
-          aria-label="Chọn nhân viên"
-          ref={refStyleList}
-          onChange={() => {
-            reloadListTime();
-          }}
-        >
-          <option value="0">Ngẫu nhiên</option>
-          {arrEmployee &&
-            arrEmployee.map((item) => (
-              <option key={item._id} value={item._id}>
-                {item.Full_Name}
-              </option>
-            ))}
-        </select>
-      </div>
-      <label className="m-3">
-        Chọn thời gian<sup className="text-danger">*</sup>
-      </label>
-      <div className="row my-3">{listTime}</div>
-      <div className="form-group form-element-textarea mb-20">
-        <label htmlFor="note" className="il-gray fs-14 fw-500 align-center">
-          Ghi chú
+        <div className="form-floating m-3">
+          <label htmlFor="stylelist">Chọn nhân viên</label>
+          <select
+            className="form-control  form-control-lg"
+            id="stylelist"
+            aria-label="Chọn nhân viên"
+            ref={refStyleList}
+            onChange={() => {
+              reloadListTime();
+            }}
+          >
+            <option value="0">Ngẫu nhiên</option>
+            {arrEmployee &&
+              arrEmployee.map((item) => (
+                <option key={item._id} value={item._id}>
+                  {item.Full_Name}
+                </option>
+              ))}
+          </select>
+        </div>
+        <label className="m-3">
+          Chọn thời gian<sup className="text-danger">*</sup>
         </label>
-        <textarea
-          className="form-control"
-          id="note"
-          rows={3}
-          defaultValue={""}
-          placeholder="Tôi muốn ghi chú..."
-          ref={refNote}
-        />
-      </div>
+        <div className="row my-3">{listTime}</div>
+        <div className="form-group form-element-textarea mb-20">
+          <label htmlFor="note" className="il-gray fs-14 fw-500 align-center">
+            Ghi chú
+          </label>
+          <textarea
+            className="form-control"
+            id="note"
+            rows={3}
+            defaultValue={""}
+            placeholder="Tôi muốn ghi chú..."
+            ref={refNote}
+          />
+        </div>
 
-      <button
-        className="btn btn-primary btn-lg btn-squared btn-block "
-        onClick={CreateBook}
-        type="submit"
-        disabled={loading}
-      >
-        {loading && <span className="spinner-border spinner-border-sm"></span>}
-        Đặt lịch ngay
-      </button>
+        <button
+          className="btn btn-primary btn-lg btn-squared btn-block "
+          type="submit"
+          disabled={loading}
+        >
+          {loading && (
+            <span className="spinner-border spinner-border-sm"></span>
+          )}
+          Đặt lịch ngay
+        </button>
+      </form>
     </div>
   );
 }
