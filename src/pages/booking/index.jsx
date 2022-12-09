@@ -12,7 +12,7 @@ import {
   RegisterCustomer,
   CreateBooking,
 } from "../../app/services/booking/booking.service";
-import { create7Date, allAvailableTime } from "./func";
+import { create7Date, getAvailableTime } from "./func";
 import { useSelector } from "react-redux";
 import "../../App.css";
 import {
@@ -41,7 +41,6 @@ function Booking(props) {
   const refStyleList = useRef(0);
   const refPhone = useRef("");
   const refCustomerName = useRef("");
-  const refNote = useRef("");
   const {
     register,
     handleSubmit,
@@ -96,18 +95,12 @@ function Booking(props) {
     }
   };
   const CreateBook = async (e) => {
-    // e.preventDefault();
     let idStylelist;
     if (refStyleList.current.value === "0") {
       idStylelist = idStylist;
     } else {
       idStylelist = refStyleList.current.value;
     }
-    // if (!CustomerInfo.Id_User) {
-    //   console.log("chưa có thông tin khách hàng");
-    //   onBlurName();
-    // }
-
     let data = {
       Id_Customer: CustomerInfo.Id_User,
       Id_Service: ServiceId,
@@ -130,14 +123,6 @@ function Booking(props) {
       _isMounted.current && setLoading(false);
     }
   };
-
-  // loading bingchilling...
-  // if (loading) {
-  //   Notiflix.Loading.standard("Loading...");
-  // } else {
-  //   Notiflix.Loading.remove();
-  // }
-
   useEffect(() => {
     _isMounted.current = true;
 
@@ -159,30 +144,9 @@ function Booking(props) {
   useEffect(() => {
     reloadListTime();
   }, [BookedTime, arrEmployee]);
-
-  // hàm get thời gian theo stylist
-  function getAvailableTime(bookedDate) {
-    let arrAvailableTime = {};
-    allAvailableTime.forEach((time) => {
-      arrAvailableTime[time] = {};
-    });
-    arrEmployee.forEach((employee) => {
-      employee.Info.Shifts.filter((time) => {
-        return (
-          new Date(`${bookedDate} ${time}`).getTime() >= new Date().getTime()
-        );
-      }).forEach((shift) => {
-        if (arrAvailableTime[shift]) {
-          arrAvailableTime[shift][employee._id] = true;
-        }
-      });
-    });
-    // console.log(arrAvailableTime);
-    return arrAvailableTime;
-  }
   // hàm load lại danh sách thời gian
   const reloadListTime = () => {
-    const arrAvailableTime = getAvailableTime(refDate.current.value);
+    const arrAvailableTime = getAvailableTime(refDate.current.value,arrEmployee);
     setListTime(
       Object.entries(arrAvailableTime).map((ele, index) => {
         const isAvailable =

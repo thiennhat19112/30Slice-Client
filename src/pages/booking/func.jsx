@@ -51,3 +51,22 @@ export const allAvailableTime = [
     "20:30",
     "21:00",
   ];
+export  function getAvailableTime(bookedDate,arrEmployee) {
+    let arrAvailableTime = {};
+    allAvailableTime.forEach((time) => {
+      arrAvailableTime[time] = {};
+    });
+    arrEmployee.forEach((employee) => {
+      employee.Info.Shifts.filter((time) => {
+        return (
+          new Date(`${bookedDate} ${time}`).getTime() >= new Date().getTime()
+        );
+      }).forEach((shift) => {
+        if (arrAvailableTime[shift]) {
+          arrAvailableTime[shift][employee._id] = true;
+        }
+      });
+    });
+    // console.log(arrAvailableTime);
+    return arrAvailableTime;
+  }
