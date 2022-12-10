@@ -33,10 +33,9 @@ function Booking(props) {
   const [listTime, setListTime] = useState([]);
   const [loading, setLoading] = useState(false);
   const [idStylist, setIdStylist] = useState(0);
-  const _isMounted = useRef(false);
   const arrDate = create7Date();
-  const [error, setError] = useState([]);
-
+  const [errorPhone, setErrorPhone] = useState({});
+  const [errorName, setErrorname] = useState({});
   const refDate = useRef(arrDate[0].dateEn);
   const refStyleList = useRef(0);
   const refPhone = useRef("");
@@ -49,20 +48,20 @@ function Booking(props) {
 
   // hàm get stylist theo ngày
   const loadArrStyleList = async () => {
-    _isMounted.current && setLoading(true);
+    setLoading(true);
     const data = await fetchArrEmployee(refDate.current.value);
     if (data) {
-      _isMounted.current && setArrEmployee(data);
-      _isMounted.current && setLoading(false);
+      setArrEmployee(data);
+      setLoading(false);
     }
   };
   // hàm get dịch vụ
   const loadArrService = async () => {
-    _isMounted.current && setLoading(true);
+    setLoading(true);
     const data = await fetchArrService();
     if (data) {
-      _isMounted.current && setArrService(data);
-      _isMounted.current && setLoading(false);
+      setArrService(data);
+      setLoading(false);
     }
   };
   const isValidPhone = (value) => {
@@ -74,38 +73,44 @@ function Booking(props) {
   const onBlurPhone = async () => {
     let phone = refPhone.current.value;
     if (!isValidPhone(phone)) {
-      setError({ phone: "Số điện thoại không hợp lệ" });
+      setErrorPhone({ phone: "Số điện thoại không hợp lệ" });
       return;
     }
-    setError();
-    _isMounted.current && setLoading(true);
+    setErrorPhone();
+    setLoading(true);
     const res = await LoginCustomer(phone);
     if (res.status === 200) {
       setCustomerInfo(res.data);
       refCustomerName.current.value = res.data.Full_Name;
+    setErrorname();
+
     }
-    _isMounted.current && setLoading(false);
+    setLoading(false);
   };
-  console.log(error);
   const onBlurName = async () => {
     let name = refCustomerName.current.value;
     let phone = refPhone.current.value;
-    if (!isValidPhone(phone) || !name) {
-      setError({ name: "Tên không được để trống" });
-
-      // toastError("Số điện thoại không hợp lệ");
+    if (!isValidPhone(phone)) {
+      setErrorPhone({ phone: "Số điện thoại không hợp lệ" });
+      return;
+    } else if (!name) {
+      setErrorname({ name: "Tên không được để trống" });
       return;
     }
-    setError();
-    _isMounted.current && setLoading(true);
+    // setError();
+    setErrorname();
+    setLoading(true);
     const res = await RegisterCustomer({ name, phone });
 
     if (res.status === 200) {
       setCustomerInfo(res.data);
-      _isMounted.current && setLoading(false);
+      setLoading(false);
     }
   };
   const CreateBook = async (e) => {
+    if (!CustomerInfo.Id_User) {
+      return;
+    }
     let idStylelist;
     if (refStyleList.current.value === "0") {
       idStylelist = idStylist;
@@ -122,25 +127,18 @@ function Booking(props) {
       Note: e.note,
     };
 
-    _isMounted.current && setLoading(true);
+    setLoading(true);
     const res = await CreateBooking(data);
 
     if (res.status === 200) {
       toastSuccess("Đặt lịch thành công");
-      _isMounted.current && setLoading(false);
+      setLoading(false);
       navigate("/booking-success/" + res.data._id);
     } else {
       toastError("Đặt lịch thất bại");
-      _isMounted.current && setLoading(false);
+      setLoading(false);
     }
   };
-  useEffect(() => {
-    _isMounted.current = true;
-
-    return () => {
-      _isMounted.current = false;
-    };
-  });
   useEffect(() => {
     loadArrService();
     if (userInfo.isLoggedIn) {
@@ -170,12 +168,9 @@ function Booking(props) {
             ? typeof ele[1][refStyleList.current.value] !== undefined &&
               ele[1][refStyleList.current.value] === true
             : true;
-        // get idstylist value  == true
         const idStylist = Object.keys(ele[1]).filter(
           (key) => ele[1][key] === true
         );
-        // console.log(idStylist[0]);
-
         return (
           <div
             key={index}
@@ -209,9 +204,9 @@ function Booking(props) {
   };
 
   return (
-    <div className="contents container   ">
+    <div className="contents container">
       <h1>
-        Chào mừng anh {CustomerInfo && CustomerInfo.Full_Name},đến với trang đặt
+        Chào mừng anh {CustomerInfo?.Full_Name},đến với trang đặt
         lịch 30Slice
       </h1>
       <form onSubmit={handleSubmit(CreateBook)}>
@@ -222,7 +217,7 @@ function Booking(props) {
           <input
             type="text"
             className={
-              !!error?.phone
+              !!errorPhone?.phone
                 ? "is-invalid form-control form-control-lg"
                 : "form-control form-control-lg"
             }
@@ -230,10 +225,12 @@ function Booking(props) {
             id="phone"
             ref={refPhone}
             onBlur={onBlurPhone}
-            disabled={CustomerInfo && CustomerInfo.Phone}
+            disabled={CustomerInfo?.Phone}
             required
           />
-          {error && <span className="invalid-validate">{error?.phone}</span>}
+          {errorPhone && (
+            <span className="invalid-validate">{errorPhone?.phone}</span>
+          )}
         </div>
         <div className="form-floating m-3">
           <label htmlFor="name">
@@ -242,7 +239,7 @@ function Booking(props) {
           <input
             type="text"
             className={
-              !!error?.name
+              !!errorName?.name
                 ? "is-invalid form-control form-control-lg"
                 : "form-control form-control-lg"
             }
@@ -253,8 +250,9 @@ function Booking(props) {
             required
             onBlur={onBlurName}
           />
-          {error && <span className="invalid-validate">{error?.name}</span>}
-
+          {errorName && (
+            <span className="invalid-validate">{errorName?.name}</span>
+          )}
         </div>
         <div className="form-floating m-3">
           <label htmlFor="date">Chọn ngày</label>
@@ -370,7 +368,7 @@ function Booking(props) {
         <button
           className="btn btn-primary btn-lg btn-squared btn-block "
           type="submit"
-          disabled={loading || error}
+          disabled={loading || errorPhone || errorName}
         >
           {loading && (
             <span className="spinner-border spinner-border-sm"></span>
