@@ -20,7 +20,7 @@ export default function Crew() {
       <p className="m-3">Đây là sản phẩm Dự án tốt nghiệp của những thành viên trong team trường cao đăng FPT Polytechnic không phải là sản phẩm chính thức</p>
       <div className="row contact-card-group">
         <div className="col-xl-2 mb-25">
-          <div className="card contact-card">
+          <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
                 <div className="cp-img d-flex justify-content-center">
@@ -52,10 +52,10 @@ export default function Crew() {
                     <p className="c-info-item-text">dinhmenhhathui@gmail.com</p>
                   </li>
                   <li className="m-auto text-center">
-                    <button className="btn btn-outline-info">
+                    <a href="https://www.facebook.com/betabot.0" target="_blank"  className="btn btn-outline-info">
                       <Facebook />
                       Facebook
-                    </button>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -64,7 +64,7 @@ export default function Crew() {
           {/* end: card */}
         </div>
         <div className="col-xl-2 mb-25">
-          <div className="card contact-card">
+          <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
                 <div className="cp-img d-flex justify-content-center">
@@ -96,10 +96,10 @@ export default function Crew() {
                     <p className="c-info-item-text">info@tqkpro.net</p>
                   </li>
                   <li className="m-auto text-center">
-                    <button className="btn btn-outline-info">
+                    <a href="https://www.facebook.com/Tqkpro.Dev" target="_blank" className="btn btn-outline-info">
                       <Facebook />
                       Facebook
-                    </button>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -108,8 +108,8 @@ export default function Crew() {
           {/* end: card */}
         </div>
         <div className="col-xl-2 mb-25">
-          <div className="card contact-card">
-            <div className="card-body text-center pt-30 px-25 pb-0 border-info">
+          <div className="card contact-card h-100">
+            <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
                 <div className="cp-img d-flex justify-content-center">
                   <img
@@ -142,10 +142,10 @@ export default function Crew() {
                     <p className="c-info-item-text">cuongha0701@gmail.com</p>
                   </li>
                   <li className="m-auto text-center">
-                    <button className="btn btn-outline-info">
+                    <a href="https://www.facebook.com/100004277898799/" target="_blank" className="btn btn-outline-info">
                       <Facebook />
                       Facebook
-                    </button>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -154,7 +154,7 @@ export default function Crew() {
           {/* end: card */}
         </div>
         <div className="col-xl-2 mb-25">
-          <div className="card contact-card">
+          <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
                 <div className="cp-img d-flex justify-content-center">
@@ -188,10 +188,10 @@ export default function Crew() {
                     </p>
                   </li>
                   <li className="m-auto text-center">
-                    <button className="btn btn-outline-info">
+                    <a href="https://www.facebook.com/100042189700931/" target="_blank" className="btn btn-outline-info">
                       <Facebook />
                       Facebook
-                    </button>
+                    </a>
                   </li>
                 </ul>
               </div>
@@ -201,7 +201,7 @@ export default function Crew() {
         </div>
 
         <div className="col-xl-2 mb-25">
-          <div className="card contact-card">
+          <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
                 <div className="cp-img d-flex justify-content-center">
@@ -247,7 +247,7 @@ export default function Crew() {
           {/* end: card */}
         </div>
         <div className="col-xl-2 mb-25">
-          <div className="card contact-card">
+          <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
                 <div className="cp-img d-flex justify-content-center">
