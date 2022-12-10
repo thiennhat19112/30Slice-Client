@@ -5,14 +5,20 @@ import { RouterProvider } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ToastContainer } from "react-toastify";
 import app from "./app/firebase/firebaseConfig";
+import { getAnalytics,logEvent } from "firebase/analytics";
 import { store, persistor } from './app/redux/store';
 import setupInterceptors from './app/axios/setupInterceptors';
-
 import routes from './routes/routes';
 
 import './index.css';
 import "react-toastify/dist/ReactToastify.css";
 
+const analytics = getAnalytics();
+
+logEvent(analytics, 'page_view', {
+  app_name: '30Slice',
+  screen_name: 'Home',
+});
 
 setupInterceptors(store);
 
