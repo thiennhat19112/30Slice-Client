@@ -18,6 +18,7 @@ const analytics = getAnalytics();
 logEvent(analytics, 'page_view', {
   app_name: '30Slice',
   screen_name: 'Home',
+  page_view : 'Home Page'
 });
 
 setupInterceptors(store);

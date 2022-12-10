@@ -15,18 +15,8 @@ function Products(props) {
   const navigate = useNavigate();
 
   const [param] = useSearchParams();
-  let pageNumber;
-  if (param.get("page") == null) {
-    pageNumber = 1;
-  } else {
-    pageNumber = param.get("page");
-  }
-let search;
-  if (param.get("search") == null) {
-    search = "";
-  } else {
-    search = param.get("search");
-  }
+  const pageNumber = new URLSearchParams(location.search).get("page") || 1;
+  const search = param.get("search") || "";
 
   let listPage = [];
   for (let i = 1; i <= dataProduct.totalPage; i++) {
@@ -63,7 +53,7 @@ let search;
 
   useEffect(() => {
     fetchProduct();
-  }, [pageNumber,search]);
+  }, [pageNumber, search]);
 
   return (
     <>
@@ -116,7 +106,10 @@ let search;
                       Hiển thị
                       <span>
                         {" "}
-                        {(pageNumber - 1) * 12 + 1}-{pageNumber * 12}
+                        {(pageNumber - 1) * 12 + 1}-
+                        {dataProduct?.totalItem > pageNumber * 12
+                          ? pageNumber * 12
+                          : dataProduct?.totalItem}
                       </span>{" "}
                       trong <span>{dataProduct.totalItem} </span>
                       kết quả
@@ -217,87 +210,86 @@ let search;
               </div>
               {/* End: Top Bar */}
               {/* Start: .product-list */}
-              
-              { loading ?(
-               <div className="card-body">
-               <div className="spin-container text-center">
-                 <div className="atbd-spin-dots spin-lg">
-                   <span className="spin-dot badge-dot dot-primary"></span>
-                   <span className="spin-dot badge-dot dot-primary"></span>
-                   <span className="spin-dot badge-dot dot-primary"></span>
-                   <span className="spin-dot badge-dot dot-primary"></span>
-                 </div>
-               </div>
-             </div>
-              ):(
-              <div className="tab-content mt-25" id="ap-tabContent">
-                <div
-                  className="tab-pane fade show active"
-                  id="ap-overview"
-                  role="tabpanel"
-                  aria-labelledby="ap-overview-tab"
-                >
-                  {/* Start: Shop Item */}
-                  <div className="row product-page-list justify-content-center">
-                    {listProduct &&
-                      listProduct.map((item) => {
-                        return <Product prod={item} key={item._id} />;
-                      })}
+
+              {loading ? (
+                <div className="card-body">
+                  <div className="spin-container text-center">
+                    <div className="atbd-spin-dots spin-lg">
+                      <span className="spin-dot badge-dot dot-primary"></span>
+                      <span className="spin-dot badge-dot dot-primary"></span>
+                      <span className="spin-dot badge-dot dot-primary"></span>
+                      <span className="spin-dot badge-dot dot-primary"></span>
+                    </div>
                   </div>
-                  {/* End: Shop Item */}
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="timeline"
-                  role="tabpanel"
-                  aria-labelledby="timeline-tab"
-                >
-                  <div className="row product-page-list">
-                    {listProduct &&
-                      listProduct
-                        .sort((a, b) => b.Views - a.Views)
-                        .map((item) => {
+              ) : (
+                <div className="tab-content mt-25" id="ap-tabContent">
+                  <div
+                    className="tab-pane fade show active"
+                    id="ap-overview"
+                    role="tabpanel"
+                    aria-labelledby="ap-overview-tab"
+                  >
+                    {/* Start: Shop Item */}
+                    <div className="row product-page-list justify-content-center">
+                      {listProduct &&
+                        listProduct.map((item) => {
                           return <Product prod={item} key={item._id} />;
                         })}
+                    </div>
+                    {/* End: Shop Item */}
+                  </div>
+                  <div
+                    className="tab-pane fade"
+                    id="timeline"
+                    role="tabpanel"
+                    aria-labelledby="timeline-tab"
+                  >
+                    <div className="row product-page-list">
+                      {listProduct &&
+                        listProduct
+                          .sort((a, b) => b.Views - a.Views)
+                          .map((item) => {
+                            return <Product prod={item} key={item._id} />;
+                          })}
+                    </div>
+                  </div>
+                  <div
+                    className="tab-pane fade"
+                    id="activity"
+                    role="tabpanel"
+                    aria-labelledby="activity-tab"
+                  >
+                    <div className="row product-page-list">
+                      {listProduct &&
+                        listProduct
+                          .sort(
+                            (a, b) =>
+                              (b.Price * (100 - b.Discount)) / 100 -
+                              (a.Price * (100 - a.Discount)) / 100
+                          )
+                          .map((item) => {
+                            return <Product prod={item} key={item._id} />;
+                          })}
+                    </div>
+                  </div>
+                  <div
+                    className="tab-pane fade"
+                    id="draft"
+                    role="tabpanel"
+                    aria-labelledby="draft-tab"
+                  >
+                    <div className="row product-page-list">
+                      {listProduct &&
+                        listProduct
+                          .sort((a, b) => b.Rating - a.Rating)
+                          .map((item) => {
+                            return <Product prod={item} key={item._id} />;
+                          })}
+                    </div>
                   </div>
                 </div>
-                <div
-                  className="tab-pane fade"
-                  id="activity"
-                  role="tabpanel"
-                  aria-labelledby="activity-tab"
-                >
-                  <div className="row product-page-list">
-                    {listProduct &&
-                      listProduct
-                        .sort(
-                          (a, b) =>
-                            (b.Price * (100 - b.Discount)) / 100 -
-                            (a.Price * (100 - a.Discount)) / 100
-                        )
-                        .map((item) => {
-                          return <Product prod={item} key={item._id} />;
-                        })}
-                  </div>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="draft"
-                  role="tabpanel"
-                  aria-labelledby="draft-tab"
-                >
-                  <div className="row product-page-list">
-                    {listProduct &&
-                      listProduct
-                        .sort((a, b) => b.Rating - a.Rating)
-                        .map((item) => {
-                          return <Product prod={item} key={item._id} />;
-                        })}
-                  </div>
-                </div>
-              </div>
-              )
-}
+              )}
               <nav className="atbd-page ">
                 <ul className="atbd-pagination d-flex">
                   <li className="atbd-pagination__item">

@@ -1,41 +1,46 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams, Link } from "react-router-dom";
 
 import Breadcrumb from "../components/Breakcumb";
 import Product from "../components/Product";
 import Filters from "../components/Filters";
 import { useRef } from "react";
-
+import { getProductsByCategory } from "../app/services/user/product.service";
 function Category(props) {
   const [listProduct, setListProduct] = useState([]);
   const [loading, setLoading] = useState(false);
-  const _isMounted = useRef(false);
   const location = useLocation();
-
+  const limit = 8;
+  const page = new URLSearchParams(location.search).get("page") || 1;
   const fetchProduct = async () => {
     setLoading(true);
-    const res = await fetch(
-      import.meta.env.REACT_APP_API_ENDPOINT +
-        "product/getProductsByCategory/" +
-        location.state.category
+    const res = await getProductsByCategory(
+      location.state.category,
+      page,
+      limit
     );
-    const data = await res.json();
-    // console.log(data);
-    if (data) {
-      _isMounted.current && setListProduct(data);
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    _isMounted.current = true;
-    return () => {
-      _isMounted.current = false;
-    };
-  }, []);
+    console.log(res);
 
+    setListProduct(res);
+
+    setLoading(false);
+  };
+  let listPage = [];
+  for (let i = 1; i <= listProduct.totalPage; i++) {
+    listPage.push(
+      <Link
+        to={"?page=" + i}
+        state={location.state}
+        key={"toPage" + i}
+        className={`atbd-pagination__link ${page == i ? "active" : ""}`}
+      >
+        <span className="page-number">{i}</span>
+      </Link>
+    );
+  }
   useEffect(() => {
     fetchProduct();
-  }, [location.state.category]);
+  }, [location.state.category,page]);
 
   return (
     <>
@@ -48,7 +53,7 @@ function Category(props) {
                   Sản phẩm theo loại
                 </h4>
               </div>
-              <Breadcrumb BreadName={listProduct[0]?.Id_Categories?.Name} />
+              <Breadcrumb BreadName={listProduct?.Catename} />
             </div>
           </div>
         </div>
@@ -93,13 +98,20 @@ function Category(props) {
                         </form>
                       </div> */}
                       <span className="project-result-showing fs-14 color-gray ml-xl-25 mr-xl-0 text-center mt-lg-0 mt-20">
-                        Hiển thị 
-                        <span> {listProduct.length} </span>
+                        Hiển thị
+                        <span>
+                          {" "}
+                          {(page - 1) * limit + 1}-{" "}
+                          {listProduct?.totalItem > page * limit
+                            ? page * limit
+                            : listProduct?.totalItem}
+                        </span>{" "}
+                        trong <span>{listProduct?.totalItem} </span>
                         kết quả
                       </span>
                     </div>
                     <div className="project-top-right d-flex flex-wrap align-items-center">
-                      {/* <div className="project-category flex-wrap d-flex align-items-center">
+                      <div className="project-category flex-wrap d-flex align-items-center">
                         <p className="fs-14 color-gray text-capitalize">
                           Xếp theo:
                         </p>
@@ -159,8 +171,8 @@ function Category(props) {
                             </li>
                           </ul>
                         </div>
-                      </div> */}
-                      {/* <div className="project-icon-selected content-center mt-lg-0 mt-25">
+                      </div>
+                      <div className="project-icon-selected content-center mt-lg-0 mt-25">
                         <div className="listing-social-link pb-lg-0 pb-xs-2">
                           <div className="icon-list-social d-flex">
                             <a
@@ -211,7 +223,7 @@ function Category(props) {
                             </a>
                           </div>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -227,7 +239,7 @@ function Category(props) {
                     {/* Start: Shop Item */}
                     <div className="row product-page-list ">
                       {listProduct &&
-                        listProduct.map((item, index) => {
+                        listProduct?.products?.map((item, index) => {
                           return <Product prod={item} key={index} />;
                         })}
                     </div>
@@ -241,8 +253,8 @@ function Category(props) {
                   >
                     <div className="row product-page-list">
                       {listProduct &&
-                        listProduct
-                          .sort((a, b) => b.Views - a.Views)
+                        listProduct?.products
+                          ?.sort((a, b) => b.Views - a.Views)
                           .map((item, index) => {
                             return <Product prod={item} key={index} />;
                           })}
@@ -256,8 +268,8 @@ function Category(props) {
                   >
                     <div className="row product-page-list">
                       {listProduct &&
-                        listProduct
-                          .sort(
+                        listProduct?.products
+                          ?.sort(
                             (a, b) =>
                               (b.Price * (100 - b.Discount)) / 100 -
                               (a.Price * (100 - a.Discount)) / 100
@@ -275,14 +287,36 @@ function Category(props) {
                   >
                     <div className="row product-page-list">
                       {listProduct &&
-                        listProduct
-                          .sort((a, b) => b.Rating - a.Rating)
+                        listProduct?.products
+                          ?.sort((a, b) => b.Rating - a.Rating)
                           .map((item, index) => {
                             return <Product prod={item} key={index} />;
                           })}
                     </div>
                   </div>
                 </div>
+                <nav className="atbd-page ">
+                  <ul className="atbd-pagination d-flex">
+                    <li className="atbd-pagination__item">
+                      <a
+                        href="#"
+                        className="atbd-pagination__link pagination-control"
+                      >
+                        <span className="la la-angle-left" />
+                      </a>
+
+                      {listPage}
+
+                      <a
+                        href="#"
+                        className="atbd-pagination__link pagination-control"
+                      >
+                        <span className="la la-angle-right" />
+                      </a>
+                      <a href="#" className="atbd-pagination__option"></a>
+                    </li>
+                  </ul>
+                </nav>
                 {/* End: .product-list */}
               </div>
               {/* End: .columns-2 */}
