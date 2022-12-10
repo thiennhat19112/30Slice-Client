@@ -56,11 +56,11 @@ function Product(props) {
         <div className="h-100">
           <div className="product-item">
             <div className="product-item__image">
-              <span className="like-icon">
+              {/* <span className="like-icon">
                 <button type="button" className="content-center">
                   <i className="lar la-heart icon" />
                 </button>
-              </span>
+              </span> */}
               <NavLink
                 to={`/products/${props.prod.Name.replace(/ /g, '-')}`}
                 state={{ product: props.prod._id }}
@@ -108,11 +108,11 @@ function Product(props) {
               </div>
               <div className="product-item__footer">
                 <div className="stars-rating d-flex align-items-center flex-wrap">
-                  {Rating}
+                  {/* {Rating}
                   <span className="stars-rating__point">
                     {' '}
                     {props.prod.Rating}{' '}
-                  </span>
+                  </span> */}
                   <span className="stars-rating__review">
                     Đã bán <span>{props.prod.Saled}</span>
                   </span>

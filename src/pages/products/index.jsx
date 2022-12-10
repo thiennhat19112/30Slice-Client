@@ -83,11 +83,11 @@ let search;
       </div>
       <div className="products_page product_page--grid mb-30">
         <div className="container-fluid">
-          <div className="row justify-content-center">
-            <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
+          <div className="w-100 gt-3 row justify-content-center">
+            {/* <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
               <Filters />
-              {/* End: .widget */}
-            </div>
+              
+            </div> */}
             {/* End: .columns-1 */}
             <div className="columns-2 col-lg-8 col-md-8 col-sm-8 order-md-1 order-0">
               {/* Start: Top Bar */}
@@ -168,7 +168,7 @@ let search;
                               Giá
                             </a>
                           </li>
-                          <li className="nav-item">
+                          {/* <li className="nav-item">
                             <a
                               className="nav-link"
                               id="draft-tab"
@@ -180,7 +180,7 @@ let search;
                             >
                               Đánh giá
                             </a>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                     </div>

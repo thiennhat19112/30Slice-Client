@@ -68,17 +68,17 @@ function Category(props) {
         <div className="products_page product_page--grid mb-30">
           <div className="container-fluid">
             <div className="row justify-content-center">
-              <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
+              {/* <div className="columns-1 col-lg-4 col-md-5 col-sm-8 order-md-0 order-1">
                 <Filters />
-                {/* End: .widget */}
-              </div>
+              
+              </div> */}
               {/* End: .columns-1 */}
               <div className="columns-2 col-lg-8 col-md-7 col-sm-8 order-md-1 order-0">
                 {/* Start: Top Bar */}
                 <div className="shop_products_top_filter">
-                  <div className="project-top-wrapper d-flex flex-wrap align-items-center">
-                    <div className="project-top-left d-flex flex-wrap align-items-center">
-                      <div className="project-search shop-search  global-shadow ">
+                  <div className="project-top-wrapper d-flex flex-wrap ">
+                    <div className="project-top-left d-flex flex-wrap ">
+                      {/* <div className="project-search shop-search  global-shadow ">
                         <form
                           action="/"
                           className="d-flex align-items-center user-member__form"
@@ -91,15 +91,15 @@ function Category(props) {
                             aria-label="Search"
                           />
                         </form>
-                      </div>
+                      </div> */}
                       <span className="project-result-showing fs-14 color-gray ml-xl-25 mr-xl-0 text-center mt-lg-0 mt-20">
-                        Hiển thị
-                        <span>1–8</span> trong <span>86</span>
+                        Hiển thị 
+                        <span> {listProduct.length} </span>
                         kết quả
                       </span>
                     </div>
                     <div className="project-top-right d-flex flex-wrap align-items-center">
-                      <div className="project-category flex-wrap d-flex align-items-center">
+                      {/* <div className="project-category flex-wrap d-flex align-items-center">
                         <p className="fs-14 color-gray text-capitalize">
                           Xếp theo:
                         </p>
@@ -159,8 +159,8 @@ function Category(props) {
                             </li>
                           </ul>
                         </div>
-                      </div>
-                      <div className="project-icon-selected content-center mt-lg-0 mt-25">
+                      </div> */}
+                      {/* <div className="project-icon-selected content-center mt-lg-0 mt-25">
                         <div className="listing-social-link pb-lg-0 pb-xs-2">
                           <div className="icon-list-social d-flex">
                             <a
@@ -211,7 +211,7 @@ function Category(props) {
                             </a>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -225,7 +225,7 @@ function Category(props) {
                     aria-labelledby="ap-overview-tab"
                   >
                     {/* Start: Shop Item */}
-                    <div className="row product-page-list justify-content-center">
+                    <div className="row product-page-list ">
                       {listProduct &&
                         listProduct.map((item, index) => {
                           return <Product prod={item} key={index} />;
