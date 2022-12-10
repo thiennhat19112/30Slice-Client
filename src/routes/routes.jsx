@@ -47,7 +47,7 @@ const routes = createBrowserRouter([
         exact: true,
         element: (
           <Suspense fallback={<p>Loading...</p>}>
-            <App />,
+            <App />
           </Suspense>
         ),
         children: [
