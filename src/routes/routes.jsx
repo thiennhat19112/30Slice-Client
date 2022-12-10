@@ -34,6 +34,7 @@ const About = lazy(() => import("../pages/about/About"));
 const Contact = lazy(() => import("../pages/contact"));
 const Combo = lazy(() => import("../pages/combo"));
 const News = lazy(() => import("../pages/news"));
+const NewsDetail = lazy(() => import("../pages/news/Details"));
 
 const routes = createBrowserRouter([
   {
@@ -201,6 +202,11 @@ const routes = createBrowserRouter([
             path: "news",
             exact: true,
             element: <News />,
+          },
+          {
+            path: "news/:id",
+            exact: true,
+            element: <NewsDetail />,
           },
           {
             path: "about",

@@ -25,6 +25,10 @@ const defaultBreadcrumb = [
     title: 'Lịch sử đặt lịch',
     link: 'booked-history',
   },
+  {
+    title: 'Tin tức',
+    link: 'news',
+  },
 ];
 
 
