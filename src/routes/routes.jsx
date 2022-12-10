@@ -35,6 +35,7 @@ const Contact = lazy(() => import("../pages/contact"));
 const Combo = lazy(() => import("../pages/combo"));
 const News = lazy(() => import("../pages/news"));
 const NewsDetail = lazy(() => import("../pages/news/Details"));
+const Crew = lazy(() => import("../pages/crew"));
 
 const routes = createBrowserRouter([
   {
@@ -223,6 +224,11 @@ const routes = createBrowserRouter([
             exact: true,
             element: <Combo />,
           },
+          {
+            path: "crew",
+            exact: true,
+            element: <Crew />,
+          }
         ],
       },
     ],

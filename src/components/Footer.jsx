@@ -19,7 +19,7 @@ function Footer() {
                     <Link to="/about">Về chúng tôi</Link>
                   </li>
                   <li>
-                    <a href="#">Đội ngũ coder</a>
+                    <Link to="/crew">Đội ngũ coder</Link>
                   </li>
                   <li>
                     <Link to="/contact">Liên hệ</Link>
