@@ -9,7 +9,7 @@ const ProtectedRoute = lazy(() => import("./protectedRoute"));
 const ProtectedCheckoutRoute = lazy(() => import("./protectedCheckoutRoute"));
 
 // import App from "../App";
-const App = lazy(() => import("../App"));
+import App from "../App";
 const Booking = lazy(() => import("../pages/booking"));
 const Products = lazy(() => import("../pages/products"));
 const Detail = lazy(() => import("../pages/detail"));
@@ -45,190 +45,266 @@ const routes = createBrowserRouter([
       {
         path: "",
         exact: true,
-        element: (
-          <Suspense fallback={<p>Loading...</p>}>
-            <App />
-          </Suspense>
-        ),
+        element: <App />,
         children: [
           {
             path: "",
             exact: true,
-            element: <Home />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Home />
+              </Suspense>
+            ),
           },
           {
             path: "booking",
             exact: true,
-            element: <Booking />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Booking />
+              </Suspense>
+            ),
           },
           {
             path: "products",
             exact: true,
-            element: <Products />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Products />
+              </Suspense>
+            ),
           },
           {
             path: "products/:id",
             exact: true,
-            element: <Detail />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Detail />
+              </Suspense>
+            ),
           },
           {
             path: "category",
             exact: true,
-            element: <Category />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Category />
+              </Suspense>
+            ),
           },
           {
             path: "category/:id",
             exact: true,
-            element: <Category />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Category />
+              </Suspense>
+            ),
           },
           {
             path: "cart",
             exact: true,
-            element: <Cart />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Cart />
+              </Suspense>
+            ),
           },
           {
             path: "checkout",
             exact: true,
             element: (
-              <ProtectedCheckoutRoute>
-                <Checkout />
-              </ProtectedCheckoutRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <ProtectedCheckoutRoute>
+                  <Checkout />
+                </ProtectedCheckoutRoute>
+              </Suspense>
             ),
           },
           {
             path: "checkout2",
             exact: true,
             element: (
-              <PrivateRoute>
-                <Checkout2 />
-              </PrivateRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <PrivateRoute>
+                  <Checkout2 />
+                </PrivateRoute>
+              </Suspense>
             ),
           },
           {
             path: "checkout3",
             exact: true,
             element: (
-              <PrivateRoute>
-                <Checkout3 />
-              </PrivateRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <PrivateRoute>
+                  <Checkout3 />
+                </PrivateRoute>
+              </Suspense>
             ),
           },
           {
             path: "order-success",
             exact: true,
             element: (
-              <PrivateRoute>
-                <Checkout4 />
-              </PrivateRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <PrivateRoute>
+                  <Checkout4 />
+                </PrivateRoute>
+              </Suspense>
             ),
           },
           {
             path: "register",
             exact: true,
             element: (
-              <ProtectedRoute>
-                <Register />
-              </ProtectedRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <ProtectedRoute>
+                  <Register />
+                </ProtectedRoute>
+              </Suspense>
             ),
           },
           {
             path: "login",
             exact: true,
             element: (
-              <ProtectedRoute>
-                <Login />
-              </ProtectedRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <ProtectedRoute>
+                  <Login />
+                </ProtectedRoute>
+              </Suspense>
             ),
           },
           {
             path: "forget-password",
             exact: true,
             element: (
-              <ProtectedRoute>
-                <ForgetPassword />
-              </ProtectedRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <ProtectedRoute>
+                  <ForgetPassword />
+                </ProtectedRoute>
+              </Suspense>
             ),
           },
           {
             path: "reset-password",
             exact: true,
             element: (
-              <ProtectedRoute>
-                <ResetPassword />
-              </ProtectedRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <ProtectedRoute>
+                  <ResetPassword />
+                </ProtectedRoute>
+              </Suspense>
             ),
           },
           {
             path: "profile",
             exact: true,
             element: (
-              <PrivateRoute>
-                <Profile />
-              </PrivateRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              </Suspense>
             ),
           },
           {
             path: "order",
             exact: true,
             element: (
-              <PrivateRoute>
-                <Order />
-              </PrivateRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <PrivateRoute>
+                  <Order />
+                </PrivateRoute>
+              </Suspense>
             ),
           },
           {
             path: "order/:id",
             exact: true,
             element: (
-              <PrivateRoute>
-                <OrderInfo />
-              </PrivateRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <PrivateRoute>
+                  <OrderInfo />
+                </PrivateRoute>
+              </Suspense>
             ),
           },
           {
             path: "booked-history",
             exact: true,
             element: (
-              <PrivateRoute>
-                <BookedHistory />
-              </PrivateRoute>
+              <Suspense fallback={<p>Loading...</p>}>
+                <PrivateRoute>
+                  <BookedHistory />
+                </PrivateRoute>
+              </Suspense>
             ),
           },
           {
             path: "booking-success/:id",
             exact: true,
-            element: <BookingSuccess />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <BookingSuccess />
+              </Suspense>
+            ),
           },
           {
             path: "news",
             exact: true,
-            element: <News />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <News />
+              </Suspense>
+            ),
           },
           {
             path: "news/:id",
             exact: true,
-            element: <NewsDetail />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <NewsDetail />
+              </Suspense>
+            ),
           },
           {
             path: "about",
             exact: true,
-            element: <About />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <About />
+              </Suspense>
+            ),
           },
           {
             path: "contact",
             exact: true,
-            element: <Contact />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Contact />
+              </Suspense>
+            ),
           },
           {
             path: "combo",
             exact: true,
-            element: <Combo />,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Combo />
+              </Suspense>
+            ),
           },
           {
             path: "crew",
             exact: true,
-            element: <Crew />,
-          }
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <Crew />
+              </Suspense>
+            ),
+          },
         ],
       },
     ],
