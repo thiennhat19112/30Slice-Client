@@ -206,8 +206,8 @@ function Booking(props) {
   return (
     <div className="contents container">
       <h1>
-        Chào mừng anh {CustomerInfo?.Full_Name},đến với trang đặt
-        lịch 30Slice
+        Chào mừng anh/chị {CustomerInfo?.Full_Name},đến với trang đặt
+        lịch 30Slice!
       </h1>
       <form onSubmit={handleSubmit(CreateBook)}>
         <div className="form-floating m-3">

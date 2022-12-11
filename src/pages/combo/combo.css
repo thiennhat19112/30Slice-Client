@@ -22,3 +22,34 @@
 .combo .card-body a{
     color: #ffffff;
 }
+
+/* DetailsCombo */
+.img-combo-detail{
+    width: 40%;
+    float: left;
+}
+.detail-combo{
+    margin-left: 480px;
+}
+.detail-combo .stars-rating__review{
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+.detail-combo .combo-price{
+    font-size: 20px;
+    padding-right: 10px;
+    color: #0000ff;
+}
+.detail-combo .combo-discount{
+    color: #ff0000;
+}
+.detail-combo .combo-details__availability .stock{
+    color: #30b975;
+    float: right;
+    padding-right: 65%;
+}
+.detail-combo .combo-details__availability .free{
+    color: #30b975;
+    float: right;
+    padding-right: 65%;
+}

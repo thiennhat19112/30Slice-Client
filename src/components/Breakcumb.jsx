@@ -30,6 +30,10 @@ const defaultBreadcrumb = [
     link: 'news',
   },
   {
+    title: 'Combo',
+    link: 'combo',
+  },
+  {
     title: 'Đội ngũ coder',
     link: 'crew',
   }

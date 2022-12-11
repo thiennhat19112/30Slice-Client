@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getCombo } from "../../app/services/user/combo.service";
 import './combo.css';
+import Breadcrumb from "../../components/Breakcumb";
 
 export default function Combo() {
   const [combo, setCombo] = useState([]);
@@ -27,6 +29,7 @@ export default function Combo() {
               <h4 className="text-capitalize breadcrumb-title">Tất cả Combo</h4>
             </div>
           </div>
+          <Breadcrumb />
         </div>
       </div>
     </div>
@@ -47,13 +50,31 @@ export default function Combo() {
         <div className="row product-page-list justify-content-center">     
         {combo && 
             combo.map((item) => (
-              <div className="combo">
-                <img src={item?.Image} class="card-img-top" alt="" />
+              <div key={item?._id} className="combo">
+                <Link
+                    to={"/combo/" + item?.Name.replace(/ /g, "-")}
+                    state={{ id: item?._id }}
+                  >
+                    <img src={item?.Image} className="card-img-top" alt="" />
+                  </Link>
                   <div class="card-body">
-                    <h5 class="card-title">{item?.Name}</h5>
+                    <h5 class="card-title">
+                    <Link
+                      to={"/combo/" + item?.Name.replace(/ /g, "-")}
+                      state={{ id: item?._id }}
+                    >
+                      <h5 className="card-title">{item?.Name}</h5>
+                    </Link>
+                    </h5>
                     <p class="card-text">{item?.Details}</p>
-                    <button href="#" class="btn btn-primary">
-                      Chi tiết
+                    <button href="#" className="btn btn-primary">
+                      <Link
+                        to={"/combo/" + item?.Name.replace(/ /g, "-")}
+                        state={{ id: item?._id }}
+                        className="offset"
+                      >
+                        Chi tiết
+                      </Link>
                     </button>
                   </div>
              

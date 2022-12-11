@@ -33,6 +33,7 @@ const BookingSuccess = lazy(() => import("../pages/booking-success"));
 const About = lazy(() => import("../pages/about/About"));
 const Contact = lazy(() => import("../pages/contact"));
 const Combo = lazy(() => import("../pages/combo"));
+const ComboDetail = lazy(() => import("../pages/combo/DetailsCombo"));
 const News = lazy(() => import("../pages/news"));
 const NewsDetail = lazy(() => import("../pages/news/Details"));
 const Crew = lazy(() => import("../pages/crew"));
@@ -47,7 +48,7 @@ const routes = createBrowserRouter([
         exact: true,
         element: (
           <Suspense fallback={<p>Loading...</p>}>
-            <App />,
+            <App />
           </Suspense>
         ),
         children: [
@@ -223,6 +224,15 @@ const routes = createBrowserRouter([
             path: "combo",
             exact: true,
             element: <Combo />,
+          },
+          {
+            path: "combo/:id",
+            exact: true,
+            element: (
+              <Suspense fallback={<p>Loading...</p>}>
+                <ComboDetail />
+              </Suspense>
+            ),
           },
           {
             path: "crew",
