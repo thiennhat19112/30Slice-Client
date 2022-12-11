@@ -1,9 +1,9 @@
-import { NavLink,useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addProduct } from '../app/redux/slices/user/CartSlice';
-import { toastSuccess } from '../components/sharedComponents/toast';
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../app/redux/slices/user/CartSlice";
+import { toastSuccess } from "../components/sharedComponents/toast";
 // import { nonAccentConverter } from '../app/services/nonAccentConverter/nonAccentConverter';
-import { ShoppingBag, ShoppingCart} from "react-feather"
+import { ShoppingBag, ShoppingCart } from "react-feather";
 function Product(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function Product(props) {
       Images: item.Images,
       Quantity: 1,
     };
-    toastSuccess('Thêm vào giỏ hàng thành công!');
+    toastSuccess("Thêm vào giỏ hàng thành công!");
     dispatch(addProduct(product));
   };
   const buyNow = (item) => {
@@ -26,24 +26,23 @@ function Product(props) {
       Images: item.Images,
       Quantity: 1,
     };
-    navigate('/cart');
+    navigate("/cart");
     // toastSuccess('Thêm vào giỏ hàng thành công!');
     dispatch(addProduct(product));
-    
   };
   let Rating = [];
   for (let i = 1; i <= 5; i++) {
     if (i <= props.prod.Rating) {
       Rating.push(
         <span
-          key={props.prod._id + 'Rating' + i}
+          key={props.prod._id + "Rating" + i}
           className="star-icon las la-star active"
         />
       );
     } else {
       Rating.push(
         <span
-          key={props.prod._id + 'Rating' + i}
+          key={props.prod._id + "Rating" + i}
           className="star-icon las la-star"
         />
       );
@@ -62,7 +61,7 @@ function Product(props) {
                 </button>
               </span> */}
               <NavLink
-                to={`/products/${props.prod.Name.replace(/ /g, '-')}`}
+                to={`/products/${props.prod.Name.replace(/ /g, "-")}`}
                 state={{ product: props.prod._id }}
               >
                 <img
@@ -70,8 +69,8 @@ function Product(props) {
                   src={props.prod.Images[0]}
                   alt="digital-chair"
                   style={{
-                    borderTopLeftRadius: '10px',
-                    borderTopRightRadius: '10px',
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
                   }}
                 />
               </NavLink>
@@ -79,9 +78,8 @@ function Product(props) {
             <div className="card-body px-20 pb-25 pt-20">
               <div className="product-item__body text-capitalize">
                 <NavLink
-                  to={`/products/${props.prod.Name.replace(/ /g, '-')}`}
-                state={{ product: props.prod._id }}
-
+                  to={`/products/${props.prod.Name.replace(/ /g, "-")}`}
+                  state={{ product: props.prod._id }}
                 >
                   <h6 className="card-title">
                     {props.prod.Name.substring(0, 40)}...
@@ -92,9 +90,9 @@ function Product(props) {
                     {(
                       props.prod.Price *
                       (1 - props.prod.Discount / 100)
-                    ).toLocaleString('vi-VN', {
-                      style: 'currency',
-                      currency: 'VND',
+                    ).toLocaleString("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
                     })}
                   </span>
                   {props.prod.Discount > 0 && (
@@ -118,21 +116,35 @@ function Product(props) {
                   </span>
                 </div>
               </div>
-              <div className="product-item__button d-flex mt-20 flex-wrap">
-                <button
-                  onClick={() => addToCart(props.prod)}
-                  className="btn btn-default btn-squared btn-outline-light "
-                >
-                  <ShoppingCart />Thêm vào giỏ
-                </button>
-                <button
-                  onClick={() => buyNow(props.prod)}
-                  className="btn btn-primary btn-default btn-squared border-0 "
-                >
-                  <ShoppingBag />
-                  Mua
-                </button>
-              </div>
+              {props?.prod?.InStock === 0 ? (
+                <div className="product-item__button d-flex mt-20 flex-wrap">
+                  <button className="btn btn-default btn-squared btn-outline-light disabled">
+                    <ShoppingCart />
+                    Hết hàng
+                  </button>
+                  <button className="btn btn-primary btn-default btn-squared border-0  disabled">
+                    <ShoppingBag />
+                    Hết hàng
+                  </button>
+                </div>
+              ) : (
+                <div className="product-item__button d-flex mt-20 flex-wrap">
+                  <button
+                    onClick={() => addToCart(props.prod)}
+                    className="btn btn-default btn-squared btn-outline-light "
+                  >
+                    <ShoppingCart />
+                    Thêm vào giỏ
+                  </button>
+                  <button
+                    onClick={() => buyNow(props.prod)}
+                    className="btn btn-primary btn-default btn-squared border-0 "
+                  >
+                    <ShoppingBag />
+                    Mua
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

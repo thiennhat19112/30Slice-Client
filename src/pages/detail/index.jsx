@@ -359,7 +359,14 @@ function Detail(props) {
                             <div className="product-details__availability">
                               <div className="title">
                                 <p>Tình trạng:</p>
-                                <span className="stock"> Còn hàng </span>
+                                {product.InStock > 0 ? (
+                                  <span className="stock"> Còn hàng </span>
+                                ) : (
+                                  <span className="text-danger">
+                                    {" "}
+                                    Hết hàng{" "}
+                                  </span>
+                                )}
                               </div>
                               <div className="title">
                                 <p>Phí vận chuyển:</p>
@@ -391,33 +398,51 @@ function Detail(props) {
                                 />
                               </div>
                               <span className="fs-13 fw-400 color-light my-sm-0 my-10">
-                                Còn lại {product.InStock} sản phẩm
+                                Còn lại {product?.InStock} sản phẩm
                               </span>
                             </div>
                             {/* End: Product Quantity */}
                             {/* Start: Product Selections */}
                             <div className="product-item__button mt-lg-30 mt-sm-25 mt-20 d-flex flex-wrap">
-                              <div className=" d-flex flex-wrap product-item__action align-items-center">
-                                <button
-                                  onClick={() => buyNow(product)}
-                                  className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2"
-                                >
-                                  <ShoppingBag />
-                                  Mua ngay
-                                </button>
-                                <button
-                                  onClick={() => addToCart(product)}
-                                  className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2"
-                                >
-                                  <ShoppingCart />
-                                  Thêm vào giỏ
-                                </button>
-                                <div className="like-icon">
-                                  <button type="button">
-                                    <i className="lar la-heart icon" />
+                              {product.InStock > 0 ? (
+                                <div className=" d-flex flex-wrap product-item__action align-items-center">
+                                  <button
+                                    onClick={() => buyNow(product)}
+                                    className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2"
+                                  >
+                                    <ShoppingBag />
+                                    Mua ngay
                                   </button>
+                                  <button
+                                    onClick={() => addToCart(product)}
+                                    className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2"
+                                  >
+                                    <ShoppingCart />
+                                    Thêm vào giỏ
+                                  </button>
+                                  <div className="like-icon">
+                                    <button type="button">
+                                      <i className="lar la-heart icon" />
+                                    </button>
+                                  </div>
                                 </div>
-                              </div>
+                              ) : (
+                                <div className=" d-flex flex-wrap product-item__action align-items-center">
+                                  <button className="btn btn-primary btn-default btn-squared border-0 mr-10 my-sm-0 my-2 disabled">
+                                    <ShoppingBag />
+                                    Hết hàng
+                                  </button>
+                                  <button className="btn btn-secondary btn-default btn-squared border-0 px-25 my-sm-0 my-2 mr-2 disabled">
+                                    <ShoppingCart />
+                                    Hết hàng
+                                  </button>
+                                  <div className="like-icon">
+                                    <button type="button">
+                                      <i className="lar la-heart icon" />
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                             {/* End: Product Selections */}
                           </div>
