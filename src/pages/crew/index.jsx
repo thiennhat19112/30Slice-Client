@@ -17,9 +17,9 @@ export default function Crew() {
           </div>
         </div>
       </div>
-      <p className="m-3">Đây là sản phẩm Dự án tốt nghiệp của những thành viên trong team trường cao đăng FPT Polytechnic không phải là sản phẩm chính thức</p>
-      <div className="row contact-card-group">
-        <div className="col-xl-2 mb-25">
+      <p className="m-3">Đây là sản phẩm Dự án tốt nghiệp của những thành viên trong team trường cao đẳng FPT Polytechnic không phải là sản phẩm chính thức</p>
+      <div className="row contact-card-group p-3">
+        <div className="col-12 col-xl-4 col-md-6 mb-25">
           <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
@@ -63,7 +63,7 @@ export default function Crew() {
           </div>
           {/* end: card */}
         </div>
-        <div className="col-xl-2 mb-25">
+        <div className="col-12 col-xl-4 col-md-6 mb-25">
           <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
@@ -107,7 +107,7 @@ export default function Crew() {
           </div>
           {/* end: card */}
         </div>
-        <div className="col-xl-2 mb-25">
+        <div className="col-12 col-xl-4 col-md-6 mb-25">
           <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
@@ -153,7 +153,7 @@ export default function Crew() {
           </div>
           {/* end: card */}
         </div>
-        <div className="col-xl-2 mb-25">
+        <div className="col-12 col-xl-4 col-md-6 mb-25">
           <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
@@ -199,8 +199,7 @@ export default function Crew() {
           </div>
           {/* end: card */}
         </div>
-
-        <div className="col-xl-2 mb-25">
+        <div className="col-12 col-xl-4 col-md-6 mb-25">
           <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
@@ -246,7 +245,7 @@ export default function Crew() {
           </div>
           {/* end: card */}
         </div>
-        <div className="col-xl-2 mb-25">
+        <div className="col-12 col-xl-4 col-md-6 mb-25">
           <div className="card contact-card h-100">
             <div className="card-body text-center pt-30 px-25 pb-0">
               <div className="contact-profile-card text-center">
