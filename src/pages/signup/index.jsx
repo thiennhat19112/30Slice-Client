@@ -8,7 +8,7 @@ import {
   passwordValidator,
 } from "../../components/sharedComponents/validatorPatterns";
 import { RegisterUser } from "../../app/services/user/user.service";
-import { toastSuccess } from "../../components/sharedComponents/toast";
+import { toastSuccess,toastError } from "../../components/sharedComponents/toast";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
@@ -23,11 +23,11 @@ const Register = () => {
     setLoading(true);
     console.log(user)
     const res = await RegisterUser(user)
-    if (res.status === 200) {
+    if (res.status === 201) {
       toastSuccess("Đăng ký thành công");
       navigate("/login");
     }else{
-      toastError("Có lỗi xảy ra vui lòng thử lại sau");
+      toastError(res.data.message);
     }
     setLoading(false);
   };
