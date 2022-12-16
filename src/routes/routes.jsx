@@ -149,9 +149,7 @@ const routes = createBrowserRouter([
             exact: true,
             element: (
               <Suspense fallback={<p>Loading...</p>}>
-                <PrivateRoute>
-                  <Checkout4 />
-                </PrivateRoute>
+                <Checkout4 />
               </Suspense>
             ),
           },
