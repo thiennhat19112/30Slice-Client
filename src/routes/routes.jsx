@@ -10,6 +10,7 @@ const ProtectedCheckoutRoute = lazy(() => import("./protectedCheckoutRoute"));
 
 // import App from "../App";
 import App from "../App";
+import OrderFail from "../pages/checkout/checkout-fail";
 const Booking = lazy(() => import("../pages/booking"));
 const Products = lazy(() => import("../pages/products"));
 const Detail = lazy(() => import("../pages/detail"));
@@ -312,6 +313,11 @@ const routes = createBrowserRouter([
                 <Crew />
               </Suspense>
             ),
+          },
+          {
+            path: "order-fail",
+            exact: true,
+            element: <OrderFail />,
           },
         ],
       },

@@ -113,11 +113,11 @@ const Order = () => {
                                 Ngày đặt hàng
                               </span>
                             </th>
-                            <th>
+                            {/* <th>
                               <span className="userDatatable-title float-right">
                                 Hành động
                               </span>
-                            </th>
+                            </th> */}
                           </tr>
                         </thead>
                         <tbody>
@@ -142,23 +142,48 @@ const Order = () => {
                                       Chờ xác nhận
                                     </span>
                                   ) : (
-                                    <span className="order-bg-opacity-success  text-success rounded-pill active">
-                                      Đang giao hàng
-                                    </span>
+                                    ""
                                   )}
+                                  {item.Status === "completed" ? (
+                                     <span className="order-bg-opacity-success  text-success rounded-pill active">
+                                     Đang giao hàng
+                                   </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                   {item.Status === "failed" ? (
+                                     <span className="order-bg-opacity-danger  text-danger rounded-pill active">
+                                     Đã bị huỷ
+                                   </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                 
                                 </div>
                               </td>
 
                               <td>
                                 <div className="orderDatatable-status d-inline-block">
-                                  {item.Payment_Status === "completed" ? (
-                                    <span className="order-bg-opacity-success  text-success rounded-pill active">
-                                      Đã thanh toán
-                                    </span>
-                                  ) : (
-                                    <span className="order-bg-opacity-danger  text-danger rounded-pill active">
+                                {item.Payment_Status === "Pending" ? (
+                                    <span className="order-bg-opacity-warning  text-warning rounded-pill active">
                                       Chưa thanh toán
                                     </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                  {item.Payment_Status === "completed" ? (
+                                     <span className="order-bg-opacity-success  text-success rounded-pill active">
+                                     Đã thanh toán
+                                   </span>
+                                  ) : (
+                                    ""
+                                  )}
+                                   {item.Payment_Status === "failed" ? (
+                                     <span className="order-bg-opacity-danger  text-danger rounded-pill active">
+                                     Đã bị huỷ
+                                   </span>
+                                  ) : (
+                                    ""
                                   )}
                                 </div>
                               </td>
@@ -179,13 +204,13 @@ const Order = () => {
                                   ).toLocaleDateString()}
                                 </div>
                               </td>
-                              <td>
+                              {/* <td>
                                 <ul className="orderDatatable_actions mb-0 d-flex flex-wrap float-right">
                                   <button className="btn btn-danger">
                                     Huỷ
                                   </button>
                                 </ul>
-                              </td>
+                              </td> */}
                             </tr>
                           ))}
                         </tbody>
