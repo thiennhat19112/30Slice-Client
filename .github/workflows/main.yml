@@ -23,6 +23,7 @@ jobs:
         password: Tqkpro123456
         port: 22
         script: |
+          sudo -i
           cd /var/www/30Slice-Client
           git pull
           npm install
